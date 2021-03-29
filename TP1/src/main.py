@@ -19,7 +19,15 @@ year = "\d{2,4}"
 birth_regex = re.compile(rf'dataNasc":"({day}\/{month}\/{year}|{year}\/{month}\/{day}|{day}\-{month}\-{year}|{year}\-{month}\-{day}|)"')
 
 #falta apanhar linha 231 --> º do alem
-address_regex = re.compile(r'"morada":"([\w\-\.\/, ]*)"')
+address_regex = re.compile(r'"morada":"([\w\-\.\/, ]*|)"')
+
+mail_regex = re.compile(r'"email":"(\b([\w\-]+\.)*[\w\-]+@([\w\-]+\.)*\w+\b|)"')
+
+prova_regex = re.compile(r'"prova":"([\w \-:]+|)"')
+
+escalao_regex = re.compile(r'"escalao":"([\w ]+|)"')
+
+equipa_regex = re.compile(r'"equipa":"([\w \-\.,|\/\'&]+|)"')
 
 # use regexs to catch fields of information
 def parseGroup(group):
@@ -35,7 +43,15 @@ def parseGroup(group):
         birth = ""
         #print("no birth")
     address = address_regex.search(group)
-    if address: print(address.group(1))
+    email = mail_regex.search(group)
+    prova = prova_regex.search(group)
+    escalao = escalao_regex.search(group)
+    equipa = equipa_regex.search(group)
+    #if address: print(address.group(1))
+    #if email: print(email.group(1))
+    #if prova: print(prova.group(1))
+    #if escalao: print(escalao.group(1))
+    if equipa: print(equipa.group(1))
     else : 
         address = ""
         print("no address")
