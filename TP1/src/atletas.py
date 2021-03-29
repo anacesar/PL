@@ -6,18 +6,18 @@ import re
 
 atletas = []
 
-name_regex = re.compile(r'"nome":"([a-zA-Z ]*)"')
+name_regex = re.compile(r'"nome":"([a-zA-ZçóáéíãâÁ ]+)"')
 birth_regex = re.compile(r'"dataNasc":"(.+)"')
 
 
 def stuff(info): 
-    name = name_regex.search(info).group(1)
+    if name := name_regex.search(info): print(name.group(1))
     ##birth = birth_regex.search()
 
 def func(conteudo): 
     
     cenas = re.findall(r'{[^{]+}', conteudo)
-    for m in cenas: 
+    for m in cenas:
         stuff(m)
         #if(cenas) : print(cenas.group())
     

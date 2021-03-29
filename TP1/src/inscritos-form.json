@@ -2248,6 +2248,22 @@
           "prova":"Corrida da Geira",
           "escalao":"SENIOR Masc",
           "equipa":"TURBULENTOS"
-       }
+       },{
+         "nome":"",
+         "dataNasc":"05-02-1969",
+         "morada":"",
+         "email":"invalidemail",
+         "prova":"Corrida da Geira",
+         "escalao":"SENIOR Masc",
+         "equipa":""
+      },{
+         "nome":"no name",
+         "dataNasc":"",
+         "morada":"",
+         "email":"invalidemail",
+         "prova":"Corrida da Geira",
+         "escalao":"SENIOR Masc",
+         "equipa":""
+      }
     ]
  }
