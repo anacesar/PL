@@ -6,7 +6,8 @@ import sys
 #names of all atletas as individuals and from Valongo 
 atletas = []
 
-#
+#nome, email e prova 
+atletasb = []
 
 #-------------- Regexs ----------------------------------------------------------
 name_regex = re.compile(r'"nome":"([\w\. ]+|)"')
@@ -56,7 +57,8 @@ def parseGroup(group):
         #equipa = "Individual"
         #print("%s --> %s    | %s" % (name, equipa, address))
         atletas.append(name.upper())
-    
+    if re.match(r'(?i)(paulo|ricardo)', name) and re.search(r'.*@.*(?i)(gmail).*', email):
+        atletasb.append((name, email, prova))
     
     #print('[nome = %s\ndataNac = %s\nmorada = %s\nemail = %s\nprova = %s\nescalao = %s\nequipa = %s\n' % (name, birth, address, email, prova, escalao, equipa))
 
@@ -75,6 +77,7 @@ with open("inscritos-form.json") as f:
     readFile(conteudo)
 
 
+print(atletasb)
 # ------------------------------ User interaction --------------------------
 
 def menu():
