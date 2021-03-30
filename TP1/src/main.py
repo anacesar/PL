@@ -9,7 +9,7 @@ atletas = []
 #
 
 #-------------- Regexs ----------------------------------------------------------
-name_regex = re.compile(r'"nome":"([\w ]+|)"')
+name_regex = re.compile(r'"nome":"([\w\. ]+|)"')
 
 #assuming valid birth formats: DD/MM/YY, DD/MM/YYYY, YY/MM/DD, YYYY/MM/DD,
 #                              DD-MM-YY, DD-MM-YYYY, YY-MM-DD, YYYY-MM-DD.
@@ -18,7 +18,6 @@ month = "(0\d|1[012])"
 year = "\d{2,4}"
 birth_regex = re.compile(rf'dataNasc":"({day}\/{month}\/{year}|{year}\/{month}\/{day}|{day}\-{month}\-{year}|{year}\-{month}\-{day}|)"')
 
-#falta apanhar linha 231 --> º do alem
 address_regex = re.compile(r'"morada":"([\w\-\.\/, ]*|)"')
 
 mail_regex = re.compile(r'"email":"(\b([\w\-]+\.)*[\w\-]+@([\w\-]+\.)*\w+\b|)"')
@@ -31,30 +30,35 @@ equipa_regex = re.compile(r'"equipa":"([\w \-\.,|\/\'&]+|)"')
 
 # use regexs to catch fields of information
 def parseGroup(group):
-    name = name_regex.search(group)
-    if name: 
-        name = name.group(1)
-        #print(name)
-    else: name = ""
+    if name := name_regex.search(group) : name = name.group(1)
+    else: name = "anonymus"
 
-    birth = birth_regex.search(group)
-    if birth: birth = birth.group(1)#print(birth.group(1))
-    else : 
-        birth = ""
-        #print("no birth")
-    address = address_regex.search(group)
-    email = mail_regex.search(group)
-    prova = prova_regex.search(group)
-    escalao = escalao_regex.search(group)
-    equipa = equipa_regex.search(group)
-    #if address: print(address.group(1))
-    #if email: print(email.group(1))
-    #if prova: print(prova.group(1))
-    #if escalao: print(escalao.group(1))
-    if equipa: print(equipa.group(1))
-    else : 
-        address = ""
-        print("no address")
+    if birth := birth_regex.search(group): birth = birth.group(1)#print(birth.group(1))
+    else: birth = "no birth"
+
+    if address := address_regex.search(group): address = address.group(1)
+    else: adress = "no address" 
+
+    if email := mail_regex.search(group): email = email.group(1)
+    else: email = "no email"
+    
+    if prova := prova_regex.search(group): prova = prova.group(1)
+    else: prova = "no prova"
+
+    if escalao := escalao_regex.search(group): escalao = escalao.group(1)
+    else: prova = "no escalao"
+    
+    if equipa := equipa_regex.search(group): equipa = equipa.group(1)
+    else: equipa = "no equipa"
+    
+    #alinea a 
+    if re.match(r'(?i)(indiv)', equipa) and re.search(r'(?i)(valongo)', address): 
+        #equipa = "Individual"
+        #print("%s --> %s    | %s" % (name, equipa, address))
+        atletas.append(name.upper())
+    
+    
+    #print('[nome = %s\ndataNac = %s\nmorada = %s\nemail = %s\nprova = %s\nescalao = %s\nequipa = %s\n' % (name, birth, address, email, prova, escalao, equipa))
 
 
 # ---------------   Parse file --------------------------------------
@@ -91,4 +95,3 @@ def menu():
 #    elif(command == '0\n') : break
 #    else: print("Opção inválida")
 #
-    
