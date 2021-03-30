@@ -9,6 +9,14 @@ atletas = []
 #nome, email e prova 
 atletasb = []
 
+#toda a info dos que pertencem à equipa TURBULENTOS
+turbulentos = []
+
+#alined - dicionario com o número de atletas por escalao 
+escaloes = {}
+
+
+
 #-------------- Regexs ----------------------------------------------------------
 name_regex = re.compile(r'"nome":"([\w\. ]+|)"')
 
@@ -34,7 +42,7 @@ def parseGroup(group):
     if name := name_regex.search(group) : name = name.group(1)
     else: name = "anonymus"
 
-    if birth := birth_regex.search(group): birth = birth.group(1)#print(birth.group(1))
+    if birth := birth_regex.search(group): birth = birth.group(1)
     else: birth = "no birth"
 
     if address := address_regex.search(group): address = address.group(1)
@@ -47,7 +55,7 @@ def parseGroup(group):
     else: prova = "no prova"
 
     if escalao := escalao_regex.search(group): escalao = escalao.group(1)
-    else: prova = "no escalao"
+    else: escalao = "no escalao"
     
     if equipa := equipa_regex.search(group): equipa = equipa.group(1)
     else: equipa = "no equipa"
@@ -55,12 +63,18 @@ def parseGroup(group):
     #alinea a 
     if re.match(r'(?i)(indiv)', equipa) and re.search(r'(?i)(valongo)', address): 
         #equipa = "Individual"
-        #print("%s --> %s    | %s" % (name, equipa, address))
         atletas.append(name.upper())
-    if re.match(r'(?i)(paulo|ricardo)', name) and re.search(r'.*@.*(?i)(gmail).*', email):
+    #alinea b
+    if re.match(r'(?i)(paulo|ricardo)', name) and re.match(r'.*(?i:)(gmail).*', email):
         atletasb.append((name, email, prova))
+    #alinea c
+    if re.search(r'^(?i)(turbulentos)$', equipa):
+        #equipa = "turbulentos, Turbulentos ou TURBULENTOS"
+        turbulentos.append((name, birth, address, email, prova, escalao, equipa))
+    #alinea d
+    escaloes[escalao] = escaloes[escalao] + 1 if escalao in escaloes else 1
     
-    #print('[nome = %s\ndataNac = %s\nmorada = %s\nemail = %s\nprova = %s\nescalao = %s\nequipa = %s\n' % (name, birth, address, email, prova, escalao, equipa))
+   #print('[nome = %s\ndataNac = %s\nmorada = %s\nemail = %s\nprova = %s\nescalao = %s\nequipa = %s\n' % (name, birth, address, email, prova, escalao, equipa))
 
 
 # ---------------   Parse file --------------------------------------
@@ -77,7 +91,25 @@ with open("inscritos-form.json") as f:
     readFile(conteudo)
 
 
-print(atletasb)
+
+# print de resultados 
+'''
+#Print alinea a
+print(atletas)
+
+#Print alinea b
+for (nome, email, prova) in atletasb :
+    print("nome: %s\n email: %s\n prova: %s" % (nome, email, prova))
+
+#Print alinea c
+for(name, birth, address, email, prova, escalao, equipa) in atletasc:
+    print('[nome = %s\ndataNac = %s\nmorada = %s\nemail = %s\nprova = %s\nescalao = %s\nequipa = %s\n' % (name, birth, address, email, prova, escalao, equipa))
+
+#Print alinea d 
+print("Escalão  | Nº atletas inscritos ")
+for k,v in sorted(escaloes.items()):
+    print('{}|{}'.format(k,v))
+'''
 # ------------------------------ User interaction --------------------------
 
 def menu():
@@ -92,9 +124,24 @@ def menu():
     print("|                                                                                              |")
     print(" ---------------------------------------------------------------------------------------------- ")
 
-#menu()
-#for command in sys.stdin:
-#    if(command == '1\n'): print("pressed option 1")
-#    elif(command == '0\n') : break
-#    else: print("Opção inválida")
-#
+menu()
+print("Selecione a sua opção:")
+for command in sys.stdin:
+    if command == '1\n': 
+       print("Nome dos concorrentes 'Individuais' e de 'Valongo':")
+       print(',\n'.join(atletas))
+    elif(command == '2\n'):
+       print("Nome dos concorrentes 'Individuais' e de 'Valongo':")
+       for (nome, email, prova) in atletasb :
+           print("nome: %s\n email: %s\n prova: %s" % (nome, email, prova))
+    elif(command == '3\n'):
+       print("Informação dos atletas da equipa 'Turbulentos':")
+       for(name, birth, address, email, prova, escalao, equipa) in atletasc:
+            print('[nome = %s\ndataNac = %s\nmorada = %s\nemail = %s\nprova = %s\nescalao = %s\nequipa = %s\n' % (name, birth, address, email, prova, escalao, equipa))
+    elif command == '4\n' : 
+        print("Escalão  | Nº atletas inscritos ")
+        for k,v in sorted(escaloes.items()):
+            print('{}   --> {}'.format(k,v))
+    elif(command == '0\n') : break
+    else: print("Opção inválida")
+    print("Selecione a sua opção:")
