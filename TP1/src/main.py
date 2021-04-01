@@ -1,24 +1,24 @@
 import re
 import sys
 
-# ------------- Data Structures ------------------------------------------------
+# ------------------------------ Data Structures -------------------------------
 
-#names of all atletas as individuals and from Valongo 
+#alinea a -> nome de todos os ateltas "individuais" e de "Valongo"
 atletas = []
 
-#nome, email e prova 
+#alinea b -> nome, email e prova dos inscritos "Paulo" ou "Ricardo" that use "Gmail"
 atletasb = []
 
-#toda a info dos que pertencem à equipa TURBULENTOS
+#alinea c -> toda a info dos inscritos que pertencem à equipa "TURBULENTOS"
 turbulentos = []
 
-#alined - dicionario com o número de atletas por escalao 
+#alinea d -> dicionario com o número de atletas por escalao 
 escaloes = {}
 
-#dicionario com informacao dos ateltas por equipa
+#alinea e -> dicionario com informacao dos ateltas por equipa
 equipas = {}
 
-#-------------- Regexs ----------------------------------------------------------
+#------------------------------ Regexs ------------------------------------------
 name_regex = re.compile(r'"nome":"([\w\. ]+|)"')
 
 #assuming valid birth formats: DD/MM/YY, DD/MM/YYYY, YY/MM/DD, YYYY/MM/DD,
@@ -37,6 +37,7 @@ prova_regex = re.compile(r'"prova":"([\w \-:]+|)"')
 escalao_regex = re.compile(r'"escalao":"([\w ]+)"')
 
 equipa_regex = re.compile(r'"equipa":"([\w \-\.,|\/\'&]+|)"')
+
 
 # use regexs to catch fields of information
 def parseGroup(group):
@@ -75,22 +76,39 @@ def parseGroup(group):
         turbulentos.append((name, birth, address, email, prova, escalao, equipa))
     #alinea d
     escaloes[escalao] = escaloes[escalao] + 1 if escalao in escaloes else 1
-    
     #aline e 
     if equipa in equipas:
         equipas[equipa].append((name, birth, email, prova, escalao))
     else: 
         equipas[equipa] = [(name, birth, email, prova, escalao)]
 
-   #print('[nome = %s\ndataNac = %s\nmorada = %s\nemail = %s\nprova = %s\nescalao = %s\nequipa = %s\n' % (name, birth, address, email, prova, escalao, equipa))
 
 
+#Maaaaagz penso que seja esta a ideia para construir o cenas 
+# temos que iterar as equipas com aquele for e passar aquilo para html COMO??? nao sheiiii
+def equipasHTML():
+    f = open('equipas.html','w')
 
-# ---------------   Parse file --------------------------------------
+    docHTML = """
+<!DOCTYPE html>
+<html>
+  <head>
+  <!--titulo associada a barra do browser-->
+    <title>Relatório</title>
+    <meta charset="UTF-8">
+  </head>
+"""
+
+    for k in sorted(equipas, key = lambda key: len(equipas[key]), reverse=True):
+        print('{}   --> {}\n'.format(k,len(equipas[k])))
+
+    f.write(docHTML)
+    f.close()
+
+# ------------------------------   Parse file ------------------------------
 def readFile(conteudo): 
     #catchs all groups of info
     cenas = re.findall(r'{[^{]+}', conteudo) #because of [^{] only catchs the info we need  
-    #if(cenas) : print("cenas.group()")
     for group in cenas:
         parseGroup(group)
     
@@ -99,26 +117,6 @@ with open("inscritos-form.json") as f:
     conteudo = f.read()
     readFile(conteudo)
 
-
-
-# print de resultados 
-'''
-#Print alinea a
-print(atletas)
-
-#Print alinea b
-for (nome, email, prova) in atletasb :
-    print("nome: %s\n email: %s\n prova: %s" % (nome, email, prova))
-
-#Print alinea c
-for(name, birth, address, email, prova, escalao, equipa) in atletasc:
-    print('[nome = %s\ndataNac = %s\nmorada = %s\nemail = %s\nprova = %s\nescalao = %s\nequipa = %s\n' % (name, birth, address, email, prova, escalao, equipa))
-
-#Print alinea d 
-print("Escalão  | Nº atletas inscritos ")
-for k,v in sorted(escaloes.items()):
-    print('{}|{}'.format(k,v))
-'''
 # ------------------------------ User interaction --------------------------
 
 def menu():
@@ -152,8 +150,7 @@ for command in sys.stdin:
         for k,v in sorted(escaloes.items()):
             print('{}   --> {}'.format(k,v))
     elif command == '5\n':
-        for k,v in sorted(equipas.items()):
-            print('{}   --> {}\n'.format(k,v))
+        equipasHTML()
     elif command == '6\n':
         menu()
     elif(command == '0\n') : break
