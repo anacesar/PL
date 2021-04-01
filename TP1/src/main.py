@@ -33,7 +33,7 @@ mail_regex = re.compile(r'"email":"(\b([\w\-]+\.)*[\w\-]+@([\w\-]+\.)*\w+\b|)"')
 
 prova_regex = re.compile(r'"prova":"([\w \-:]+|)"')
 
-escalao_regex = re.compile(r'"escalao":"([\w ]+|)"')
+escalao_regex = re.compile(r'"escalao":"([\w ]+)"')
 
 equipa_regex = re.compile(r'"equipa":"([\w \-\.,|\/\'&]+|)"')
 
@@ -55,7 +55,7 @@ def parseGroup(group):
     else: prova = "no prova"
 
     if escalao := escalao_regex.search(group): escalao = escalao.group(1)
-    else: escalao = "no escalao"
+    else: escalao = "Sem escalao"
     
     if equipa := equipa_regex.search(group): equipa = equipa.group(1)
     else: equipa = "no equipa"
@@ -136,7 +136,7 @@ for command in sys.stdin:
            print("nome: %s\n email: %s\n prova: %s" % (nome, email, prova))
     elif(command == '3\n'):
        print("Informação dos atletas da equipa 'Turbulentos':")
-       for(name, birth, address, email, prova, escalao, equipa) in atletasc:
+       for(name, birth, address, email, prova, escalao, equipa) in turbulentos:
             print('[nome = %s\ndataNac = %s\nmorada = %s\nemail = %s\nprova = %s\nescalao = %s\nequipa = %s\n' % (name, birth, address, email, prova, escalao, equipa))
     elif command == '4\n' : 
         print("Escalão  | Nº atletas inscritos ")
