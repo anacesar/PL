@@ -15,7 +15,8 @@ turbulentos = []
 #alined - dicionario com o número de atletas por escalao 
 escaloes = {}
 
-
+#dicionario com informacao dos ateltas por equipa
+equipas = {}
 
 #-------------- Regexs ----------------------------------------------------------
 name_regex = re.compile(r'"nome":"([\w\. ]+|)"')
@@ -61,9 +62,10 @@ def parseGroup(group):
     else: equipa = "no equipa"
     
     #alinea a 
-    if re.match(r'(?i)(indiv)', equipa) and re.search(r'(?i)(valongo)', address): 
-        #equipa = "Individual"
-        atletas.append(name.upper())
+    if re.match(r'(?i)(indiv)', equipa):
+        equipa = "Individual"
+        if re.search(r'(?i)(valongo)', address): 
+            atletas.append(name.upper())
     #alinea b
     if re.match(r'(?i)(paulo|ricardo)', name) and re.match(r'.*(?i:)(gmail).*', email):
         atletasb.append((name, email, prova))
@@ -74,7 +76,14 @@ def parseGroup(group):
     #alinea d
     escaloes[escalao] = escaloes[escalao] + 1 if escalao in escaloes else 1
     
+    #aline e 
+    if equipa in equipas:
+        equipas[equipa].append((name, birth, email, prova, escalao))
+    else: 
+        equipas[equipa] = [(name, birth, email, prova, escalao)]
+
    #print('[nome = %s\ndataNac = %s\nmorada = %s\nemail = %s\nprova = %s\nescalao = %s\nequipa = %s\n' % (name, birth, address, email, prova, escalao, equipa))
+
 
 
 # ---------------   Parse file --------------------------------------
@@ -138,10 +147,16 @@ for command in sys.stdin:
        print("Informação dos atletas da equipa 'Turbulentos':")
        for(name, birth, address, email, prova, escalao, equipa) in turbulentos:
             print('[nome = %s\ndataNac = %s\nmorada = %s\nemail = %s\nprova = %s\nescalao = %s\nequipa = %s\n' % (name, birth, address, email, prova, escalao, equipa))
-    elif command == '4\n' : 
+    elif command == '4\n': 
         print("Escalão  | Nº atletas inscritos ")
         for k,v in sorted(escaloes.items()):
             print('{}   --> {}'.format(k,v))
+    elif command == '5\n':
+        for k,v in sorted(equipas.items()):
+            print('{}   --> {}\n'.format(k,v))
+    elif command == '6\n':
+        menu()
     elif(command == '0\n') : break
     else: print("Opção inválida")
-    print("Selecione a sua opção:")
+    print("Selecione a sua opção: (6 para ver Menu)")
+
