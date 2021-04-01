@@ -108,8 +108,9 @@ def equipasHTML():
 
     for equipa in sorted(equipas, key = lambda key: len(equipas[key]), reverse=True):
         #print('{}   --> {}\n'.format(k,len(equipas[k])))
-        docHTML += "<li>" + equipa + " = " + str(len(equipas[equipa])) + "</li>"
-        print(docHTML)
+        docHTML = docHTML + """
+            <li>"""
+        docHTML += equipa + " = " + str(len(equipas[equipa])) + "</li>"
 
     docHTML += """
         </ul>
