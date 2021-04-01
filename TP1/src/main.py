@@ -87,6 +87,8 @@ def parseGroup(group):
 #Maaaaagz penso que seja esta a ideia para construir o cenas 
 # temos que iterar as equipas com aquele for e passar aquilo para html COMO??? nao sheiiii
 def equipasHTML():
+
+
     f = open('equipas.html','w')
 
     docHTML = """
@@ -94,16 +96,29 @@ def equipasHTML():
 <html>
   <head>
   <!--titulo associada a barra do browser-->
-    <title>Relatório</title>
+    <title>Organizador de provas de Orientação</title>
     <meta charset="UTF-8">
   </head>
-"""
+    <body>
+        <h1>Trabalho PL 1</h1>
+        <h2>Processador de Inscritos numa atividade Desportiva</h2>
 
-    for k in sorted(equipas, key = lambda key: len(equipas[key]), reverse=True):
-        print('{}   --> {}\n'.format(k,len(equipas[k])))
+        <h3>Nome das equipas e número de atletas que a constituem</h3>
+        <ul>"""
 
+    for equipa in sorted(equipas, key = lambda key: len(equipas[key]), reverse=True):
+        #print('{}   --> {}\n'.format(k,len(equipas[k])))
+        docHTML += "<li>" + equipa + " = " + str(len(equipas[equipa])) + "</li>"
+        print(docHTML)
+
+    docHTML += """
+        </ul>
+    </body>
+</html>
+    """
     f.write(docHTML)
     f.close()
+    print("file closed")
 
 # ------------------------------   Parse file ------------------------------
 def readFile(conteudo): 
