@@ -1,5 +1,6 @@
 import re
 import sys
+import os
 
 # ------------------------------ Data Structures -------------------------------
 
@@ -42,7 +43,7 @@ equipa_regex = re.compile(r'"equipa":"([\w \-\.,|\/\'&]+|)"')
 # use regexs to catch fields of information
 def parseGroup(group):
     if name := name_regex.search(group) : name = name.group(1)
-    else: name = "anonymus"
+    else: name = "no name"
 
     if birth := birth_regex.search(group): birth = birth.group(1)
     else: birth = "no birth"
@@ -60,7 +61,7 @@ def parseGroup(group):
     else: escalao = "Sem escalao"
     
     if equipa := equipa_regex.search(group): equipa = equipa.group(1)
-    else: equipa = "no equipa"
+    else: equipa = "Individual"
     
     #alinea a 
     if re.match(r'(?i)(indiv)', equipa):
@@ -72,24 +73,73 @@ def parseGroup(group):
         atletasb.append((name, email, prova))
     #alinea c
     if re.search(r'^(?i)(turbulentos)$', equipa):
-        #equipa = "turbulentos, Turbulentos ou TURBULENTOS"
+        #equipa = "Turbulentos"
         turbulentos.append((name, birth, address, email, prova, escalao, equipa))
     #alinea d
     escaloes[escalao] = escaloes[escalao] + 1 if escalao in escaloes else 1
-    #aline e 
-    if equipa in equipas:
-        equipas[equipa].append((name, birth, email, prova, escalao))
+    #alinea e 
+    equal = False
+    equipa_low = equipa.lower()
+    if equipa_low in equipas:
+        for(n,_,e,_,_) in equipas[equipa_low]:
+            #if name and email are the same we consider the same person
+            if n==name and e==email:
+                equal = True
+                break
+        if not equal: 
+            equipas[equipa_low].append((name, birth, email, prova, escalao))
     else: 
-        equipas[equipa] = [(name, birth, email, prova, escalao)]
+        equipas[equipa_low] = [(name, birth, email, prova, escalao)]
 
 
 
-#Maaaaagz penso que seja esta a ideia para construir o cenas 
-# temos que iterar as equipas com aquele for e passar aquilo para html COMO??? nao sheiiii
+#------------------------------ HTML files ------------------------------------------
+#creates html file for a team with info about all its elements 
+def equipaHTML(equipa, file_name):
+    f = open(file_name,'w')  
+
+    docHTML = """
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Organizador de provas de Orientação</title>
+    <meta charset="UTF-8">
+  </head>
+    <body>
+        <h1>Trabalho PL 1</h1>
+        <h2>Processador de Inscritos numa atividade Desportiva</h2>
+
+        <h3>Constituição detalhada da equipa '""" + equipa + """'</h3>
+        <ul>""" 
+
+    for (nome,data,email,prova,escalao) in equipas[equipa]:
+            docHTML = docHTML + """
+            <li>Nome: """ + nome + "</li>"
+            docHTML += """
+            <details>
+                <summary>Mais informação</summary>
+                <ul>
+                    <li>Data de Nascimento:""" + data + """</li>
+                    <li>Email: """ + email + """</li>
+                    <li>Prova: """ + prova + """</li>
+                    <li>Escalão: """ + escalao + """</li>
+                </ul>
+            </details>"""
+    
+    docHTML += """
+        </ul>
+    </body>
+</html>"""   
+    f.write(docHTML)
+    f.close()   
+
+
+#creates html file with name of all teams and number of elements 
 def equipasHTML():
+    if not os.path.exists('html'):
+        os.makedirs('html')
 
-
-    f = open('equipas.html','w')
+    f = open('./equipas.html','w')
 
     docHTML = """
 <!DOCTYPE html>
@@ -107,19 +157,28 @@ def equipasHTML():
         <ul>"""
 
     for equipa in sorted(equipas, key = lambda key: len(equipas[key]), reverse=True):
-        #print('{}   --> {}\n'.format(k,len(equipas[k])))
+        file_name = "./html/" + "_".join(re.split(r"[/' ]", equipa)) + ".html"
+        equipaHTML(equipa, file_name)
         docHTML = docHTML + """
-            <li>"""
-        docHTML += equipa + " = " + str(len(equipas[equipa])) + "</li>"
+            <li> <a href =""" + file_name+ ">" + equipa + "</a>  = " + str(len(equipas[equipa])) + "</li>"
 
     docHTML += """
         </ul>
     </body>
+    <div class="grupo">
+        <p><strong>Grupo 70:</strong> 
+        <ul>
+            <li>Ana César a86038</li>
+            <li>Margarida Faria a71924</li>
+        </ul>
+        </p>
+    </div>
 </html>
     """
     f.write(docHTML)
     f.close()
-    print("file closed")
+    print("\nFicheiro HTML criado com o nome 'equipas.html' :)\nPath para o ficheiro: ./equipas.html\n")
+
 
 # ------------------------------   Parse file ------------------------------
 def readFile(conteudo): 
@@ -133,7 +192,7 @@ with open("inscritos-form.json") as f:
     conteudo = f.read()
     readFile(conteudo)
 
-# ------------------------------ User interaction --------------------------
+# ------------------------------ User interface -------------------------------
 
 def menu():
     print("\n ------------------- Processador de inscritos numa atividade Desportiva  ------------------- ")
@@ -147,29 +206,45 @@ def menu():
     print("|                                                                                              |")
     print(" ---------------------------------------------------------------------------------------------- ")
 
+# Functions to show results 
+def showCommand1():
+    print("Nome dos concorrentes 'Individuais' e de 'Valongo':")
+    print(',\n'.join(atletas))
+
+def showCommand2():
+    print("Concorrentes cujo nome é 'Paulo' ou 'Ricardo' e cujo email é 'Gmail' 'Individuais' e de 'Valongo':")
+    print('-'*111)
+    print('| {:<45}| {:<40}| {:<20}|'.format("Nome", "Email", "Prova"))
+    print('-'*111)
+    for (nome, email, prova) in atletasb :
+       print('| {:<45}| {:<40}| {:<20}|'.format(nome, email, prova))
+    print('-'*111)
+
+def showCommand3():
+    print("Informação dos atletas da equipa 'Turbulentos':")
+    for(name, birth, address, email, prova, escalao, equipa) in turbulentos:
+        print('[Nome    = %s\n DataNac = %s\n Morada  = %s\n Email   = %s\n Prova   = %s\n Escalao = %s\n Equipa  = %s]\n' % (name, birth, address, email, prova, escalao, equipa))
+
+def showCommand4():
+    print("Lista dos escalões por ordem alfabética")
+    print('-'*65)
+    print('| {:<40}| {:<20}|'.format("Escalão", "Nº atletas inscritos"))
+    print('-'*65)
+    for k,v in sorted(escaloes.items()):
+            print('| {:<40}| {:<20}|'.format(k,v))
+    print('-'*65)
+
+# user interaction 
 menu()
 print("Selecione a sua opção:")
 for command in sys.stdin:
-    if command == '1\n': 
-       print("Nome dos concorrentes 'Individuais' e de 'Valongo':")
-       print(',\n'.join(atletas))
-    elif(command == '2\n'):
-       print("Nome dos concorrentes 'Individuais' e de 'Valongo':")
-       for (nome, email, prova) in atletasb :
-           print("nome: %s\n email: %s\n prova: %s" % (nome, email, prova))
-    elif(command == '3\n'):
-       print("Informação dos atletas da equipa 'Turbulentos':")
-       for(name, birth, address, email, prova, escalao, equipa) in turbulentos:
-            print('[nome = %s\ndataNac = %s\nmorada = %s\nemail = %s\nprova = %s\nescalao = %s\nequipa = %s\n' % (name, birth, address, email, prova, escalao, equipa))
-    elif command == '4\n': 
-        print("Escalão  | Nº atletas inscritos ")
-        for k,v in sorted(escaloes.items()):
-            print('{}   --> {}'.format(k,v))
-    elif command == '5\n':
-        equipasHTML()
-    elif command == '6\n':
-        menu()
+    print()
+    if command == '1\n': showCommand1()
+    elif(command == '2\n'): showCommand2()
+    elif(command == '3\n'): showCommand3()
+    elif command == '4\n':  showCommand4()
+    elif command == '5\n': equipasHTML()
+    elif command == '6\n': menu()
     elif(command == '0\n') : break
     else: print("Opção inválida")
     print("Selecione a sua opção: (6 para ver Menu)")
-
