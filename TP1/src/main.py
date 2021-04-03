@@ -80,15 +80,17 @@ def parseGroup(group):
     equal = False
     equipa_low = equipa.lower()
     if equipa_low in equipas:
-        for(n,_,e,_,_) in equipas[equipa_low]:
+        for(n,_,e,p,_) in equipas[equipa_low]:
             #if name and email are the same we consider the same person
             if n==name and e==email:
+                if prova not in p:
+                    p.append(prova)
                 equal = True
                 break
         if not equal: 
-            equipas[equipa_low].append((name, birth, email, prova, escalao))
+            equipas[equipa_low].append((name, birth, email, [prova], escalao))
     else: 
-        equipas[equipa_low] = [(name, birth, email, prova, escalao)]
+        equipas[equipa_low] = [(name, birth, email, [prova], escalao)]
 
 
 
@@ -111,7 +113,7 @@ def equipaHTML(equipa, file_name):
         <h3>Constituição detalhada da equipa '""" + equipa + """'</h3>
         <ul>""" 
 
-    for (nome,data,email,prova,escalao) in equipas[equipa]:
+    for (nome,data,email,provas,escalao) in equipas[equipa]:
             docHTML = docHTML + """
             <li>Nome: """ + nome + "</li>"
             docHTML += """
@@ -120,7 +122,7 @@ def equipaHTML(equipa, file_name):
                 <ul>
                     <li>Data de Nascimento:""" + data + """</li>
                     <li>Email: """ + email + """</li>
-                    <li>Prova: """ + prova + """</li>
+                    <li>Provas: """ + "; ".join(provas) + """</li>
                     <li>Escalão: """ + escalao + """</li>
                 </ul>
             </details>"""
