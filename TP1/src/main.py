@@ -72,8 +72,7 @@ def parseGroup(group):
     if re.match(r'(?i)(paulo|ricardo)', name) and re.match(r'.*(?i:)(gmail).*', email):
         atletasb.append((name, email, prova))
     #alinea c
-    if re.search(r'^(?i)(turbulentos)$', equipa):
-        #equipa = "Turbulentos"
+    if re.search(r'(?i)(^turbulentos)$', equipa):
         turbulentos.append((name, birth, address, email, prova, escalao, equipa))
     #alinea d
     escaloes[escalao] = escaloes[escalao] + 1 if escalao in escaloes else 1
