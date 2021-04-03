@@ -212,7 +212,7 @@ def showCommand1():
     print(',\n'.join(atletas))
 
 def showCommand2():
-    print("Concorrentes cujo nome é 'Paulo' ou 'Ricardo' e cujo email é 'Gmail' 'Individuais' e de 'Valongo':")
+    print("Concorrentes cujo nome é 'Paulo' ou 'Ricardo' e cujo email é 'Gmail' :")
     print('-'*111)
     print('| {:<45}| {:<40}| {:<20}|'.format("Nome", "Email", "Prova"))
     print('-'*111)
