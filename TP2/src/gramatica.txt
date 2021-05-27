@@ -1,0 +1,88 @@
+# Gramatica
+
+Language -> Declarations Functionality
+           ;
+
+Declarations -> START_DECL Body_Decls END_DECL
+                ;
+
+Functionality -> START Instructions END
+                ;
+
+Body_Decls -> Body_Decls Body_Decl
+            | Body_Decl
+            ;
+
+Body_Decl -> INT Def TERMINATOR
+            | ε
+            ;
+
+Def -> Ids Enumerate
+       ;
+
+Ids -> ID 
+      | ID '[' NUM ']'
+
+Enumerate -> ',' Def
+            | ε
+            ;
+
+Instructions -> Instructions Instruction
+            | Instruction
+            ;
+
+Instruction -> TypeInst TERMINATOR
+               ;
+
+TypeInst -> Atr 
+            | Repeat 
+            | If 
+            | Print 
+            | Read 
+            ;
+
+Atr -> ID '=' Exp
+      | ID '[' ID ']' '=' Exp
+      | ID '[' NUM ']' '=' Exp
+      ;
+
+If -> IF '(' Cond ')' '{' Instrução '}'
+
+Cond -> Cond OR Cond2
+       | Cond2
+
+Cond2 -> Cond2 AND Cond3
+       | Cond3
+
+Cond3 -> NOT Cond
+       | ExpRelacional
+       | '(' Cond ')'
+
+ExpRelacional -> Exp '>'  Exp
+                | Exp '<' Exp
+                | Exp '<=' Exp
+                | Exp '>=' Exp
+                | Exp '!=' Exp
+                | Exp '==' Exp
+                | Exp
+
+Exp   -> Exp '+' Termo
+       | Exp '-' Termo
+       | Termo
+
+Termo -> Termo '*' Fator
+       | Termo '/' Fator
+       | Fator
+
+Fator -> '(' Exp ')' 
+	   | NUM
+
+Repeat -> REPEAT '{' Instructions '}' UNTIL '(' Cond ')'
+         ;
+
+Print -> PRINT '( Exp ')'
+        |PRINT '(' Def ')'
+        ;
+
+Read -> READ '( Ids ')'
+        ;
