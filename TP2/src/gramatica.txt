@@ -6,15 +6,14 @@ Language -> Declarations Functionality
 Declarations -> START_DECL Body_Decls END_DECL
                 ;
 
-Functionality -> START Instructions END
+Functionality -> STARTBODY Instructions ENDBODY
                 ;
 
 Body_Decls -> Body_Decls Body_Decl
-            | Body_Decl
+            | ε
             ;
 
 Body_Decl -> INT Def TERMINATOR
-            | ε
             ;
 
 Def -> Ids Enumerate
@@ -28,17 +27,14 @@ Enumerate -> ',' Def
             ;
 
 Instructions -> Instructions Instruction
-            | Instruction
+            | empty
             ;
 
-Instruction -> TypeInst TERMINATOR
-               ;
-
-TypeInst -> Atr 
-            | Repeat 
+Instruction -> Atr TERMINATOR
+            | Repeat TERMINATOR
             | If 
-            | Print 
-            | Read 
+            | Print TERMINATOR
+            | Read TERMINATOR
             ;
 
 Atr -> ID '=' Exp

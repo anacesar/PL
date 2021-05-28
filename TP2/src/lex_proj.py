@@ -19,7 +19,7 @@ reservadas = {"int" : "INT",
               }
 tokens = tokens + list(reservadas.values())
 
-literals = ['(',')',',','=','>','<','+', '*', '-','/','{', '}', '!','[',']']
+literals = ['(', ')' , ',' , '=' , '>' , '<' , '+' , '*', '-' , '/' , '{' , '}' , '!' , '[' , ']', ';']
 
 t_STARTDECL = r'STARTDECL'
 t_ENDDECL = r'ENDDECL'
@@ -46,7 +46,7 @@ def t_ID(t):
     return t
 
 def t_error(t):
-    # print("Caráter ilegal: ", t.value[0])
+    print("Caráter ilegal: ", t.value[0])
     t.lexer.skip(1)
     return t
 
@@ -54,10 +54,11 @@ def t_error(t):
 lexer = lex.lex()
 
 # Reading input
+'''
 for linha in sys.stdin:
     lexer.input(linha)
     for tok in lexer:
         print(tok)
-
+'''
 
 

@@ -1,5 +1,9 @@
 STARTDECL
-int a;
+int c;
+int b;
 ENDDECL
 STARTBODY
+if(c){
+    print(b);
+}
 ENDBODY
