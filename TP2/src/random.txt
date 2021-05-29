@@ -1,13 +1,18 @@
 STARTDECL
-int c, d;
-int b[3];
+int c, d,b[2];
 ENDDECL
 STARTBODY
 b[2] = 4;
 read(b);
-if(a<1){
+int a[c];
+int soma; 
+soma = 0;
+if(a>1 and b){
     b = 4 +3;
     if(2){print(3);}
 }
-repeat
+repeat{
+    a = 2;
+    print(a);
+}until(n>0)
 ENDBODY

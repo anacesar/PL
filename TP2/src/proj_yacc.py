@@ -32,7 +32,6 @@ def p_Body_Decl_INT(p):
     p[0] = "int " + p[2] + p[3] + "\n"
     #print("def " , p[2])
 
-
 def p_Def(p):
     "Def : Ids Enumerate"
     p[0] = p[1] + p[2]
@@ -62,6 +61,15 @@ def p_Instructions_Instruction(p):
     "Instructions : """
     p[0] = ""
 
+def p_Instruction_Decl(p):
+    "Instruction : BodyDecl "
+    p[0] = p[1] + "\n"
+
+def p_Instruction_DeclArrayID(p):
+    "Instruction : INT ID '[' ID ']' TERMINATOR"
+    p[0] = p[1] + p[2] + p[3] + p[4] + p[5] + p[6] 
+    print("array " , p[0])
+
 def p_Instruction_Atr(p):
     "Instruction : Atr TERMINATOR"
     p[0] = p[1] + p[2] + "\n"
@@ -73,13 +81,12 @@ def p_Atr_ID(p):
 
 def p_Atr_IDID(p):
     "Atr : ID '[' ID ']' '=' Exp"
+    print("atr array ")
     p[0] = p[1] + '[' + p[3] + "] = " + p[6]
-
 
 def p_Atr_IDNUM(p):
     "Atr : ID '[' NUM ']' '=' Exp"
     p[0] = p[1] + '[' + p[3] + "] = " + p[6]
-
 
 def p_Instruction_Repeat(p):
     "Instruction : Repeat "
@@ -99,21 +106,17 @@ def p_Instruction_Read(p):
     p[0] = p[1] + p[2] + "\n"
 
 
-
-
 def p_If(p):
     "If : IF '(' Cond ')' '{' Instructions '}'"
     #p[0] = p[1] + p[2] + p[3] + p[4] + p[5] 
     p[0] = p[1] + p[2] + p[3] + p[4] + p[5] + p[6] + p[7]
 
 
-
 def p_Repeat(p):
-    "Repeat : REPEAT "
-    print("repeat : ")
-    p[0] = p[1]
+    "Repeat : REPEAT '{' Instructions '}' UNTIL '(' Cond ')'"
+    p[0] = p[1] + p[2] + p[3] + p[4] + p[5] + p[6] + p[7] + p[8]
     #print("repeat {" + p[2] + "}until( " + p[6] + "}")
-    #p[0] = p[0] + p[1] + p[2] + p[3] + p[4] + p[5] + p[6] + p[7]
+    #p[0] = p[1] + p[2] + p[3] + p[4] + p[5] + p[6] + p[7]
 
 def p_Cond_Cond(p):
    "Cond : Cond OR Cond2"
@@ -125,7 +128,8 @@ def p_Cond_Cond2(p):
    
 def p_Cond2(p):
     "Cond2 : Cond2 AND Cond3"
-    p[0] = p[2]
+    p[0] = p[1] + " " + p[2] + " " + p[3]
+    print("and p1 : " , p[1] , " p3 : " , p[3])
 
 def p_Cond2_Cond3(p):
     "Cond2 : Cond3"
@@ -133,7 +137,7 @@ def p_Cond2_Cond3(p):
 
 def p_Cond3_Not(p):
     "Cond3 : NOT Cond" #change to cond -- right recursive ??? 
-    p[0] = p[2]
+    p[0] = p[1] + p[2]
 
 def p_Cond3_ExpR(p):
     "Cond3 : ExpRelacional"
@@ -230,7 +234,7 @@ def p_PrintExp(p):
 
 def p_PrintDef(p):
     "Print : PRINT '(' Def ')' "
-    p[0] = p[3]
+    p[0] = p[1] + p[2] + p[3]
 
 
 def p_Read(p):
@@ -257,7 +261,7 @@ parser.success = True
 parser.parse(linhas)
 
 if parser.success:
-    print("Frase Válida reconhecida.",linhas)
+    print("Frase Válida reconhecida.")
 else:
     print("Frase inválida. Corrija e tente de novo...")
 

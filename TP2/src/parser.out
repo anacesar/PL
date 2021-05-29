@@ -1,9 +1,5 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
-Unused terminals:
-
-    UNTIL
-
 Grammar
 
 Rule 0     S' -> Language
@@ -20,103 +16,105 @@ Rule 10    Enumerate -> , Def
 Rule 11    Enumerate -> <empty>
 Rule 12    Instructions -> Instructions Instruction
 Rule 13    Instructions -> <empty>
-Rule 14    Instruction -> Atr TERMINATOR
-Rule 15    Atr -> ID = Exp
-Rule 16    Atr -> ID [ ID ] = Exp
-Rule 17    Atr -> ID [ NUM ] = Exp
-Rule 18    Instruction -> Repeat
-Rule 19    Instruction -> If
-Rule 20    Instruction -> Print TERMINATOR
-Rule 21    Instruction -> Read TERMINATOR
-Rule 22    If -> IF ( Cond ) { Instructions }
-Rule 23    Repeat -> REPEAT
-Rule 24    Cond -> Cond OR Cond2
-Rule 25    Cond -> Cond2
-Rule 26    Cond2 -> Cond2 AND Cond3
-Rule 27    Cond2 -> Cond3
-Rule 28    Cond3 -> NOT Cond
-Rule 29    Cond3 -> ExpRelacional
-Rule 30    Cond3 -> Cond
-Rule 31    Cond3 -> <empty>
-Rule 32    ExpRelacional -> Exp > Exp
-Rule 33    ExpRelacional -> Exp < Exp
-Rule 34    ExpRelacional -> Exp > = Exp
-Rule 35    ExpRelacional -> Exp < = Exp
-Rule 36    ExpRelacional -> Exp ! = Exp
-Rule 37    ExpRelacional -> Exp = = Exp
-Rule 38    ExpRelacional -> Exp
-Rule 39    Exp -> Exp + Termo
-Rule 40    Exp -> Exp - Termo
-Rule 41    Exp -> Termo
-Rule 42    Termo -> Termo * Fator
-Rule 43    Termo -> Termo / Fator
-Rule 44    Termo -> Fator
-Rule 45    Fator -> ( Exp )
-Rule 46    Fator -> NUM
-Rule 47    Fator -> ID
-Rule 48    Print -> PRINT ( Exp )
-Rule 49    Print -> PRINT ( Def )
-Rule 50    Read -> READ ( Ids )
+Rule 14    Instruction -> BodyDecl
+Rule 15    Instruction -> INT ID [ ID ] TERMINATOR
+Rule 16    Instruction -> Atr TERMINATOR
+Rule 17    Atr -> ID = Exp
+Rule 18    Atr -> ID [ ID ] = Exp
+Rule 19    Atr -> ID [ NUM ] = Exp
+Rule 20    Instruction -> Repeat
+Rule 21    Instruction -> If
+Rule 22    Instruction -> Print TERMINATOR
+Rule 23    Instruction -> Read TERMINATOR
+Rule 24    If -> IF ( Cond ) { Instructions }
+Rule 25    Repeat -> REPEAT { Instructions } UNTIL ( Cond )
+Rule 26    Cond -> Cond OR Cond2
+Rule 27    Cond -> Cond2
+Rule 28    Cond2 -> Cond2 AND Cond3
+Rule 29    Cond2 -> Cond3
+Rule 30    Cond3 -> NOT Cond
+Rule 31    Cond3 -> ExpRelacional
+Rule 32    Cond3 -> Cond
+Rule 33    Cond3 -> <empty>
+Rule 34    ExpRelacional -> Exp > Exp
+Rule 35    ExpRelacional -> Exp < Exp
+Rule 36    ExpRelacional -> Exp > = Exp
+Rule 37    ExpRelacional -> Exp < = Exp
+Rule 38    ExpRelacional -> Exp ! = Exp
+Rule 39    ExpRelacional -> Exp = = Exp
+Rule 40    ExpRelacional -> Exp
+Rule 41    Exp -> Exp + Termo
+Rule 42    Exp -> Exp - Termo
+Rule 43    Exp -> Termo
+Rule 44    Termo -> Termo * Fator
+Rule 45    Termo -> Termo / Fator
+Rule 46    Termo -> Fator
+Rule 47    Fator -> ( Exp )
+Rule 48    Fator -> NUM
+Rule 49    Fator -> ID
+Rule 50    Print -> PRINT ( Exp )
+Rule 51    Print -> PRINT ( Def )
+Rule 52    Read -> READ ( Ids )
 
 Terminals, with rules where they appear
 
-!                    : 36
-(                    : 22 45 48 49 50
-)                    : 22 45 48 49 50
-*                    : 42
-+                    : 39
+!                    : 38
+(                    : 24 25 47 50 51 52
+)                    : 24 25 47 50 51 52
+*                    : 44
++                    : 41
 ,                    : 10
--                    : 40
-/                    : 43
-<                    : 33 35
-=                    : 15 16 17 34 35 36 37 37
->                    : 32 34
-AND                  : 26
+-                    : 42
+/                    : 45
+<                    : 35 37
+=                    : 17 18 19 36 37 38 39 39
+>                    : 34 36
+AND                  : 28
 ENDBODY              : 3
 ENDDECL              : 2
-ID                   : 8 9 15 16 16 17 47
-IF                   : 22
-INT                  : 6
-NOT                  : 28
-NUM                  : 9 17 46
-OR                   : 24
-PRINT                : 48 49
-READ                 : 50
-REPEAT               : 23
+ID                   : 8 9 15 15 17 18 18 19 49
+IF                   : 24
+INT                  : 6 15
+NOT                  : 30
+NUM                  : 9 19 48
+OR                   : 26
+PRINT                : 50 51
+READ                 : 52
+REPEAT               : 25
 STARTBODY            : 3
 STARTDECL            : 2
-TERMINATOR           : 6 14 20 21
-UNTIL                : 
-[                    : 9 16 17
-]                    : 9 16 17
+TERMINATOR           : 6 15 16 22 23
+UNTIL                : 25
+[                    : 9 15 18 19
+]                    : 9 15 18 19
 error                : 
-{                    : 22
-}                    : 22
+{                    : 24 25
+}                    : 24 25
 
 Nonterminals, with rules where they appear
 
-Atr                  : 14
-BodyDecl             : 4
+Atr                  : 16
+BodyDecl             : 4 14
 BodyDecls            : 2 4
-Cond                 : 22 24 28 30
-Cond2                : 24 25 26
-Cond3                : 26 27
+Cond                 : 24 25 26 30 32
+Cond2                : 26 27 28
+Cond3                : 28 29
 Declarations         : 1
-Def                  : 6 10 49
+Def                  : 6 10 51
 Enumerate            : 7
-Exp                  : 15 16 17 32 32 33 33 34 34 35 35 36 36 37 37 38 39 40 45 48
-ExpRelacional        : 29
-Fator                : 42 43 44
+Exp                  : 17 18 19 34 34 35 35 36 36 37 37 38 38 39 39 40 41 42 47 50
+ExpRelacional        : 31
+Fator                : 44 45 46
 Functionality        : 1
-Ids                  : 7 50
-If                   : 19
+Ids                  : 7 52
+If                   : 21
 Instruction          : 12
-Instructions         : 3 12 22
+Instructions         : 3 12 24 25
 Language             : 0
-Print                : 20
-Read                 : 21
-Repeat               : 18
-Termo                : 39 40 41 42 43
+Print                : 22
+Read                 : 23
+Repeat               : 20
+Termo                : 41 42 43 44 45
 
 Parsing method: LALR
 
@@ -171,6 +169,7 @@ state 5
     (13) Instructions -> .
 
     ENDBODY         reduce using rule 13 (Instructions -> .)
+    INT             reduce using rule 13 (Instructions -> .)
     ID              reduce using rule 13 (Instructions -> .)
     REPEAT          reduce using rule 13 (Instructions -> .)
     IF              reduce using rule 13 (Instructions -> .)
@@ -194,33 +193,38 @@ state 7
 
     (3) Functionality -> STARTBODY Instructions . ENDBODY
     (12) Instructions -> Instructions . Instruction
-    (14) Instruction -> . Atr TERMINATOR
-    (18) Instruction -> . Repeat
-    (19) Instruction -> . If
-    (20) Instruction -> . Print TERMINATOR
-    (21) Instruction -> . Read TERMINATOR
-    (15) Atr -> . ID = Exp
-    (16) Atr -> . ID [ ID ] = Exp
-    (17) Atr -> . ID [ NUM ] = Exp
-    (23) Repeat -> . REPEAT
-    (22) If -> . IF ( Cond ) { Instructions }
-    (48) Print -> . PRINT ( Exp )
-    (49) Print -> . PRINT ( Def )
-    (50) Read -> . READ ( Ids )
+    (14) Instruction -> . BodyDecl
+    (15) Instruction -> . INT ID [ ID ] TERMINATOR
+    (16) Instruction -> . Atr TERMINATOR
+    (20) Instruction -> . Repeat
+    (21) Instruction -> . If
+    (22) Instruction -> . Print TERMINATOR
+    (23) Instruction -> . Read TERMINATOR
+    (6) BodyDecl -> . INT Def TERMINATOR
+    (17) Atr -> . ID = Exp
+    (18) Atr -> . ID [ ID ] = Exp
+    (19) Atr -> . ID [ NUM ] = Exp
+    (25) Repeat -> . REPEAT { Instructions } UNTIL ( Cond )
+    (24) If -> . IF ( Cond ) { Instructions }
+    (50) Print -> . PRINT ( Exp )
+    (51) Print -> . PRINT ( Def )
+    (52) Read -> . READ ( Ids )
 
     ENDBODY         shift and go to state 11
-    ID              shift and go to state 18
-    REPEAT          shift and go to state 19
-    IF              shift and go to state 20
-    PRINT           shift and go to state 21
-    READ            shift and go to state 22
+    INT             shift and go to state 14
+    ID              shift and go to state 15
+    REPEAT          shift and go to state 21
+    IF              shift and go to state 22
+    PRINT           shift and go to state 23
+    READ            shift and go to state 24
 
     Instruction                    shift and go to state 12
-    Atr                            shift and go to state 13
-    Repeat                         shift and go to state 14
-    If                             shift and go to state 15
-    Print                          shift and go to state 16
-    Read                           shift and go to state 17
+    BodyDecl                       shift and go to state 13
+    Atr                            shift and go to state 16
+    Repeat                         shift and go to state 17
+    If                             shift and go to state 18
+    Print                          shift and go to state 19
+    Read                           shift and go to state 20
 
 state 8
 
@@ -244,10 +248,10 @@ state 10
     (8) Ids -> . ID
     (9) Ids -> . ID [ NUM ]
 
-    ID              shift and go to state 25
+    ID              shift and go to state 27
 
-    Def                            shift and go to state 23
-    Ids                            shift and go to state 24
+    Def                            shift and go to state 25
+    Ids                            shift and go to state 26
 
 state 11
 
@@ -261,6 +265,7 @@ state 12
     (12) Instructions -> Instructions Instruction .
 
     ENDBODY         reduce using rule 12 (Instructions -> Instructions Instruction .)
+    INT             reduce using rule 12 (Instructions -> Instructions Instruction .)
     ID              reduce using rule 12 (Instructions -> Instructions Instruction .)
     REPEAT          reduce using rule 12 (Instructions -> Instructions Instruction .)
     IF              reduce using rule 12 (Instructions -> Instructions Instruction .)
@@ -271,116 +276,139 @@ state 12
 
 state 13
 
-    (14) Instruction -> Atr . TERMINATOR
+    (14) Instruction -> BodyDecl .
 
-    TERMINATOR      shift and go to state 26
+    ENDBODY         reduce using rule 14 (Instruction -> BodyDecl .)
+    INT             reduce using rule 14 (Instruction -> BodyDecl .)
+    ID              reduce using rule 14 (Instruction -> BodyDecl .)
+    REPEAT          reduce using rule 14 (Instruction -> BodyDecl .)
+    IF              reduce using rule 14 (Instruction -> BodyDecl .)
+    PRINT           reduce using rule 14 (Instruction -> BodyDecl .)
+    READ            reduce using rule 14 (Instruction -> BodyDecl .)
+    }               reduce using rule 14 (Instruction -> BodyDecl .)
 
 
 state 14
 
-    (18) Instruction -> Repeat .
+    (15) Instruction -> INT . ID [ ID ] TERMINATOR
+    (6) BodyDecl -> INT . Def TERMINATOR
+    (7) Def -> . Ids Enumerate
+    (8) Ids -> . ID
+    (9) Ids -> . ID [ NUM ]
 
-    ENDBODY         reduce using rule 18 (Instruction -> Repeat .)
-    ID              reduce using rule 18 (Instruction -> Repeat .)
-    REPEAT          reduce using rule 18 (Instruction -> Repeat .)
-    IF              reduce using rule 18 (Instruction -> Repeat .)
-    PRINT           reduce using rule 18 (Instruction -> Repeat .)
-    READ            reduce using rule 18 (Instruction -> Repeat .)
-    }               reduce using rule 18 (Instruction -> Repeat .)
+    ID              shift and go to state 28
 
+    Def                            shift and go to state 25
+    Ids                            shift and go to state 26
 
 state 15
 
-    (19) Instruction -> If .
-
-    ENDBODY         reduce using rule 19 (Instruction -> If .)
-    ID              reduce using rule 19 (Instruction -> If .)
-    REPEAT          reduce using rule 19 (Instruction -> If .)
-    IF              reduce using rule 19 (Instruction -> If .)
-    PRINT           reduce using rule 19 (Instruction -> If .)
-    READ            reduce using rule 19 (Instruction -> If .)
-    }               reduce using rule 19 (Instruction -> If .)
-
-
-state 16
-
-    (20) Instruction -> Print . TERMINATOR
-
-    TERMINATOR      shift and go to state 27
-
-
-state 17
-
-    (21) Instruction -> Read . TERMINATOR
-
-    TERMINATOR      shift and go to state 28
-
-
-state 18
-
-    (15) Atr -> ID . = Exp
-    (16) Atr -> ID . [ ID ] = Exp
-    (17) Atr -> ID . [ NUM ] = Exp
+    (17) Atr -> ID . = Exp
+    (18) Atr -> ID . [ ID ] = Exp
+    (19) Atr -> ID . [ NUM ] = Exp
 
     =               shift and go to state 29
     [               shift and go to state 30
 
 
+state 16
+
+    (16) Instruction -> Atr . TERMINATOR
+
+    TERMINATOR      shift and go to state 31
+
+
+state 17
+
+    (20) Instruction -> Repeat .
+
+    ENDBODY         reduce using rule 20 (Instruction -> Repeat .)
+    INT             reduce using rule 20 (Instruction -> Repeat .)
+    ID              reduce using rule 20 (Instruction -> Repeat .)
+    REPEAT          reduce using rule 20 (Instruction -> Repeat .)
+    IF              reduce using rule 20 (Instruction -> Repeat .)
+    PRINT           reduce using rule 20 (Instruction -> Repeat .)
+    READ            reduce using rule 20 (Instruction -> Repeat .)
+    }               reduce using rule 20 (Instruction -> Repeat .)
+
+
+state 18
+
+    (21) Instruction -> If .
+
+    ENDBODY         reduce using rule 21 (Instruction -> If .)
+    INT             reduce using rule 21 (Instruction -> If .)
+    ID              reduce using rule 21 (Instruction -> If .)
+    REPEAT          reduce using rule 21 (Instruction -> If .)
+    IF              reduce using rule 21 (Instruction -> If .)
+    PRINT           reduce using rule 21 (Instruction -> If .)
+    READ            reduce using rule 21 (Instruction -> If .)
+    }               reduce using rule 21 (Instruction -> If .)
+
+
 state 19
 
-    (23) Repeat -> REPEAT .
+    (22) Instruction -> Print . TERMINATOR
 
-    ENDBODY         reduce using rule 23 (Repeat -> REPEAT .)
-    ID              reduce using rule 23 (Repeat -> REPEAT .)
-    REPEAT          reduce using rule 23 (Repeat -> REPEAT .)
-    IF              reduce using rule 23 (Repeat -> REPEAT .)
-    PRINT           reduce using rule 23 (Repeat -> REPEAT .)
-    READ            reduce using rule 23 (Repeat -> REPEAT .)
-    }               reduce using rule 23 (Repeat -> REPEAT .)
+    TERMINATOR      shift and go to state 32
 
 
 state 20
 
-    (22) If -> IF . ( Cond ) { Instructions }
+    (23) Instruction -> Read . TERMINATOR
 
-    (               shift and go to state 31
+    TERMINATOR      shift and go to state 33
 
 
 state 21
 
-    (48) Print -> PRINT . ( Exp )
-    (49) Print -> PRINT . ( Def )
+    (25) Repeat -> REPEAT . { Instructions } UNTIL ( Cond )
 
-    (               shift and go to state 32
+    {               shift and go to state 34
 
 
 state 22
 
-    (50) Read -> READ . ( Ids )
+    (24) If -> IF . ( Cond ) { Instructions }
 
-    (               shift and go to state 33
+    (               shift and go to state 35
 
 
 state 23
 
-    (6) BodyDecl -> INT Def . TERMINATOR
+    (50) Print -> PRINT . ( Exp )
+    (51) Print -> PRINT . ( Def )
 
-    TERMINATOR      shift and go to state 34
+    (               shift and go to state 36
 
 
 state 24
+
+    (52) Read -> READ . ( Ids )
+
+    (               shift and go to state 37
+
+
+state 25
+
+    (6) BodyDecl -> INT Def . TERMINATOR
+
+    TERMINATOR      shift and go to state 38
+
+
+state 26
 
     (7) Def -> Ids . Enumerate
     (10) Enumerate -> . , Def
     (11) Enumerate -> .
 
-    ,               shift and go to state 36
+    ,               shift and go to state 40
     TERMINATOR      reduce using rule 11 (Enumerate -> .)
     )               reduce using rule 11 (Enumerate -> .)
 
-    Enumerate                      shift and go to state 35
+    Enumerate                      shift and go to state 39
 
-state 25
+state 27
 
     (8) Ids -> ID .
     (9) Ids -> ID . [ NUM ]
@@ -388,168 +416,205 @@ state 25
     ,               reduce using rule 8 (Ids -> ID .)
     TERMINATOR      reduce using rule 8 (Ids -> ID .)
     )               reduce using rule 8 (Ids -> ID .)
-    [               shift and go to state 37
-
-
-state 26
-
-    (14) Instruction -> Atr TERMINATOR .
-
-    ENDBODY         reduce using rule 14 (Instruction -> Atr TERMINATOR .)
-    ID              reduce using rule 14 (Instruction -> Atr TERMINATOR .)
-    REPEAT          reduce using rule 14 (Instruction -> Atr TERMINATOR .)
-    IF              reduce using rule 14 (Instruction -> Atr TERMINATOR .)
-    PRINT           reduce using rule 14 (Instruction -> Atr TERMINATOR .)
-    READ            reduce using rule 14 (Instruction -> Atr TERMINATOR .)
-    }               reduce using rule 14 (Instruction -> Atr TERMINATOR .)
-
-
-state 27
-
-    (20) Instruction -> Print TERMINATOR .
-
-    ENDBODY         reduce using rule 20 (Instruction -> Print TERMINATOR .)
-    ID              reduce using rule 20 (Instruction -> Print TERMINATOR .)
-    REPEAT          reduce using rule 20 (Instruction -> Print TERMINATOR .)
-    IF              reduce using rule 20 (Instruction -> Print TERMINATOR .)
-    PRINT           reduce using rule 20 (Instruction -> Print TERMINATOR .)
-    READ            reduce using rule 20 (Instruction -> Print TERMINATOR .)
-    }               reduce using rule 20 (Instruction -> Print TERMINATOR .)
+    [               shift and go to state 41
 
 
 state 28
 
-    (21) Instruction -> Read TERMINATOR .
+    (15) Instruction -> INT ID . [ ID ] TERMINATOR
+    (8) Ids -> ID .
+    (9) Ids -> ID . [ NUM ]
 
-    ENDBODY         reduce using rule 21 (Instruction -> Read TERMINATOR .)
-    ID              reduce using rule 21 (Instruction -> Read TERMINATOR .)
-    REPEAT          reduce using rule 21 (Instruction -> Read TERMINATOR .)
-    IF              reduce using rule 21 (Instruction -> Read TERMINATOR .)
-    PRINT           reduce using rule 21 (Instruction -> Read TERMINATOR .)
-    READ            reduce using rule 21 (Instruction -> Read TERMINATOR .)
-    }               reduce using rule 21 (Instruction -> Read TERMINATOR .)
+    [               shift and go to state 42
+    ,               reduce using rule 8 (Ids -> ID .)
+    TERMINATOR      reduce using rule 8 (Ids -> ID .)
 
 
 state 29
 
-    (15) Atr -> ID = . Exp
-    (39) Exp -> . Exp + Termo
-    (40) Exp -> . Exp - Termo
-    (41) Exp -> . Termo
-    (42) Termo -> . Termo * Fator
-    (43) Termo -> . Termo / Fator
-    (44) Termo -> . Fator
-    (45) Fator -> . ( Exp )
-    (46) Fator -> . NUM
-    (47) Fator -> . ID
+    (17) Atr -> ID = . Exp
+    (41) Exp -> . Exp + Termo
+    (42) Exp -> . Exp - Termo
+    (43) Exp -> . Termo
+    (44) Termo -> . Termo * Fator
+    (45) Termo -> . Termo / Fator
+    (46) Termo -> . Fator
+    (47) Fator -> . ( Exp )
+    (48) Fator -> . NUM
+    (49) Fator -> . ID
 
-    (               shift and go to state 42
-    NUM             shift and go to state 43
-    ID              shift and go to state 38
+    (               shift and go to state 47
+    NUM             shift and go to state 48
+    ID              shift and go to state 43
 
-    Exp                            shift and go to state 39
-    Termo                          shift and go to state 40
-    Fator                          shift and go to state 41
+    Exp                            shift and go to state 44
+    Termo                          shift and go to state 45
+    Fator                          shift and go to state 46
 
 state 30
 
-    (16) Atr -> ID [ . ID ] = Exp
-    (17) Atr -> ID [ . NUM ] = Exp
+    (18) Atr -> ID [ . ID ] = Exp
+    (19) Atr -> ID [ . NUM ] = Exp
 
-    ID              shift and go to state 44
-    NUM             shift and go to state 45
+    ID              shift and go to state 49
+    NUM             shift and go to state 50
 
 
 state 31
 
-    (22) If -> IF ( . Cond ) { Instructions }
-    (24) Cond -> . Cond OR Cond2
-    (25) Cond -> . Cond2
-    (26) Cond2 -> . Cond2 AND Cond3
-    (27) Cond2 -> . Cond3
-    (28) Cond3 -> . NOT Cond
-    (29) Cond3 -> . ExpRelacional
-    (30) Cond3 -> . Cond
-    (31) Cond3 -> .
-    (32) ExpRelacional -> . Exp > Exp
-    (33) ExpRelacional -> . Exp < Exp
-    (34) ExpRelacional -> . Exp > = Exp
-    (35) ExpRelacional -> . Exp < = Exp
-    (36) ExpRelacional -> . Exp ! = Exp
-    (37) ExpRelacional -> . Exp = = Exp
-    (38) ExpRelacional -> . Exp
-    (39) Exp -> . Exp + Termo
-    (40) Exp -> . Exp - Termo
-    (41) Exp -> . Termo
-    (42) Termo -> . Termo * Fator
-    (43) Termo -> . Termo / Fator
-    (44) Termo -> . Fator
-    (45) Fator -> . ( Exp )
-    (46) Fator -> . NUM
-    (47) Fator -> . ID
+    (16) Instruction -> Atr TERMINATOR .
 
-    NOT             shift and go to state 49
-    )               reduce using rule 31 (Cond3 -> .)
-    OR              reduce using rule 31 (Cond3 -> .)
-    AND             reduce using rule 31 (Cond3 -> .)
-    (               shift and go to state 42
-    NUM             shift and go to state 43
-    ID              shift and go to state 38
+    ENDBODY         reduce using rule 16 (Instruction -> Atr TERMINATOR .)
+    INT             reduce using rule 16 (Instruction -> Atr TERMINATOR .)
+    ID              reduce using rule 16 (Instruction -> Atr TERMINATOR .)
+    REPEAT          reduce using rule 16 (Instruction -> Atr TERMINATOR .)
+    IF              reduce using rule 16 (Instruction -> Atr TERMINATOR .)
+    PRINT           reduce using rule 16 (Instruction -> Atr TERMINATOR .)
+    READ            reduce using rule 16 (Instruction -> Atr TERMINATOR .)
+    }               reduce using rule 16 (Instruction -> Atr TERMINATOR .)
 
-    Cond                           shift and go to state 46
-    Cond2                          shift and go to state 47
-    Cond3                          shift and go to state 48
-    ExpRelacional                  shift and go to state 50
-    Exp                            shift and go to state 51
-    Termo                          shift and go to state 40
-    Fator                          shift and go to state 41
 
 state 32
 
-    (48) Print -> PRINT ( . Exp )
-    (49) Print -> PRINT ( . Def )
-    (39) Exp -> . Exp + Termo
-    (40) Exp -> . Exp - Termo
-    (41) Exp -> . Termo
-    (7) Def -> . Ids Enumerate
-    (42) Termo -> . Termo * Fator
-    (43) Termo -> . Termo / Fator
-    (44) Termo -> . Fator
-    (8) Ids -> . ID
-    (9) Ids -> . ID [ NUM ]
-    (45) Fator -> . ( Exp )
-    (46) Fator -> . NUM
-    (47) Fator -> . ID
+    (22) Instruction -> Print TERMINATOR .
 
-    ID              shift and go to state 54
-    (               shift and go to state 42
-    NUM             shift and go to state 43
+    ENDBODY         reduce using rule 22 (Instruction -> Print TERMINATOR .)
+    INT             reduce using rule 22 (Instruction -> Print TERMINATOR .)
+    ID              reduce using rule 22 (Instruction -> Print TERMINATOR .)
+    REPEAT          reduce using rule 22 (Instruction -> Print TERMINATOR .)
+    IF              reduce using rule 22 (Instruction -> Print TERMINATOR .)
+    PRINT           reduce using rule 22 (Instruction -> Print TERMINATOR .)
+    READ            reduce using rule 22 (Instruction -> Print TERMINATOR .)
+    }               reduce using rule 22 (Instruction -> Print TERMINATOR .)
 
-    Exp                            shift and go to state 52
-    Def                            shift and go to state 53
-    Termo                          shift and go to state 40
-    Ids                            shift and go to state 24
-    Fator                          shift and go to state 41
 
 state 33
 
-    (50) Read -> READ ( . Ids )
+    (23) Instruction -> Read TERMINATOR .
+
+    ENDBODY         reduce using rule 23 (Instruction -> Read TERMINATOR .)
+    INT             reduce using rule 23 (Instruction -> Read TERMINATOR .)
+    ID              reduce using rule 23 (Instruction -> Read TERMINATOR .)
+    REPEAT          reduce using rule 23 (Instruction -> Read TERMINATOR .)
+    IF              reduce using rule 23 (Instruction -> Read TERMINATOR .)
+    PRINT           reduce using rule 23 (Instruction -> Read TERMINATOR .)
+    READ            reduce using rule 23 (Instruction -> Read TERMINATOR .)
+    }               reduce using rule 23 (Instruction -> Read TERMINATOR .)
+
+
+state 34
+
+    (25) Repeat -> REPEAT { . Instructions } UNTIL ( Cond )
+    (12) Instructions -> . Instructions Instruction
+    (13) Instructions -> .
+
+    }               reduce using rule 13 (Instructions -> .)
+    INT             reduce using rule 13 (Instructions -> .)
+    ID              reduce using rule 13 (Instructions -> .)
+    REPEAT          reduce using rule 13 (Instructions -> .)
+    IF              reduce using rule 13 (Instructions -> .)
+    PRINT           reduce using rule 13 (Instructions -> .)
+    READ            reduce using rule 13 (Instructions -> .)
+
+    Instructions                   shift and go to state 51
+
+state 35
+
+    (24) If -> IF ( . Cond ) { Instructions }
+    (26) Cond -> . Cond OR Cond2
+    (27) Cond -> . Cond2
+    (28) Cond2 -> . Cond2 AND Cond3
+    (29) Cond2 -> . Cond3
+    (30) Cond3 -> . NOT Cond
+    (31) Cond3 -> . ExpRelacional
+    (32) Cond3 -> . Cond
+    (33) Cond3 -> .
+    (34) ExpRelacional -> . Exp > Exp
+    (35) ExpRelacional -> . Exp < Exp
+    (36) ExpRelacional -> . Exp > = Exp
+    (37) ExpRelacional -> . Exp < = Exp
+    (38) ExpRelacional -> . Exp ! = Exp
+    (39) ExpRelacional -> . Exp = = Exp
+    (40) ExpRelacional -> . Exp
+    (41) Exp -> . Exp + Termo
+    (42) Exp -> . Exp - Termo
+    (43) Exp -> . Termo
+    (44) Termo -> . Termo * Fator
+    (45) Termo -> . Termo / Fator
+    (46) Termo -> . Fator
+    (47) Fator -> . ( Exp )
+    (48) Fator -> . NUM
+    (49) Fator -> . ID
+
+    NOT             shift and go to state 55
+    )               reduce using rule 33 (Cond3 -> .)
+    OR              reduce using rule 33 (Cond3 -> .)
+    AND             reduce using rule 33 (Cond3 -> .)
+    (               shift and go to state 47
+    NUM             shift and go to state 48
+    ID              shift and go to state 43
+
+    Cond                           shift and go to state 52
+    Cond2                          shift and go to state 53
+    Cond3                          shift and go to state 54
+    ExpRelacional                  shift and go to state 56
+    Exp                            shift and go to state 57
+    Termo                          shift and go to state 45
+    Fator                          shift and go to state 46
+
+state 36
+
+    (50) Print -> PRINT ( . Exp )
+    (51) Print -> PRINT ( . Def )
+    (41) Exp -> . Exp + Termo
+    (42) Exp -> . Exp - Termo
+    (43) Exp -> . Termo
+    (7) Def -> . Ids Enumerate
+    (44) Termo -> . Termo * Fator
+    (45) Termo -> . Termo / Fator
+    (46) Termo -> . Fator
+    (8) Ids -> . ID
+    (9) Ids -> . ID [ NUM ]
+    (47) Fator -> . ( Exp )
+    (48) Fator -> . NUM
+    (49) Fator -> . ID
+
+    ID              shift and go to state 60
+    (               shift and go to state 47
+    NUM             shift and go to state 48
+
+    Exp                            shift and go to state 58
+    Def                            shift and go to state 59
+    Termo                          shift and go to state 45
+    Ids                            shift and go to state 26
+    Fator                          shift and go to state 46
+
+state 37
+
+    (52) Read -> READ ( . Ids )
     (8) Ids -> . ID
     (9) Ids -> . ID [ NUM ]
 
-    ID              shift and go to state 25
+    ID              shift and go to state 27
 
-    Ids                            shift and go to state 55
+    Ids                            shift and go to state 61
 
-state 34
+state 38
 
     (6) BodyDecl -> INT Def TERMINATOR .
 
     ENDDECL         reduce using rule 6 (BodyDecl -> INT Def TERMINATOR .)
     INT             reduce using rule 6 (BodyDecl -> INT Def TERMINATOR .)
+    ENDBODY         reduce using rule 6 (BodyDecl -> INT Def TERMINATOR .)
+    ID              reduce using rule 6 (BodyDecl -> INT Def TERMINATOR .)
+    REPEAT          reduce using rule 6 (BodyDecl -> INT Def TERMINATOR .)
+    IF              reduce using rule 6 (BodyDecl -> INT Def TERMINATOR .)
+    PRINT           reduce using rule 6 (BodyDecl -> INT Def TERMINATOR .)
+    READ            reduce using rule 6 (BodyDecl -> INT Def TERMINATOR .)
+    }               reduce using rule 6 (BodyDecl -> INT Def TERMINATOR .)
 
 
-state 35
+state 39
 
     (7) Def -> Ids Enumerate .
 
@@ -557,303 +622,349 @@ state 35
     )               reduce using rule 7 (Def -> Ids Enumerate .)
 
 
-state 36
+state 40
 
     (10) Enumerate -> , . Def
     (7) Def -> . Ids Enumerate
     (8) Ids -> . ID
     (9) Ids -> . ID [ NUM ]
 
-    ID              shift and go to state 25
+    ID              shift and go to state 27
 
-    Def                            shift and go to state 56
-    Ids                            shift and go to state 24
-
-state 37
-
-    (9) Ids -> ID [ . NUM ]
-
-    NUM             shift and go to state 57
-
-
-state 38
-
-    (47) Fator -> ID .
-
-    *               reduce using rule 47 (Fator -> ID .)
-    /               reduce using rule 47 (Fator -> ID .)
-    +               reduce using rule 47 (Fator -> ID .)
-    -               reduce using rule 47 (Fator -> ID .)
-    TERMINATOR      reduce using rule 47 (Fator -> ID .)
-    >               reduce using rule 47 (Fator -> ID .)
-    <               reduce using rule 47 (Fator -> ID .)
-    !               reduce using rule 47 (Fator -> ID .)
-    =               reduce using rule 47 (Fator -> ID .)
-    )               reduce using rule 47 (Fator -> ID .)
-    OR              reduce using rule 47 (Fator -> ID .)
-    AND             reduce using rule 47 (Fator -> ID .)
-
-
-state 39
-
-    (15) Atr -> ID = Exp .
-    (39) Exp -> Exp . + Termo
-    (40) Exp -> Exp . - Termo
-
-    TERMINATOR      reduce using rule 15 (Atr -> ID = Exp .)
-    +               shift and go to state 58
-    -               shift and go to state 59
-
-
-state 40
-
-    (41) Exp -> Termo .
-    (42) Termo -> Termo . * Fator
-    (43) Termo -> Termo . / Fator
-
-    +               reduce using rule 41 (Exp -> Termo .)
-    -               reduce using rule 41 (Exp -> Termo .)
-    TERMINATOR      reduce using rule 41 (Exp -> Termo .)
-    >               reduce using rule 41 (Exp -> Termo .)
-    <               reduce using rule 41 (Exp -> Termo .)
-    !               reduce using rule 41 (Exp -> Termo .)
-    =               reduce using rule 41 (Exp -> Termo .)
-    )               reduce using rule 41 (Exp -> Termo .)
-    OR              reduce using rule 41 (Exp -> Termo .)
-    AND             reduce using rule 41 (Exp -> Termo .)
-    *               shift and go to state 60
-    /               shift and go to state 61
-
+    Def                            shift and go to state 62
+    Ids                            shift and go to state 26
 
 state 41
 
-    (44) Termo -> Fator .
+    (9) Ids -> ID [ . NUM ]
 
-    *               reduce using rule 44 (Termo -> Fator .)
-    /               reduce using rule 44 (Termo -> Fator .)
-    +               reduce using rule 44 (Termo -> Fator .)
-    -               reduce using rule 44 (Termo -> Fator .)
-    TERMINATOR      reduce using rule 44 (Termo -> Fator .)
-    >               reduce using rule 44 (Termo -> Fator .)
-    <               reduce using rule 44 (Termo -> Fator .)
-    !               reduce using rule 44 (Termo -> Fator .)
-    =               reduce using rule 44 (Termo -> Fator .)
-    )               reduce using rule 44 (Termo -> Fator .)
-    OR              reduce using rule 44 (Termo -> Fator .)
-    AND             reduce using rule 44 (Termo -> Fator .)
+    NUM             shift and go to state 63
 
 
 state 42
 
-    (45) Fator -> ( . Exp )
-    (39) Exp -> . Exp + Termo
-    (40) Exp -> . Exp - Termo
-    (41) Exp -> . Termo
-    (42) Termo -> . Termo * Fator
-    (43) Termo -> . Termo / Fator
-    (44) Termo -> . Fator
-    (45) Fator -> . ( Exp )
-    (46) Fator -> . NUM
-    (47) Fator -> . ID
+    (15) Instruction -> INT ID [ . ID ] TERMINATOR
+    (9) Ids -> ID [ . NUM ]
 
-    (               shift and go to state 42
-    NUM             shift and go to state 43
-    ID              shift and go to state 38
+    ID              shift and go to state 64
+    NUM             shift and go to state 63
 
-    Exp                            shift and go to state 62
-    Termo                          shift and go to state 40
-    Fator                          shift and go to state 41
 
 state 43
 
-    (46) Fator -> NUM .
+    (49) Fator -> ID .
 
-    *               reduce using rule 46 (Fator -> NUM .)
-    /               reduce using rule 46 (Fator -> NUM .)
-    +               reduce using rule 46 (Fator -> NUM .)
-    -               reduce using rule 46 (Fator -> NUM .)
-    TERMINATOR      reduce using rule 46 (Fator -> NUM .)
-    >               reduce using rule 46 (Fator -> NUM .)
-    <               reduce using rule 46 (Fator -> NUM .)
-    !               reduce using rule 46 (Fator -> NUM .)
-    =               reduce using rule 46 (Fator -> NUM .)
-    )               reduce using rule 46 (Fator -> NUM .)
-    OR              reduce using rule 46 (Fator -> NUM .)
-    AND             reduce using rule 46 (Fator -> NUM .)
+    *               reduce using rule 49 (Fator -> ID .)
+    /               reduce using rule 49 (Fator -> ID .)
+    +               reduce using rule 49 (Fator -> ID .)
+    -               reduce using rule 49 (Fator -> ID .)
+    TERMINATOR      reduce using rule 49 (Fator -> ID .)
+    >               reduce using rule 49 (Fator -> ID .)
+    <               reduce using rule 49 (Fator -> ID .)
+    !               reduce using rule 49 (Fator -> ID .)
+    =               reduce using rule 49 (Fator -> ID .)
+    )               reduce using rule 49 (Fator -> ID .)
+    OR              reduce using rule 49 (Fator -> ID .)
+    AND             reduce using rule 49 (Fator -> ID .)
 
 
 state 44
 
-    (16) Atr -> ID [ ID . ] = Exp
+    (17) Atr -> ID = Exp .
+    (41) Exp -> Exp . + Termo
+    (42) Exp -> Exp . - Termo
 
-    ]               shift and go to state 63
+    TERMINATOR      reduce using rule 17 (Atr -> ID = Exp .)
+    +               shift and go to state 65
+    -               shift and go to state 66
 
 
 state 45
 
-    (17) Atr -> ID [ NUM . ] = Exp
+    (43) Exp -> Termo .
+    (44) Termo -> Termo . * Fator
+    (45) Termo -> Termo . / Fator
 
-    ]               shift and go to state 64
+    +               reduce using rule 43 (Exp -> Termo .)
+    -               reduce using rule 43 (Exp -> Termo .)
+    TERMINATOR      reduce using rule 43 (Exp -> Termo .)
+    >               reduce using rule 43 (Exp -> Termo .)
+    <               reduce using rule 43 (Exp -> Termo .)
+    !               reduce using rule 43 (Exp -> Termo .)
+    =               reduce using rule 43 (Exp -> Termo .)
+    )               reduce using rule 43 (Exp -> Termo .)
+    OR              reduce using rule 43 (Exp -> Termo .)
+    AND             reduce using rule 43 (Exp -> Termo .)
+    *               shift and go to state 67
+    /               shift and go to state 68
 
 
 state 46
 
-    (22) If -> IF ( Cond . ) { Instructions }
-    (24) Cond -> Cond . OR Cond2
-    (30) Cond3 -> Cond .
+    (46) Termo -> Fator .
 
-  ! shift/reduce conflict for ) resolved as shift
-  ! shift/reduce conflict for OR resolved as shift
-    )               shift and go to state 65
-    OR              shift and go to state 66
-    AND             reduce using rule 30 (Cond3 -> Cond .)
-
-  ! )               [ reduce using rule 30 (Cond3 -> Cond .) ]
-  ! OR              [ reduce using rule 30 (Cond3 -> Cond .) ]
+    *               reduce using rule 46 (Termo -> Fator .)
+    /               reduce using rule 46 (Termo -> Fator .)
+    +               reduce using rule 46 (Termo -> Fator .)
+    -               reduce using rule 46 (Termo -> Fator .)
+    TERMINATOR      reduce using rule 46 (Termo -> Fator .)
+    >               reduce using rule 46 (Termo -> Fator .)
+    <               reduce using rule 46 (Termo -> Fator .)
+    !               reduce using rule 46 (Termo -> Fator .)
+    =               reduce using rule 46 (Termo -> Fator .)
+    )               reduce using rule 46 (Termo -> Fator .)
+    OR              reduce using rule 46 (Termo -> Fator .)
+    AND             reduce using rule 46 (Termo -> Fator .)
 
 
 state 47
 
-    (25) Cond -> Cond2 .
-    (26) Cond2 -> Cond2 . AND Cond3
+    (47) Fator -> ( . Exp )
+    (41) Exp -> . Exp + Termo
+    (42) Exp -> . Exp - Termo
+    (43) Exp -> . Termo
+    (44) Termo -> . Termo * Fator
+    (45) Termo -> . Termo / Fator
+    (46) Termo -> . Fator
+    (47) Fator -> . ( Exp )
+    (48) Fator -> . NUM
+    (49) Fator -> . ID
 
-  ! shift/reduce conflict for AND resolved as shift
-    )               reduce using rule 25 (Cond -> Cond2 .)
-    OR              reduce using rule 25 (Cond -> Cond2 .)
-    AND             shift and go to state 67
+    (               shift and go to state 47
+    NUM             shift and go to state 48
+    ID              shift and go to state 43
 
-  ! AND             [ reduce using rule 25 (Cond -> Cond2 .) ]
-
+    Exp                            shift and go to state 69
+    Termo                          shift and go to state 45
+    Fator                          shift and go to state 46
 
 state 48
 
-    (27) Cond2 -> Cond3 .
+    (48) Fator -> NUM .
 
-    )               reduce using rule 27 (Cond2 -> Cond3 .)
-    OR              reduce using rule 27 (Cond2 -> Cond3 .)
-    AND             reduce using rule 27 (Cond2 -> Cond3 .)
+    *               reduce using rule 48 (Fator -> NUM .)
+    /               reduce using rule 48 (Fator -> NUM .)
+    +               reduce using rule 48 (Fator -> NUM .)
+    -               reduce using rule 48 (Fator -> NUM .)
+    TERMINATOR      reduce using rule 48 (Fator -> NUM .)
+    >               reduce using rule 48 (Fator -> NUM .)
+    <               reduce using rule 48 (Fator -> NUM .)
+    !               reduce using rule 48 (Fator -> NUM .)
+    =               reduce using rule 48 (Fator -> NUM .)
+    )               reduce using rule 48 (Fator -> NUM .)
+    OR              reduce using rule 48 (Fator -> NUM .)
+    AND             reduce using rule 48 (Fator -> NUM .)
 
 
 state 49
 
-    (28) Cond3 -> NOT . Cond
-    (24) Cond -> . Cond OR Cond2
-    (25) Cond -> . Cond2
-    (26) Cond2 -> . Cond2 AND Cond3
-    (27) Cond2 -> . Cond3
-    (28) Cond3 -> . NOT Cond
-    (29) Cond3 -> . ExpRelacional
-    (30) Cond3 -> . Cond
-    (31) Cond3 -> .
-    (32) ExpRelacional -> . Exp > Exp
-    (33) ExpRelacional -> . Exp < Exp
-    (34) ExpRelacional -> . Exp > = Exp
-    (35) ExpRelacional -> . Exp < = Exp
-    (36) ExpRelacional -> . Exp ! = Exp
-    (37) ExpRelacional -> . Exp = = Exp
-    (38) ExpRelacional -> . Exp
-    (39) Exp -> . Exp + Termo
-    (40) Exp -> . Exp - Termo
-    (41) Exp -> . Termo
-    (42) Termo -> . Termo * Fator
-    (43) Termo -> . Termo / Fator
-    (44) Termo -> . Fator
-    (45) Fator -> . ( Exp )
-    (46) Fator -> . NUM
-    (47) Fator -> . ID
+    (18) Atr -> ID [ ID . ] = Exp
 
-    NOT             shift and go to state 49
-    OR              reduce using rule 31 (Cond3 -> .)
-    )               reduce using rule 31 (Cond3 -> .)
-    AND             reduce using rule 31 (Cond3 -> .)
-    (               shift and go to state 42
-    NUM             shift and go to state 43
-    ID              shift and go to state 38
+    ]               shift and go to state 70
 
-    Cond                           shift and go to state 68
-    Cond2                          shift and go to state 47
-    Cond3                          shift and go to state 48
-    ExpRelacional                  shift and go to state 50
-    Exp                            shift and go to state 51
-    Termo                          shift and go to state 40
-    Fator                          shift and go to state 41
 
 state 50
 
-    (29) Cond3 -> ExpRelacional .
+    (19) Atr -> ID [ NUM . ] = Exp
 
-    )               reduce using rule 29 (Cond3 -> ExpRelacional .)
-    OR              reduce using rule 29 (Cond3 -> ExpRelacional .)
-    AND             reduce using rule 29 (Cond3 -> ExpRelacional .)
+    ]               shift and go to state 71
 
 
 state 51
 
-    (32) ExpRelacional -> Exp . > Exp
-    (33) ExpRelacional -> Exp . < Exp
-    (34) ExpRelacional -> Exp . > = Exp
-    (35) ExpRelacional -> Exp . < = Exp
-    (36) ExpRelacional -> Exp . ! = Exp
-    (37) ExpRelacional -> Exp . = = Exp
-    (38) ExpRelacional -> Exp .
-    (39) Exp -> Exp . + Termo
-    (40) Exp -> Exp . - Termo
+    (25) Repeat -> REPEAT { Instructions . } UNTIL ( Cond )
+    (12) Instructions -> Instructions . Instruction
+    (14) Instruction -> . BodyDecl
+    (15) Instruction -> . INT ID [ ID ] TERMINATOR
+    (16) Instruction -> . Atr TERMINATOR
+    (20) Instruction -> . Repeat
+    (21) Instruction -> . If
+    (22) Instruction -> . Print TERMINATOR
+    (23) Instruction -> . Read TERMINATOR
+    (6) BodyDecl -> . INT Def TERMINATOR
+    (17) Atr -> . ID = Exp
+    (18) Atr -> . ID [ ID ] = Exp
+    (19) Atr -> . ID [ NUM ] = Exp
+    (25) Repeat -> . REPEAT { Instructions } UNTIL ( Cond )
+    (24) If -> . IF ( Cond ) { Instructions }
+    (50) Print -> . PRINT ( Exp )
+    (51) Print -> . PRINT ( Def )
+    (52) Read -> . READ ( Ids )
 
-    >               shift and go to state 69
-    <               shift and go to state 70
-    !               shift and go to state 72
-    =               shift and go to state 71
-    )               reduce using rule 38 (ExpRelacional -> Exp .)
-    OR              reduce using rule 38 (ExpRelacional -> Exp .)
-    AND             reduce using rule 38 (ExpRelacional -> Exp .)
-    +               shift and go to state 58
-    -               shift and go to state 59
+    }               shift and go to state 72
+    INT             shift and go to state 14
+    ID              shift and go to state 15
+    REPEAT          shift and go to state 21
+    IF              shift and go to state 22
+    PRINT           shift and go to state 23
+    READ            shift and go to state 24
 
+    Instruction                    shift and go to state 12
+    BodyDecl                       shift and go to state 13
+    Atr                            shift and go to state 16
+    Repeat                         shift and go to state 17
+    If                             shift and go to state 18
+    Print                          shift and go to state 19
+    Read                           shift and go to state 20
 
 state 52
 
-    (48) Print -> PRINT ( Exp . )
-    (39) Exp -> Exp . + Termo
-    (40) Exp -> Exp . - Termo
+    (24) If -> IF ( Cond . ) { Instructions }
+    (26) Cond -> Cond . OR Cond2
+    (32) Cond3 -> Cond .
 
+  ! shift/reduce conflict for ) resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
     )               shift and go to state 73
-    +               shift and go to state 58
-    -               shift and go to state 59
+    OR              shift and go to state 74
+    AND             reduce using rule 32 (Cond3 -> Cond .)
+
+  ! )               [ reduce using rule 32 (Cond3 -> Cond .) ]
+  ! OR              [ reduce using rule 32 (Cond3 -> Cond .) ]
 
 
 state 53
 
-    (49) Print -> PRINT ( Def . )
+    (27) Cond -> Cond2 .
+    (28) Cond2 -> Cond2 . AND Cond3
 
-    )               shift and go to state 74
+  ! shift/reduce conflict for AND resolved as shift
+    )               reduce using rule 27 (Cond -> Cond2 .)
+    OR              reduce using rule 27 (Cond -> Cond2 .)
+    AND             shift and go to state 75
+
+  ! AND             [ reduce using rule 27 (Cond -> Cond2 .) ]
 
 
 state 54
 
-    (8) Ids -> ID .
-    (9) Ids -> ID . [ NUM ]
-    (47) Fator -> ID .
+    (29) Cond2 -> Cond3 .
 
-  ! reduce/reduce conflict for ) resolved using rule 8 (Ids -> ID .)
-    ,               reduce using rule 8 (Ids -> ID .)
-    )               reduce using rule 8 (Ids -> ID .)
-    [               shift and go to state 37
-    *               reduce using rule 47 (Fator -> ID .)
-    /               reduce using rule 47 (Fator -> ID .)
-    +               reduce using rule 47 (Fator -> ID .)
-    -               reduce using rule 47 (Fator -> ID .)
-
-  ! )               [ reduce using rule 47 (Fator -> ID .) ]
+    )               reduce using rule 29 (Cond2 -> Cond3 .)
+    OR              reduce using rule 29 (Cond2 -> Cond3 .)
+    AND             reduce using rule 29 (Cond2 -> Cond3 .)
 
 
 state 55
 
-    (50) Read -> READ ( Ids . )
+    (30) Cond3 -> NOT . Cond
+    (26) Cond -> . Cond OR Cond2
+    (27) Cond -> . Cond2
+    (28) Cond2 -> . Cond2 AND Cond3
+    (29) Cond2 -> . Cond3
+    (30) Cond3 -> . NOT Cond
+    (31) Cond3 -> . ExpRelacional
+    (32) Cond3 -> . Cond
+    (33) Cond3 -> .
+    (34) ExpRelacional -> . Exp > Exp
+    (35) ExpRelacional -> . Exp < Exp
+    (36) ExpRelacional -> . Exp > = Exp
+    (37) ExpRelacional -> . Exp < = Exp
+    (38) ExpRelacional -> . Exp ! = Exp
+    (39) ExpRelacional -> . Exp = = Exp
+    (40) ExpRelacional -> . Exp
+    (41) Exp -> . Exp + Termo
+    (42) Exp -> . Exp - Termo
+    (43) Exp -> . Termo
+    (44) Termo -> . Termo * Fator
+    (45) Termo -> . Termo / Fator
+    (46) Termo -> . Fator
+    (47) Fator -> . ( Exp )
+    (48) Fator -> . NUM
+    (49) Fator -> . ID
 
-    )               shift and go to state 75
+    NOT             shift and go to state 55
+    OR              reduce using rule 33 (Cond3 -> .)
+    )               reduce using rule 33 (Cond3 -> .)
+    AND             reduce using rule 33 (Cond3 -> .)
+    (               shift and go to state 47
+    NUM             shift and go to state 48
+    ID              shift and go to state 43
 
+    Cond                           shift and go to state 76
+    Cond2                          shift and go to state 53
+    Cond3                          shift and go to state 54
+    ExpRelacional                  shift and go to state 56
+    Exp                            shift and go to state 57
+    Termo                          shift and go to state 45
+    Fator                          shift and go to state 46
 
 state 56
+
+    (31) Cond3 -> ExpRelacional .
+
+    )               reduce using rule 31 (Cond3 -> ExpRelacional .)
+    OR              reduce using rule 31 (Cond3 -> ExpRelacional .)
+    AND             reduce using rule 31 (Cond3 -> ExpRelacional .)
+
+
+state 57
+
+    (34) ExpRelacional -> Exp . > Exp
+    (35) ExpRelacional -> Exp . < Exp
+    (36) ExpRelacional -> Exp . > = Exp
+    (37) ExpRelacional -> Exp . < = Exp
+    (38) ExpRelacional -> Exp . ! = Exp
+    (39) ExpRelacional -> Exp . = = Exp
+    (40) ExpRelacional -> Exp .
+    (41) Exp -> Exp . + Termo
+    (42) Exp -> Exp . - Termo
+
+    >               shift and go to state 77
+    <               shift and go to state 78
+    !               shift and go to state 80
+    =               shift and go to state 79
+    )               reduce using rule 40 (ExpRelacional -> Exp .)
+    OR              reduce using rule 40 (ExpRelacional -> Exp .)
+    AND             reduce using rule 40 (ExpRelacional -> Exp .)
+    +               shift and go to state 65
+    -               shift and go to state 66
+
+
+state 58
+
+    (50) Print -> PRINT ( Exp . )
+    (41) Exp -> Exp . + Termo
+    (42) Exp -> Exp . - Termo
+
+    )               shift and go to state 81
+    +               shift and go to state 65
+    -               shift and go to state 66
+
+
+state 59
+
+    (51) Print -> PRINT ( Def . )
+
+    )               shift and go to state 82
+
+
+state 60
+
+    (8) Ids -> ID .
+    (9) Ids -> ID . [ NUM ]
+    (49) Fator -> ID .
+
+  ! reduce/reduce conflict for ) resolved using rule 8 (Ids -> ID .)
+    ,               reduce using rule 8 (Ids -> ID .)
+    )               reduce using rule 8 (Ids -> ID .)
+    [               shift and go to state 41
+    *               reduce using rule 49 (Fator -> ID .)
+    /               reduce using rule 49 (Fator -> ID .)
+    +               reduce using rule 49 (Fator -> ID .)
+    -               reduce using rule 49 (Fator -> ID .)
+
+  ! )               [ reduce using rule 49 (Fator -> ID .) ]
+
+
+state 61
+
+    (52) Read -> READ ( Ids . )
+
+    )               shift and go to state 83
+
+
+state 62
 
     (10) Enumerate -> , Def .
 
@@ -861,295 +972,309 @@ state 56
     )               reduce using rule 10 (Enumerate -> , Def .)
 
 
-state 57
+state 63
 
     (9) Ids -> ID [ NUM . ]
 
-    ]               shift and go to state 76
-
-
-state 58
-
-    (39) Exp -> Exp + . Termo
-    (42) Termo -> . Termo * Fator
-    (43) Termo -> . Termo / Fator
-    (44) Termo -> . Fator
-    (45) Fator -> . ( Exp )
-    (46) Fator -> . NUM
-    (47) Fator -> . ID
-
-    (               shift and go to state 42
-    NUM             shift and go to state 43
-    ID              shift and go to state 38
-
-    Termo                          shift and go to state 77
-    Fator                          shift and go to state 41
-
-state 59
-
-    (40) Exp -> Exp - . Termo
-    (42) Termo -> . Termo * Fator
-    (43) Termo -> . Termo / Fator
-    (44) Termo -> . Fator
-    (45) Fator -> . ( Exp )
-    (46) Fator -> . NUM
-    (47) Fator -> . ID
-
-    (               shift and go to state 42
-    NUM             shift and go to state 43
-    ID              shift and go to state 38
-
-    Termo                          shift and go to state 78
-    Fator                          shift and go to state 41
-
-state 60
-
-    (42) Termo -> Termo * . Fator
-    (45) Fator -> . ( Exp )
-    (46) Fator -> . NUM
-    (47) Fator -> . ID
-
-    (               shift and go to state 42
-    NUM             shift and go to state 43
-    ID              shift and go to state 38
-
-    Fator                          shift and go to state 79
-
-state 61
-
-    (43) Termo -> Termo / . Fator
-    (45) Fator -> . ( Exp )
-    (46) Fator -> . NUM
-    (47) Fator -> . ID
-
-    (               shift and go to state 42
-    NUM             shift and go to state 43
-    ID              shift and go to state 38
-
-    Fator                          shift and go to state 80
-
-state 62
-
-    (45) Fator -> ( Exp . )
-    (39) Exp -> Exp . + Termo
-    (40) Exp -> Exp . - Termo
-
-    )               shift and go to state 81
-    +               shift and go to state 58
-    -               shift and go to state 59
-
-
-state 63
-
-    (16) Atr -> ID [ ID ] . = Exp
-
-    =               shift and go to state 82
+    ]               shift and go to state 84
 
 
 state 64
 
-    (17) Atr -> ID [ NUM ] . = Exp
+    (15) Instruction -> INT ID [ ID . ] TERMINATOR
 
-    =               shift and go to state 83
+    ]               shift and go to state 85
 
 
 state 65
 
-    (22) If -> IF ( Cond ) . { Instructions }
+    (41) Exp -> Exp + . Termo
+    (44) Termo -> . Termo * Fator
+    (45) Termo -> . Termo / Fator
+    (46) Termo -> . Fator
+    (47) Fator -> . ( Exp )
+    (48) Fator -> . NUM
+    (49) Fator -> . ID
 
-    {               shift and go to state 84
+    (               shift and go to state 47
+    NUM             shift and go to state 48
+    ID              shift and go to state 43
 
+    Termo                          shift and go to state 86
+    Fator                          shift and go to state 46
 
 state 66
 
-    (24) Cond -> Cond OR . Cond2
-    (26) Cond2 -> . Cond2 AND Cond3
-    (27) Cond2 -> . Cond3
-    (28) Cond3 -> . NOT Cond
-    (29) Cond3 -> . ExpRelacional
-    (30) Cond3 -> . Cond
-    (31) Cond3 -> .
-    (32) ExpRelacional -> . Exp > Exp
-    (33) ExpRelacional -> . Exp < Exp
-    (34) ExpRelacional -> . Exp > = Exp
-    (35) ExpRelacional -> . Exp < = Exp
-    (36) ExpRelacional -> . Exp ! = Exp
-    (37) ExpRelacional -> . Exp = = Exp
-    (38) ExpRelacional -> . Exp
-    (24) Cond -> . Cond OR Cond2
-    (25) Cond -> . Cond2
-    (39) Exp -> . Exp + Termo
-    (40) Exp -> . Exp - Termo
-    (41) Exp -> . Termo
-    (42) Termo -> . Termo * Fator
-    (43) Termo -> . Termo / Fator
-    (44) Termo -> . Fator
-    (45) Fator -> . ( Exp )
-    (46) Fator -> . NUM
-    (47) Fator -> . ID
+    (42) Exp -> Exp - . Termo
+    (44) Termo -> . Termo * Fator
+    (45) Termo -> . Termo / Fator
+    (46) Termo -> . Fator
+    (47) Fator -> . ( Exp )
+    (48) Fator -> . NUM
+    (49) Fator -> . ID
 
-    NOT             shift and go to state 49
-    OR              reduce using rule 31 (Cond3 -> .)
-    )               reduce using rule 31 (Cond3 -> .)
-    AND             reduce using rule 31 (Cond3 -> .)
-    (               shift and go to state 42
-    NUM             shift and go to state 43
-    ID              shift and go to state 38
+    (               shift and go to state 47
+    NUM             shift and go to state 48
+    ID              shift and go to state 43
 
-    Cond                           shift and go to state 85
-    Cond2                          shift and go to state 86
-    Cond3                          shift and go to state 48
-    ExpRelacional                  shift and go to state 50
-    Exp                            shift and go to state 51
-    Termo                          shift and go to state 40
-    Fator                          shift and go to state 41
+    Termo                          shift and go to state 87
+    Fator                          shift and go to state 46
 
 state 67
 
-    (26) Cond2 -> Cond2 AND . Cond3
-    (28) Cond3 -> . NOT Cond
-    (29) Cond3 -> . ExpRelacional
-    (30) Cond3 -> . Cond
-    (31) Cond3 -> .
-    (32) ExpRelacional -> . Exp > Exp
-    (33) ExpRelacional -> . Exp < Exp
-    (34) ExpRelacional -> . Exp > = Exp
-    (35) ExpRelacional -> . Exp < = Exp
-    (36) ExpRelacional -> . Exp ! = Exp
-    (37) ExpRelacional -> . Exp = = Exp
-    (38) ExpRelacional -> . Exp
-    (24) Cond -> . Cond OR Cond2
-    (25) Cond -> . Cond2
-    (39) Exp -> . Exp + Termo
-    (40) Exp -> . Exp - Termo
-    (41) Exp -> . Termo
-    (26) Cond2 -> . Cond2 AND Cond3
-    (27) Cond2 -> . Cond3
-    (42) Termo -> . Termo * Fator
-    (43) Termo -> . Termo / Fator
-    (44) Termo -> . Fator
-    (45) Fator -> . ( Exp )
-    (46) Fator -> . NUM
-    (47) Fator -> . ID
+    (44) Termo -> Termo * . Fator
+    (47) Fator -> . ( Exp )
+    (48) Fator -> . NUM
+    (49) Fator -> . ID
 
-    NOT             shift and go to state 49
-    OR              reduce using rule 31 (Cond3 -> .)
-    )               reduce using rule 31 (Cond3 -> .)
-    AND             reduce using rule 31 (Cond3 -> .)
-    (               shift and go to state 42
-    NUM             shift and go to state 43
-    ID              shift and go to state 38
+    (               shift and go to state 47
+    NUM             shift and go to state 48
+    ID              shift and go to state 43
 
-    Cond2                          shift and go to state 47
-    Cond3                          shift and go to state 87
-    Cond                           shift and go to state 85
-    ExpRelacional                  shift and go to state 50
-    Exp                            shift and go to state 51
-    Termo                          shift and go to state 40
-    Fator                          shift and go to state 41
+    Fator                          shift and go to state 88
 
 state 68
 
-    (28) Cond3 -> NOT Cond .
-    (24) Cond -> Cond . OR Cond2
-    (30) Cond3 -> Cond .
+    (45) Termo -> Termo / . Fator
+    (47) Fator -> . ( Exp )
+    (48) Fator -> . NUM
+    (49) Fator -> . ID
 
-  ! shift/reduce conflict for OR resolved as shift
-  ! shift/reduce conflict for OR resolved as shift
-  ! reduce/reduce conflict for ) resolved using rule 28 (Cond3 -> NOT Cond .)
-  ! reduce/reduce conflict for AND resolved using rule 28 (Cond3 -> NOT Cond .)
-    )               reduce using rule 28 (Cond3 -> NOT Cond .)
-    AND             reduce using rule 28 (Cond3 -> NOT Cond .)
-    OR              shift and go to state 66
+    (               shift and go to state 47
+    NUM             shift and go to state 48
+    ID              shift and go to state 43
 
-  ! OR              [ reduce using rule 28 (Cond3 -> NOT Cond .) ]
-  ! OR              [ reduce using rule 30 (Cond3 -> Cond .) ]
-  ! )               [ reduce using rule 30 (Cond3 -> Cond .) ]
-  ! AND             [ reduce using rule 30 (Cond3 -> Cond .) ]
-
+    Fator                          shift and go to state 89
 
 state 69
 
-    (32) ExpRelacional -> Exp > . Exp
-    (34) ExpRelacional -> Exp > . = Exp
-    (39) Exp -> . Exp + Termo
-    (40) Exp -> . Exp - Termo
-    (41) Exp -> . Termo
-    (42) Termo -> . Termo * Fator
-    (43) Termo -> . Termo / Fator
-    (44) Termo -> . Fator
-    (45) Fator -> . ( Exp )
-    (46) Fator -> . NUM
-    (47) Fator -> . ID
+    (47) Fator -> ( Exp . )
+    (41) Exp -> Exp . + Termo
+    (42) Exp -> Exp . - Termo
 
-    =               shift and go to state 89
-    (               shift and go to state 42
-    NUM             shift and go to state 43
-    ID              shift and go to state 38
+    )               shift and go to state 90
+    +               shift and go to state 65
+    -               shift and go to state 66
 
-    Exp                            shift and go to state 88
-    Termo                          shift and go to state 40
-    Fator                          shift and go to state 41
 
 state 70
 
-    (33) ExpRelacional -> Exp < . Exp
-    (35) ExpRelacional -> Exp < . = Exp
-    (39) Exp -> . Exp + Termo
-    (40) Exp -> . Exp - Termo
-    (41) Exp -> . Termo
-    (42) Termo -> . Termo * Fator
-    (43) Termo -> . Termo / Fator
-    (44) Termo -> . Fator
-    (45) Fator -> . ( Exp )
-    (46) Fator -> . NUM
-    (47) Fator -> . ID
+    (18) Atr -> ID [ ID ] . = Exp
 
     =               shift and go to state 91
-    (               shift and go to state 42
-    NUM             shift and go to state 43
-    ID              shift and go to state 38
 
-    Exp                            shift and go to state 90
-    Termo                          shift and go to state 40
-    Fator                          shift and go to state 41
 
 state 71
 
-    (37) ExpRelacional -> Exp = . = Exp
+    (19) Atr -> ID [ NUM ] . = Exp
 
     =               shift and go to state 92
 
 
 state 72
 
-    (36) ExpRelacional -> Exp ! . = Exp
+    (25) Repeat -> REPEAT { Instructions } . UNTIL ( Cond )
 
-    =               shift and go to state 93
+    UNTIL           shift and go to state 93
 
 
 state 73
 
-    (48) Print -> PRINT ( Exp ) .
+    (24) If -> IF ( Cond ) . { Instructions }
 
-    TERMINATOR      reduce using rule 48 (Print -> PRINT ( Exp ) .)
+    {               shift and go to state 94
 
 
 state 74
 
-    (49) Print -> PRINT ( Def ) .
+    (26) Cond -> Cond OR . Cond2
+    (28) Cond2 -> . Cond2 AND Cond3
+    (29) Cond2 -> . Cond3
+    (30) Cond3 -> . NOT Cond
+    (31) Cond3 -> . ExpRelacional
+    (32) Cond3 -> . Cond
+    (33) Cond3 -> .
+    (34) ExpRelacional -> . Exp > Exp
+    (35) ExpRelacional -> . Exp < Exp
+    (36) ExpRelacional -> . Exp > = Exp
+    (37) ExpRelacional -> . Exp < = Exp
+    (38) ExpRelacional -> . Exp ! = Exp
+    (39) ExpRelacional -> . Exp = = Exp
+    (40) ExpRelacional -> . Exp
+    (26) Cond -> . Cond OR Cond2
+    (27) Cond -> . Cond2
+    (41) Exp -> . Exp + Termo
+    (42) Exp -> . Exp - Termo
+    (43) Exp -> . Termo
+    (44) Termo -> . Termo * Fator
+    (45) Termo -> . Termo / Fator
+    (46) Termo -> . Fator
+    (47) Fator -> . ( Exp )
+    (48) Fator -> . NUM
+    (49) Fator -> . ID
 
-    TERMINATOR      reduce using rule 49 (Print -> PRINT ( Def ) .)
+    NOT             shift and go to state 55
+    OR              reduce using rule 33 (Cond3 -> .)
+    )               reduce using rule 33 (Cond3 -> .)
+    AND             reduce using rule 33 (Cond3 -> .)
+    (               shift and go to state 47
+    NUM             shift and go to state 48
+    ID              shift and go to state 43
 
+    Cond                           shift and go to state 95
+    Cond2                          shift and go to state 96
+    Cond3                          shift and go to state 54
+    ExpRelacional                  shift and go to state 56
+    Exp                            shift and go to state 57
+    Termo                          shift and go to state 45
+    Fator                          shift and go to state 46
 
 state 75
 
-    (50) Read -> READ ( Ids ) .
+    (28) Cond2 -> Cond2 AND . Cond3
+    (30) Cond3 -> . NOT Cond
+    (31) Cond3 -> . ExpRelacional
+    (32) Cond3 -> . Cond
+    (33) Cond3 -> .
+    (34) ExpRelacional -> . Exp > Exp
+    (35) ExpRelacional -> . Exp < Exp
+    (36) ExpRelacional -> . Exp > = Exp
+    (37) ExpRelacional -> . Exp < = Exp
+    (38) ExpRelacional -> . Exp ! = Exp
+    (39) ExpRelacional -> . Exp = = Exp
+    (40) ExpRelacional -> . Exp
+    (26) Cond -> . Cond OR Cond2
+    (27) Cond -> . Cond2
+    (41) Exp -> . Exp + Termo
+    (42) Exp -> . Exp - Termo
+    (43) Exp -> . Termo
+    (28) Cond2 -> . Cond2 AND Cond3
+    (29) Cond2 -> . Cond3
+    (44) Termo -> . Termo * Fator
+    (45) Termo -> . Termo / Fator
+    (46) Termo -> . Fator
+    (47) Fator -> . ( Exp )
+    (48) Fator -> . NUM
+    (49) Fator -> . ID
 
-    TERMINATOR      reduce using rule 50 (Read -> READ ( Ids ) .)
+    NOT             shift and go to state 55
+    OR              reduce using rule 33 (Cond3 -> .)
+    )               reduce using rule 33 (Cond3 -> .)
+    AND             reduce using rule 33 (Cond3 -> .)
+    (               shift and go to state 47
+    NUM             shift and go to state 48
+    ID              shift and go to state 43
 
+    Cond2                          shift and go to state 53
+    Cond3                          shift and go to state 97
+    Cond                           shift and go to state 95
+    ExpRelacional                  shift and go to state 56
+    Exp                            shift and go to state 57
+    Termo                          shift and go to state 45
+    Fator                          shift and go to state 46
 
 state 76
+
+    (30) Cond3 -> NOT Cond .
+    (26) Cond -> Cond . OR Cond2
+    (32) Cond3 -> Cond .
+
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! reduce/reduce conflict for ) resolved using rule 30 (Cond3 -> NOT Cond .)
+  ! reduce/reduce conflict for AND resolved using rule 30 (Cond3 -> NOT Cond .)
+    )               reduce using rule 30 (Cond3 -> NOT Cond .)
+    AND             reduce using rule 30 (Cond3 -> NOT Cond .)
+    OR              shift and go to state 74
+
+  ! OR              [ reduce using rule 30 (Cond3 -> NOT Cond .) ]
+  ! OR              [ reduce using rule 32 (Cond3 -> Cond .) ]
+  ! )               [ reduce using rule 32 (Cond3 -> Cond .) ]
+  ! AND             [ reduce using rule 32 (Cond3 -> Cond .) ]
+
+
+state 77
+
+    (34) ExpRelacional -> Exp > . Exp
+    (36) ExpRelacional -> Exp > . = Exp
+    (41) Exp -> . Exp + Termo
+    (42) Exp -> . Exp - Termo
+    (43) Exp -> . Termo
+    (44) Termo -> . Termo * Fator
+    (45) Termo -> . Termo / Fator
+    (46) Termo -> . Fator
+    (47) Fator -> . ( Exp )
+    (48) Fator -> . NUM
+    (49) Fator -> . ID
+
+    =               shift and go to state 99
+    (               shift and go to state 47
+    NUM             shift and go to state 48
+    ID              shift and go to state 43
+
+    Exp                            shift and go to state 98
+    Termo                          shift and go to state 45
+    Fator                          shift and go to state 46
+
+state 78
+
+    (35) ExpRelacional -> Exp < . Exp
+    (37) ExpRelacional -> Exp < . = Exp
+    (41) Exp -> . Exp + Termo
+    (42) Exp -> . Exp - Termo
+    (43) Exp -> . Termo
+    (44) Termo -> . Termo * Fator
+    (45) Termo -> . Termo / Fator
+    (46) Termo -> . Fator
+    (47) Fator -> . ( Exp )
+    (48) Fator -> . NUM
+    (49) Fator -> . ID
+
+    =               shift and go to state 101
+    (               shift and go to state 47
+    NUM             shift and go to state 48
+    ID              shift and go to state 43
+
+    Exp                            shift and go to state 100
+    Termo                          shift and go to state 45
+    Fator                          shift and go to state 46
+
+state 79
+
+    (39) ExpRelacional -> Exp = . = Exp
+
+    =               shift and go to state 102
+
+
+state 80
+
+    (38) ExpRelacional -> Exp ! . = Exp
+
+    =               shift and go to state 103
+
+
+state 81
+
+    (50) Print -> PRINT ( Exp ) .
+
+    TERMINATOR      reduce using rule 50 (Print -> PRINT ( Exp ) .)
+
+
+state 82
+
+    (51) Print -> PRINT ( Def ) .
+
+    TERMINATOR      reduce using rule 51 (Print -> PRINT ( Def ) .)
+
+
+state 83
+
+    (52) Read -> READ ( Ids ) .
+
+    TERMINATOR      reduce using rule 52 (Read -> READ ( Ids ) .)
+
+
+state 84
 
     (9) Ids -> ID [ NUM ] .
 
@@ -1158,451 +1283,562 @@ state 76
     )               reduce using rule 9 (Ids -> ID [ NUM ] .)
 
 
-state 77
+state 85
 
-    (39) Exp -> Exp + Termo .
-    (42) Termo -> Termo . * Fator
-    (43) Termo -> Termo . / Fator
+    (15) Instruction -> INT ID [ ID ] . TERMINATOR
 
-    +               reduce using rule 39 (Exp -> Exp + Termo .)
-    -               reduce using rule 39 (Exp -> Exp + Termo .)
-    TERMINATOR      reduce using rule 39 (Exp -> Exp + Termo .)
-    >               reduce using rule 39 (Exp -> Exp + Termo .)
-    <               reduce using rule 39 (Exp -> Exp + Termo .)
-    !               reduce using rule 39 (Exp -> Exp + Termo .)
-    =               reduce using rule 39 (Exp -> Exp + Termo .)
-    )               reduce using rule 39 (Exp -> Exp + Termo .)
-    OR              reduce using rule 39 (Exp -> Exp + Termo .)
-    AND             reduce using rule 39 (Exp -> Exp + Termo .)
-    *               shift and go to state 60
-    /               shift and go to state 61
+    TERMINATOR      shift and go to state 104
 
 
-state 78
+state 86
 
-    (40) Exp -> Exp - Termo .
-    (42) Termo -> Termo . * Fator
-    (43) Termo -> Termo . / Fator
+    (41) Exp -> Exp + Termo .
+    (44) Termo -> Termo . * Fator
+    (45) Termo -> Termo . / Fator
 
-    +               reduce using rule 40 (Exp -> Exp - Termo .)
-    -               reduce using rule 40 (Exp -> Exp - Termo .)
-    TERMINATOR      reduce using rule 40 (Exp -> Exp - Termo .)
-    >               reduce using rule 40 (Exp -> Exp - Termo .)
-    <               reduce using rule 40 (Exp -> Exp - Termo .)
-    !               reduce using rule 40 (Exp -> Exp - Termo .)
-    =               reduce using rule 40 (Exp -> Exp - Termo .)
-    )               reduce using rule 40 (Exp -> Exp - Termo .)
-    OR              reduce using rule 40 (Exp -> Exp - Termo .)
-    AND             reduce using rule 40 (Exp -> Exp - Termo .)
-    *               shift and go to state 60
-    /               shift and go to state 61
-
-
-state 79
-
-    (42) Termo -> Termo * Fator .
-
-    *               reduce using rule 42 (Termo -> Termo * Fator .)
-    /               reduce using rule 42 (Termo -> Termo * Fator .)
-    +               reduce using rule 42 (Termo -> Termo * Fator .)
-    -               reduce using rule 42 (Termo -> Termo * Fator .)
-    TERMINATOR      reduce using rule 42 (Termo -> Termo * Fator .)
-    >               reduce using rule 42 (Termo -> Termo * Fator .)
-    <               reduce using rule 42 (Termo -> Termo * Fator .)
-    !               reduce using rule 42 (Termo -> Termo * Fator .)
-    =               reduce using rule 42 (Termo -> Termo * Fator .)
-    )               reduce using rule 42 (Termo -> Termo * Fator .)
-    OR              reduce using rule 42 (Termo -> Termo * Fator .)
-    AND             reduce using rule 42 (Termo -> Termo * Fator .)
+    +               reduce using rule 41 (Exp -> Exp + Termo .)
+    -               reduce using rule 41 (Exp -> Exp + Termo .)
+    TERMINATOR      reduce using rule 41 (Exp -> Exp + Termo .)
+    >               reduce using rule 41 (Exp -> Exp + Termo .)
+    <               reduce using rule 41 (Exp -> Exp + Termo .)
+    !               reduce using rule 41 (Exp -> Exp + Termo .)
+    =               reduce using rule 41 (Exp -> Exp + Termo .)
+    )               reduce using rule 41 (Exp -> Exp + Termo .)
+    OR              reduce using rule 41 (Exp -> Exp + Termo .)
+    AND             reduce using rule 41 (Exp -> Exp + Termo .)
+    *               shift and go to state 67
+    /               shift and go to state 68
 
 
-state 80
+state 87
 
-    (43) Termo -> Termo / Fator .
+    (42) Exp -> Exp - Termo .
+    (44) Termo -> Termo . * Fator
+    (45) Termo -> Termo . / Fator
 
-    *               reduce using rule 43 (Termo -> Termo / Fator .)
-    /               reduce using rule 43 (Termo -> Termo / Fator .)
-    +               reduce using rule 43 (Termo -> Termo / Fator .)
-    -               reduce using rule 43 (Termo -> Termo / Fator .)
-    TERMINATOR      reduce using rule 43 (Termo -> Termo / Fator .)
-    >               reduce using rule 43 (Termo -> Termo / Fator .)
-    <               reduce using rule 43 (Termo -> Termo / Fator .)
-    !               reduce using rule 43 (Termo -> Termo / Fator .)
-    =               reduce using rule 43 (Termo -> Termo / Fator .)
-    )               reduce using rule 43 (Termo -> Termo / Fator .)
-    OR              reduce using rule 43 (Termo -> Termo / Fator .)
-    AND             reduce using rule 43 (Termo -> Termo / Fator .)
-
-
-state 81
-
-    (45) Fator -> ( Exp ) .
-
-    *               reduce using rule 45 (Fator -> ( Exp ) .)
-    /               reduce using rule 45 (Fator -> ( Exp ) .)
-    +               reduce using rule 45 (Fator -> ( Exp ) .)
-    -               reduce using rule 45 (Fator -> ( Exp ) .)
-    TERMINATOR      reduce using rule 45 (Fator -> ( Exp ) .)
-    >               reduce using rule 45 (Fator -> ( Exp ) .)
-    <               reduce using rule 45 (Fator -> ( Exp ) .)
-    !               reduce using rule 45 (Fator -> ( Exp ) .)
-    =               reduce using rule 45 (Fator -> ( Exp ) .)
-    )               reduce using rule 45 (Fator -> ( Exp ) .)
-    OR              reduce using rule 45 (Fator -> ( Exp ) .)
-    AND             reduce using rule 45 (Fator -> ( Exp ) .)
+    +               reduce using rule 42 (Exp -> Exp - Termo .)
+    -               reduce using rule 42 (Exp -> Exp - Termo .)
+    TERMINATOR      reduce using rule 42 (Exp -> Exp - Termo .)
+    >               reduce using rule 42 (Exp -> Exp - Termo .)
+    <               reduce using rule 42 (Exp -> Exp - Termo .)
+    !               reduce using rule 42 (Exp -> Exp - Termo .)
+    =               reduce using rule 42 (Exp -> Exp - Termo .)
+    )               reduce using rule 42 (Exp -> Exp - Termo .)
+    OR              reduce using rule 42 (Exp -> Exp - Termo .)
+    AND             reduce using rule 42 (Exp -> Exp - Termo .)
+    *               shift and go to state 67
+    /               shift and go to state 68
 
 
-state 82
+state 88
 
-    (16) Atr -> ID [ ID ] = . Exp
-    (39) Exp -> . Exp + Termo
-    (40) Exp -> . Exp - Termo
-    (41) Exp -> . Termo
-    (42) Termo -> . Termo * Fator
-    (43) Termo -> . Termo / Fator
-    (44) Termo -> . Fator
-    (45) Fator -> . ( Exp )
-    (46) Fator -> . NUM
-    (47) Fator -> . ID
+    (44) Termo -> Termo * Fator .
 
-    (               shift and go to state 42
-    NUM             shift and go to state 43
-    ID              shift and go to state 38
+    *               reduce using rule 44 (Termo -> Termo * Fator .)
+    /               reduce using rule 44 (Termo -> Termo * Fator .)
+    +               reduce using rule 44 (Termo -> Termo * Fator .)
+    -               reduce using rule 44 (Termo -> Termo * Fator .)
+    TERMINATOR      reduce using rule 44 (Termo -> Termo * Fator .)
+    >               reduce using rule 44 (Termo -> Termo * Fator .)
+    <               reduce using rule 44 (Termo -> Termo * Fator .)
+    !               reduce using rule 44 (Termo -> Termo * Fator .)
+    =               reduce using rule 44 (Termo -> Termo * Fator .)
+    )               reduce using rule 44 (Termo -> Termo * Fator .)
+    OR              reduce using rule 44 (Termo -> Termo * Fator .)
+    AND             reduce using rule 44 (Termo -> Termo * Fator .)
 
-    Exp                            shift and go to state 94
-    Termo                          shift and go to state 40
-    Fator                          shift and go to state 41
 
-state 83
+state 89
 
-    (17) Atr -> ID [ NUM ] = . Exp
-    (39) Exp -> . Exp + Termo
-    (40) Exp -> . Exp - Termo
-    (41) Exp -> . Termo
-    (42) Termo -> . Termo * Fator
-    (43) Termo -> . Termo / Fator
-    (44) Termo -> . Fator
-    (45) Fator -> . ( Exp )
-    (46) Fator -> . NUM
-    (47) Fator -> . ID
+    (45) Termo -> Termo / Fator .
 
-    (               shift and go to state 42
-    NUM             shift and go to state 43
-    ID              shift and go to state 38
+    *               reduce using rule 45 (Termo -> Termo / Fator .)
+    /               reduce using rule 45 (Termo -> Termo / Fator .)
+    +               reduce using rule 45 (Termo -> Termo / Fator .)
+    -               reduce using rule 45 (Termo -> Termo / Fator .)
+    TERMINATOR      reduce using rule 45 (Termo -> Termo / Fator .)
+    >               reduce using rule 45 (Termo -> Termo / Fator .)
+    <               reduce using rule 45 (Termo -> Termo / Fator .)
+    !               reduce using rule 45 (Termo -> Termo / Fator .)
+    =               reduce using rule 45 (Termo -> Termo / Fator .)
+    )               reduce using rule 45 (Termo -> Termo / Fator .)
+    OR              reduce using rule 45 (Termo -> Termo / Fator .)
+    AND             reduce using rule 45 (Termo -> Termo / Fator .)
 
-    Exp                            shift and go to state 95
-    Termo                          shift and go to state 40
-    Fator                          shift and go to state 41
 
-state 84
+state 90
 
-    (22) If -> IF ( Cond ) { . Instructions }
+    (47) Fator -> ( Exp ) .
+
+    *               reduce using rule 47 (Fator -> ( Exp ) .)
+    /               reduce using rule 47 (Fator -> ( Exp ) .)
+    +               reduce using rule 47 (Fator -> ( Exp ) .)
+    -               reduce using rule 47 (Fator -> ( Exp ) .)
+    TERMINATOR      reduce using rule 47 (Fator -> ( Exp ) .)
+    >               reduce using rule 47 (Fator -> ( Exp ) .)
+    <               reduce using rule 47 (Fator -> ( Exp ) .)
+    !               reduce using rule 47 (Fator -> ( Exp ) .)
+    =               reduce using rule 47 (Fator -> ( Exp ) .)
+    )               reduce using rule 47 (Fator -> ( Exp ) .)
+    OR              reduce using rule 47 (Fator -> ( Exp ) .)
+    AND             reduce using rule 47 (Fator -> ( Exp ) .)
+
+
+state 91
+
+    (18) Atr -> ID [ ID ] = . Exp
+    (41) Exp -> . Exp + Termo
+    (42) Exp -> . Exp - Termo
+    (43) Exp -> . Termo
+    (44) Termo -> . Termo * Fator
+    (45) Termo -> . Termo / Fator
+    (46) Termo -> . Fator
+    (47) Fator -> . ( Exp )
+    (48) Fator -> . NUM
+    (49) Fator -> . ID
+
+    (               shift and go to state 47
+    NUM             shift and go to state 48
+    ID              shift and go to state 43
+
+    Exp                            shift and go to state 105
+    Termo                          shift and go to state 45
+    Fator                          shift and go to state 46
+
+state 92
+
+    (19) Atr -> ID [ NUM ] = . Exp
+    (41) Exp -> . Exp + Termo
+    (42) Exp -> . Exp - Termo
+    (43) Exp -> . Termo
+    (44) Termo -> . Termo * Fator
+    (45) Termo -> . Termo / Fator
+    (46) Termo -> . Fator
+    (47) Fator -> . ( Exp )
+    (48) Fator -> . NUM
+    (49) Fator -> . ID
+
+    (               shift and go to state 47
+    NUM             shift and go to state 48
+    ID              shift and go to state 43
+
+    Exp                            shift and go to state 106
+    Termo                          shift and go to state 45
+    Fator                          shift and go to state 46
+
+state 93
+
+    (25) Repeat -> REPEAT { Instructions } UNTIL . ( Cond )
+
+    (               shift and go to state 107
+
+
+state 94
+
+    (24) If -> IF ( Cond ) { . Instructions }
     (12) Instructions -> . Instructions Instruction
     (13) Instructions -> .
 
     }               reduce using rule 13 (Instructions -> .)
+    INT             reduce using rule 13 (Instructions -> .)
     ID              reduce using rule 13 (Instructions -> .)
     REPEAT          reduce using rule 13 (Instructions -> .)
     IF              reduce using rule 13 (Instructions -> .)
     PRINT           reduce using rule 13 (Instructions -> .)
     READ            reduce using rule 13 (Instructions -> .)
 
-    Instructions                   shift and go to state 96
-
-state 85
-
-    (30) Cond3 -> Cond .
-    (24) Cond -> Cond . OR Cond2
-
-  ! shift/reduce conflict for OR resolved as shift
-    )               reduce using rule 30 (Cond3 -> Cond .)
-    AND             reduce using rule 30 (Cond3 -> Cond .)
-    OR              shift and go to state 66
-
-  ! OR              [ reduce using rule 30 (Cond3 -> Cond .) ]
-
-
-state 86
-
-    (24) Cond -> Cond OR Cond2 .
-    (26) Cond2 -> Cond2 . AND Cond3
-    (25) Cond -> Cond2 .
-
-  ! shift/reduce conflict for AND resolved as shift
-  ! reduce/reduce conflict for OR resolved using rule 24 (Cond -> Cond OR Cond2 .)
-  ! reduce/reduce conflict for ) resolved using rule 24 (Cond -> Cond OR Cond2 .)
-  ! shift/reduce conflict for AND resolved as shift
-    )               reduce using rule 24 (Cond -> Cond OR Cond2 .)
-    OR              reduce using rule 24 (Cond -> Cond OR Cond2 .)
-    AND             shift and go to state 67
-
-  ! AND             [ reduce using rule 24 (Cond -> Cond OR Cond2 .) ]
-  ! OR              [ reduce using rule 25 (Cond -> Cond2 .) ]
-  ! )               [ reduce using rule 25 (Cond -> Cond2 .) ]
-  ! AND             [ reduce using rule 25 (Cond -> Cond2 .) ]
-
-
-state 87
-
-    (26) Cond2 -> Cond2 AND Cond3 .
-    (27) Cond2 -> Cond3 .
-
-  ! reduce/reduce conflict for OR resolved using rule 26 (Cond2 -> Cond2 AND Cond3 .)
-  ! reduce/reduce conflict for ) resolved using rule 26 (Cond2 -> Cond2 AND Cond3 .)
-  ! reduce/reduce conflict for AND resolved using rule 26 (Cond2 -> Cond2 AND Cond3 .)
-    )               reduce using rule 26 (Cond2 -> Cond2 AND Cond3 .)
-    OR              reduce using rule 26 (Cond2 -> Cond2 AND Cond3 .)
-    AND             reduce using rule 26 (Cond2 -> Cond2 AND Cond3 .)
-
-  ! OR              [ reduce using rule 27 (Cond2 -> Cond3 .) ]
-  ! )               [ reduce using rule 27 (Cond2 -> Cond3 .) ]
-  ! AND             [ reduce using rule 27 (Cond2 -> Cond3 .) ]
-
-
-state 88
-
-    (32) ExpRelacional -> Exp > Exp .
-    (39) Exp -> Exp . + Termo
-    (40) Exp -> Exp . - Termo
-
-    )               reduce using rule 32 (ExpRelacional -> Exp > Exp .)
-    OR              reduce using rule 32 (ExpRelacional -> Exp > Exp .)
-    AND             reduce using rule 32 (ExpRelacional -> Exp > Exp .)
-    +               shift and go to state 58
-    -               shift and go to state 59
-
-
-state 89
-
-    (34) ExpRelacional -> Exp > = . Exp
-    (39) Exp -> . Exp + Termo
-    (40) Exp -> . Exp - Termo
-    (41) Exp -> . Termo
-    (42) Termo -> . Termo * Fator
-    (43) Termo -> . Termo / Fator
-    (44) Termo -> . Fator
-    (45) Fator -> . ( Exp )
-    (46) Fator -> . NUM
-    (47) Fator -> . ID
-
-    (               shift and go to state 42
-    NUM             shift and go to state 43
-    ID              shift and go to state 38
-
-    Exp                            shift and go to state 97
-    Termo                          shift and go to state 40
-    Fator                          shift and go to state 41
-
-state 90
-
-    (33) ExpRelacional -> Exp < Exp .
-    (39) Exp -> Exp . + Termo
-    (40) Exp -> Exp . - Termo
-
-    )               reduce using rule 33 (ExpRelacional -> Exp < Exp .)
-    OR              reduce using rule 33 (ExpRelacional -> Exp < Exp .)
-    AND             reduce using rule 33 (ExpRelacional -> Exp < Exp .)
-    +               shift and go to state 58
-    -               shift and go to state 59
-
-
-state 91
-
-    (35) ExpRelacional -> Exp < = . Exp
-    (39) Exp -> . Exp + Termo
-    (40) Exp -> . Exp - Termo
-    (41) Exp -> . Termo
-    (42) Termo -> . Termo * Fator
-    (43) Termo -> . Termo / Fator
-    (44) Termo -> . Fator
-    (45) Fator -> . ( Exp )
-    (46) Fator -> . NUM
-    (47) Fator -> . ID
-
-    (               shift and go to state 42
-    NUM             shift and go to state 43
-    ID              shift and go to state 38
-
-    Exp                            shift and go to state 98
-    Termo                          shift and go to state 40
-    Fator                          shift and go to state 41
-
-state 92
-
-    (37) ExpRelacional -> Exp = = . Exp
-    (39) Exp -> . Exp + Termo
-    (40) Exp -> . Exp - Termo
-    (41) Exp -> . Termo
-    (42) Termo -> . Termo * Fator
-    (43) Termo -> . Termo / Fator
-    (44) Termo -> . Fator
-    (45) Fator -> . ( Exp )
-    (46) Fator -> . NUM
-    (47) Fator -> . ID
-
-    (               shift and go to state 42
-    NUM             shift and go to state 43
-    ID              shift and go to state 38
-
-    Exp                            shift and go to state 99
-    Termo                          shift and go to state 40
-    Fator                          shift and go to state 41
-
-state 93
-
-    (36) ExpRelacional -> Exp ! = . Exp
-    (39) Exp -> . Exp + Termo
-    (40) Exp -> . Exp - Termo
-    (41) Exp -> . Termo
-    (42) Termo -> . Termo * Fator
-    (43) Termo -> . Termo / Fator
-    (44) Termo -> . Fator
-    (45) Fator -> . ( Exp )
-    (46) Fator -> . NUM
-    (47) Fator -> . ID
-
-    (               shift and go to state 42
-    NUM             shift and go to state 43
-    ID              shift and go to state 38
-
-    Exp                            shift and go to state 100
-    Termo                          shift and go to state 40
-    Fator                          shift and go to state 41
-
-state 94
-
-    (16) Atr -> ID [ ID ] = Exp .
-    (39) Exp -> Exp . + Termo
-    (40) Exp -> Exp . - Termo
-
-    TERMINATOR      reduce using rule 16 (Atr -> ID [ ID ] = Exp .)
-    +               shift and go to state 58
-    -               shift and go to state 59
-
+    Instructions                   shift and go to state 108
 
 state 95
 
-    (17) Atr -> ID [ NUM ] = Exp .
-    (39) Exp -> Exp . + Termo
-    (40) Exp -> Exp . - Termo
+    (32) Cond3 -> Cond .
+    (26) Cond -> Cond . OR Cond2
 
-    TERMINATOR      reduce using rule 17 (Atr -> ID [ NUM ] = Exp .)
-    +               shift and go to state 58
-    -               shift and go to state 59
+  ! shift/reduce conflict for OR resolved as shift
+    )               reduce using rule 32 (Cond3 -> Cond .)
+    AND             reduce using rule 32 (Cond3 -> Cond .)
+    OR              shift and go to state 74
+
+  ! OR              [ reduce using rule 32 (Cond3 -> Cond .) ]
 
 
 state 96
 
-    (22) If -> IF ( Cond ) { Instructions . }
-    (12) Instructions -> Instructions . Instruction
-    (14) Instruction -> . Atr TERMINATOR
-    (18) Instruction -> . Repeat
-    (19) Instruction -> . If
-    (20) Instruction -> . Print TERMINATOR
-    (21) Instruction -> . Read TERMINATOR
-    (15) Atr -> . ID = Exp
-    (16) Atr -> . ID [ ID ] = Exp
-    (17) Atr -> . ID [ NUM ] = Exp
-    (23) Repeat -> . REPEAT
-    (22) If -> . IF ( Cond ) { Instructions }
-    (48) Print -> . PRINT ( Exp )
-    (49) Print -> . PRINT ( Def )
-    (50) Read -> . READ ( Ids )
+    (26) Cond -> Cond OR Cond2 .
+    (28) Cond2 -> Cond2 . AND Cond3
+    (27) Cond -> Cond2 .
 
-    }               shift and go to state 101
-    ID              shift and go to state 18
-    REPEAT          shift and go to state 19
-    IF              shift and go to state 20
-    PRINT           shift and go to state 21
-    READ            shift and go to state 22
+  ! shift/reduce conflict for AND resolved as shift
+  ! reduce/reduce conflict for OR resolved using rule 26 (Cond -> Cond OR Cond2 .)
+  ! reduce/reduce conflict for ) resolved using rule 26 (Cond -> Cond OR Cond2 .)
+  ! shift/reduce conflict for AND resolved as shift
+    )               reduce using rule 26 (Cond -> Cond OR Cond2 .)
+    OR              reduce using rule 26 (Cond -> Cond OR Cond2 .)
+    AND             shift and go to state 75
 
-    Instruction                    shift and go to state 12
-    Atr                            shift and go to state 13
-    Repeat                         shift and go to state 14
-    If                             shift and go to state 15
-    Print                          shift and go to state 16
-    Read                           shift and go to state 17
+  ! AND             [ reduce using rule 26 (Cond -> Cond OR Cond2 .) ]
+  ! OR              [ reduce using rule 27 (Cond -> Cond2 .) ]
+  ! )               [ reduce using rule 27 (Cond -> Cond2 .) ]
+  ! AND             [ reduce using rule 27 (Cond -> Cond2 .) ]
+
 
 state 97
 
-    (34) ExpRelacional -> Exp > = Exp .
-    (39) Exp -> Exp . + Termo
-    (40) Exp -> Exp . - Termo
+    (28) Cond2 -> Cond2 AND Cond3 .
+    (29) Cond2 -> Cond3 .
 
-    )               reduce using rule 34 (ExpRelacional -> Exp > = Exp .)
-    OR              reduce using rule 34 (ExpRelacional -> Exp > = Exp .)
-    AND             reduce using rule 34 (ExpRelacional -> Exp > = Exp .)
-    +               shift and go to state 58
-    -               shift and go to state 59
+  ! reduce/reduce conflict for OR resolved using rule 28 (Cond2 -> Cond2 AND Cond3 .)
+  ! reduce/reduce conflict for ) resolved using rule 28 (Cond2 -> Cond2 AND Cond3 .)
+  ! reduce/reduce conflict for AND resolved using rule 28 (Cond2 -> Cond2 AND Cond3 .)
+    )               reduce using rule 28 (Cond2 -> Cond2 AND Cond3 .)
+    OR              reduce using rule 28 (Cond2 -> Cond2 AND Cond3 .)
+    AND             reduce using rule 28 (Cond2 -> Cond2 AND Cond3 .)
+
+  ! OR              [ reduce using rule 29 (Cond2 -> Cond3 .) ]
+  ! )               [ reduce using rule 29 (Cond2 -> Cond3 .) ]
+  ! AND             [ reduce using rule 29 (Cond2 -> Cond3 .) ]
 
 
 state 98
 
-    (35) ExpRelacional -> Exp < = Exp .
-    (39) Exp -> Exp . + Termo
-    (40) Exp -> Exp . - Termo
+    (34) ExpRelacional -> Exp > Exp .
+    (41) Exp -> Exp . + Termo
+    (42) Exp -> Exp . - Termo
 
-    )               reduce using rule 35 (ExpRelacional -> Exp < = Exp .)
-    OR              reduce using rule 35 (ExpRelacional -> Exp < = Exp .)
-    AND             reduce using rule 35 (ExpRelacional -> Exp < = Exp .)
-    +               shift and go to state 58
-    -               shift and go to state 59
+    )               reduce using rule 34 (ExpRelacional -> Exp > Exp .)
+    OR              reduce using rule 34 (ExpRelacional -> Exp > Exp .)
+    AND             reduce using rule 34 (ExpRelacional -> Exp > Exp .)
+    +               shift and go to state 65
+    -               shift and go to state 66
 
 
 state 99
 
-    (37) ExpRelacional -> Exp = = Exp .
-    (39) Exp -> Exp . + Termo
-    (40) Exp -> Exp . - Termo
+    (36) ExpRelacional -> Exp > = . Exp
+    (41) Exp -> . Exp + Termo
+    (42) Exp -> . Exp - Termo
+    (43) Exp -> . Termo
+    (44) Termo -> . Termo * Fator
+    (45) Termo -> . Termo / Fator
+    (46) Termo -> . Fator
+    (47) Fator -> . ( Exp )
+    (48) Fator -> . NUM
+    (49) Fator -> . ID
 
-    )               reduce using rule 37 (ExpRelacional -> Exp = = Exp .)
-    OR              reduce using rule 37 (ExpRelacional -> Exp = = Exp .)
-    AND             reduce using rule 37 (ExpRelacional -> Exp = = Exp .)
-    +               shift and go to state 58
-    -               shift and go to state 59
+    (               shift and go to state 47
+    NUM             shift and go to state 48
+    ID              shift and go to state 43
 
+    Exp                            shift and go to state 109
+    Termo                          shift and go to state 45
+    Fator                          shift and go to state 46
 
 state 100
 
-    (36) ExpRelacional -> Exp ! = Exp .
-    (39) Exp -> Exp . + Termo
-    (40) Exp -> Exp . - Termo
+    (35) ExpRelacional -> Exp < Exp .
+    (41) Exp -> Exp . + Termo
+    (42) Exp -> Exp . - Termo
 
-    )               reduce using rule 36 (ExpRelacional -> Exp ! = Exp .)
-    OR              reduce using rule 36 (ExpRelacional -> Exp ! = Exp .)
-    AND             reduce using rule 36 (ExpRelacional -> Exp ! = Exp .)
-    +               shift and go to state 58
-    -               shift and go to state 59
+    )               reduce using rule 35 (ExpRelacional -> Exp < Exp .)
+    OR              reduce using rule 35 (ExpRelacional -> Exp < Exp .)
+    AND             reduce using rule 35 (ExpRelacional -> Exp < Exp .)
+    +               shift and go to state 65
+    -               shift and go to state 66
 
 
 state 101
 
-    (22) If -> IF ( Cond ) { Instructions } .
+    (37) ExpRelacional -> Exp < = . Exp
+    (41) Exp -> . Exp + Termo
+    (42) Exp -> . Exp - Termo
+    (43) Exp -> . Termo
+    (44) Termo -> . Termo * Fator
+    (45) Termo -> . Termo / Fator
+    (46) Termo -> . Fator
+    (47) Fator -> . ( Exp )
+    (48) Fator -> . NUM
+    (49) Fator -> . ID
 
-    ENDBODY         reduce using rule 22 (If -> IF ( Cond ) { Instructions } .)
-    ID              reduce using rule 22 (If -> IF ( Cond ) { Instructions } .)
-    REPEAT          reduce using rule 22 (If -> IF ( Cond ) { Instructions } .)
-    IF              reduce using rule 22 (If -> IF ( Cond ) { Instructions } .)
-    PRINT           reduce using rule 22 (If -> IF ( Cond ) { Instructions } .)
-    READ            reduce using rule 22 (If -> IF ( Cond ) { Instructions } .)
-    }               reduce using rule 22 (If -> IF ( Cond ) { Instructions } .)
+    (               shift and go to state 47
+    NUM             shift and go to state 48
+    ID              shift and go to state 43
+
+    Exp                            shift and go to state 110
+    Termo                          shift and go to state 45
+    Fator                          shift and go to state 46
+
+state 102
+
+    (39) ExpRelacional -> Exp = = . Exp
+    (41) Exp -> . Exp + Termo
+    (42) Exp -> . Exp - Termo
+    (43) Exp -> . Termo
+    (44) Termo -> . Termo * Fator
+    (45) Termo -> . Termo / Fator
+    (46) Termo -> . Fator
+    (47) Fator -> . ( Exp )
+    (48) Fator -> . NUM
+    (49) Fator -> . ID
+
+    (               shift and go to state 47
+    NUM             shift and go to state 48
+    ID              shift and go to state 43
+
+    Exp                            shift and go to state 111
+    Termo                          shift and go to state 45
+    Fator                          shift and go to state 46
+
+state 103
+
+    (38) ExpRelacional -> Exp ! = . Exp
+    (41) Exp -> . Exp + Termo
+    (42) Exp -> . Exp - Termo
+    (43) Exp -> . Termo
+    (44) Termo -> . Termo * Fator
+    (45) Termo -> . Termo / Fator
+    (46) Termo -> . Fator
+    (47) Fator -> . ( Exp )
+    (48) Fator -> . NUM
+    (49) Fator -> . ID
+
+    (               shift and go to state 47
+    NUM             shift and go to state 48
+    ID              shift and go to state 43
+
+    Exp                            shift and go to state 112
+    Termo                          shift and go to state 45
+    Fator                          shift and go to state 46
+
+state 104
+
+    (15) Instruction -> INT ID [ ID ] TERMINATOR .
+
+    ENDBODY         reduce using rule 15 (Instruction -> INT ID [ ID ] TERMINATOR .)
+    INT             reduce using rule 15 (Instruction -> INT ID [ ID ] TERMINATOR .)
+    ID              reduce using rule 15 (Instruction -> INT ID [ ID ] TERMINATOR .)
+    REPEAT          reduce using rule 15 (Instruction -> INT ID [ ID ] TERMINATOR .)
+    IF              reduce using rule 15 (Instruction -> INT ID [ ID ] TERMINATOR .)
+    PRINT           reduce using rule 15 (Instruction -> INT ID [ ID ] TERMINATOR .)
+    READ            reduce using rule 15 (Instruction -> INT ID [ ID ] TERMINATOR .)
+    }               reduce using rule 15 (Instruction -> INT ID [ ID ] TERMINATOR .)
+
+
+state 105
+
+    (18) Atr -> ID [ ID ] = Exp .
+    (41) Exp -> Exp . + Termo
+    (42) Exp -> Exp . - Termo
+
+    TERMINATOR      reduce using rule 18 (Atr -> ID [ ID ] = Exp .)
+    +               shift and go to state 65
+    -               shift and go to state 66
+
+
+state 106
+
+    (19) Atr -> ID [ NUM ] = Exp .
+    (41) Exp -> Exp . + Termo
+    (42) Exp -> Exp . - Termo
+
+    TERMINATOR      reduce using rule 19 (Atr -> ID [ NUM ] = Exp .)
+    +               shift and go to state 65
+    -               shift and go to state 66
+
+
+state 107
+
+    (25) Repeat -> REPEAT { Instructions } UNTIL ( . Cond )
+    (26) Cond -> . Cond OR Cond2
+    (27) Cond -> . Cond2
+    (28) Cond2 -> . Cond2 AND Cond3
+    (29) Cond2 -> . Cond3
+    (30) Cond3 -> . NOT Cond
+    (31) Cond3 -> . ExpRelacional
+    (32) Cond3 -> . Cond
+    (33) Cond3 -> .
+    (34) ExpRelacional -> . Exp > Exp
+    (35) ExpRelacional -> . Exp < Exp
+    (36) ExpRelacional -> . Exp > = Exp
+    (37) ExpRelacional -> . Exp < = Exp
+    (38) ExpRelacional -> . Exp ! = Exp
+    (39) ExpRelacional -> . Exp = = Exp
+    (40) ExpRelacional -> . Exp
+    (41) Exp -> . Exp + Termo
+    (42) Exp -> . Exp - Termo
+    (43) Exp -> . Termo
+    (44) Termo -> . Termo * Fator
+    (45) Termo -> . Termo / Fator
+    (46) Termo -> . Fator
+    (47) Fator -> . ( Exp )
+    (48) Fator -> . NUM
+    (49) Fator -> . ID
+
+    NOT             shift and go to state 55
+    AND             reduce using rule 33 (Cond3 -> .)
+    )               reduce using rule 33 (Cond3 -> .)
+    OR              reduce using rule 33 (Cond3 -> .)
+    (               shift and go to state 47
+    NUM             shift and go to state 48
+    ID              shift and go to state 43
+
+    Cond                           shift and go to state 113
+    Cond2                          shift and go to state 53
+    Cond3                          shift and go to state 54
+    ExpRelacional                  shift and go to state 56
+    Exp                            shift and go to state 57
+    Termo                          shift and go to state 45
+    Fator                          shift and go to state 46
+
+state 108
+
+    (24) If -> IF ( Cond ) { Instructions . }
+    (12) Instructions -> Instructions . Instruction
+    (14) Instruction -> . BodyDecl
+    (15) Instruction -> . INT ID [ ID ] TERMINATOR
+    (16) Instruction -> . Atr TERMINATOR
+    (20) Instruction -> . Repeat
+    (21) Instruction -> . If
+    (22) Instruction -> . Print TERMINATOR
+    (23) Instruction -> . Read TERMINATOR
+    (6) BodyDecl -> . INT Def TERMINATOR
+    (17) Atr -> . ID = Exp
+    (18) Atr -> . ID [ ID ] = Exp
+    (19) Atr -> . ID [ NUM ] = Exp
+    (25) Repeat -> . REPEAT { Instructions } UNTIL ( Cond )
+    (24) If -> . IF ( Cond ) { Instructions }
+    (50) Print -> . PRINT ( Exp )
+    (51) Print -> . PRINT ( Def )
+    (52) Read -> . READ ( Ids )
+
+    }               shift and go to state 114
+    INT             shift and go to state 14
+    ID              shift and go to state 15
+    REPEAT          shift and go to state 21
+    IF              shift and go to state 22
+    PRINT           shift and go to state 23
+    READ            shift and go to state 24
+
+    Instruction                    shift and go to state 12
+    BodyDecl                       shift and go to state 13
+    Atr                            shift and go to state 16
+    Repeat                         shift and go to state 17
+    If                             shift and go to state 18
+    Print                          shift and go to state 19
+    Read                           shift and go to state 20
+
+state 109
+
+    (36) ExpRelacional -> Exp > = Exp .
+    (41) Exp -> Exp . + Termo
+    (42) Exp -> Exp . - Termo
+
+    )               reduce using rule 36 (ExpRelacional -> Exp > = Exp .)
+    OR              reduce using rule 36 (ExpRelacional -> Exp > = Exp .)
+    AND             reduce using rule 36 (ExpRelacional -> Exp > = Exp .)
+    +               shift and go to state 65
+    -               shift and go to state 66
+
+
+state 110
+
+    (37) ExpRelacional -> Exp < = Exp .
+    (41) Exp -> Exp . + Termo
+    (42) Exp -> Exp . - Termo
+
+    )               reduce using rule 37 (ExpRelacional -> Exp < = Exp .)
+    OR              reduce using rule 37 (ExpRelacional -> Exp < = Exp .)
+    AND             reduce using rule 37 (ExpRelacional -> Exp < = Exp .)
+    +               shift and go to state 65
+    -               shift and go to state 66
+
+
+state 111
+
+    (39) ExpRelacional -> Exp = = Exp .
+    (41) Exp -> Exp . + Termo
+    (42) Exp -> Exp . - Termo
+
+    )               reduce using rule 39 (ExpRelacional -> Exp = = Exp .)
+    OR              reduce using rule 39 (ExpRelacional -> Exp = = Exp .)
+    AND             reduce using rule 39 (ExpRelacional -> Exp = = Exp .)
+    +               shift and go to state 65
+    -               shift and go to state 66
+
+
+state 112
+
+    (38) ExpRelacional -> Exp ! = Exp .
+    (41) Exp -> Exp . + Termo
+    (42) Exp -> Exp . - Termo
+
+    )               reduce using rule 38 (ExpRelacional -> Exp ! = Exp .)
+    OR              reduce using rule 38 (ExpRelacional -> Exp ! = Exp .)
+    AND             reduce using rule 38 (ExpRelacional -> Exp ! = Exp .)
+    +               shift and go to state 65
+    -               shift and go to state 66
+
+
+state 113
+
+    (25) Repeat -> REPEAT { Instructions } UNTIL ( Cond . )
+    (26) Cond -> Cond . OR Cond2
+    (32) Cond3 -> Cond .
+
+  ! shift/reduce conflict for ) resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+    )               shift and go to state 115
+    OR              shift and go to state 74
+    AND             reduce using rule 32 (Cond3 -> Cond .)
+
+  ! )               [ reduce using rule 32 (Cond3 -> Cond .) ]
+  ! OR              [ reduce using rule 32 (Cond3 -> Cond .) ]
+
+
+state 114
+
+    (24) If -> IF ( Cond ) { Instructions } .
+
+    ENDBODY         reduce using rule 24 (If -> IF ( Cond ) { Instructions } .)
+    INT             reduce using rule 24 (If -> IF ( Cond ) { Instructions } .)
+    ID              reduce using rule 24 (If -> IF ( Cond ) { Instructions } .)
+    REPEAT          reduce using rule 24 (If -> IF ( Cond ) { Instructions } .)
+    IF              reduce using rule 24 (If -> IF ( Cond ) { Instructions } .)
+    PRINT           reduce using rule 24 (If -> IF ( Cond ) { Instructions } .)
+    READ            reduce using rule 24 (If -> IF ( Cond ) { Instructions } .)
+    }               reduce using rule 24 (If -> IF ( Cond ) { Instructions } .)
+
+
+state 115
+
+    (25) Repeat -> REPEAT { Instructions } UNTIL ( Cond ) .
+
+    ENDBODY         reduce using rule 25 (Repeat -> REPEAT { Instructions } UNTIL ( Cond ) .)
+    INT             reduce using rule 25 (Repeat -> REPEAT { Instructions } UNTIL ( Cond ) .)
+    ID              reduce using rule 25 (Repeat -> REPEAT { Instructions } UNTIL ( Cond ) .)
+    REPEAT          reduce using rule 25 (Repeat -> REPEAT { Instructions } UNTIL ( Cond ) .)
+    IF              reduce using rule 25 (Repeat -> REPEAT { Instructions } UNTIL ( Cond ) .)
+    PRINT           reduce using rule 25 (Repeat -> REPEAT { Instructions } UNTIL ( Cond ) .)
+    READ            reduce using rule 25 (Repeat -> REPEAT { Instructions } UNTIL ( Cond ) .)
+    }               reduce using rule 25 (Repeat -> REPEAT { Instructions } UNTIL ( Cond ) .)
 
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for ) in state 46 resolved as shift
-WARNING: shift/reduce conflict for OR in state 46 resolved as shift
-WARNING: shift/reduce conflict for AND in state 47 resolved as shift
-WARNING: shift/reduce conflict for OR in state 68 resolved as shift
-WARNING: shift/reduce conflict for OR in state 68 resolved as shift
-WARNING: shift/reduce conflict for OR in state 85 resolved as shift
-WARNING: shift/reduce conflict for AND in state 86 resolved as shift
-WARNING: shift/reduce conflict for AND in state 86 resolved as shift
-WARNING: reduce/reduce conflict in state 54 resolved using rule (Ids -> ID)
-WARNING: rejected rule (Fator -> ID) in state 54
-WARNING: reduce/reduce conflict in state 68 resolved using rule (Cond3 -> NOT Cond)
-WARNING: rejected rule (Cond3 -> Cond) in state 68
-WARNING: reduce/reduce conflict in state 86 resolved using rule (Cond -> Cond OR Cond2)
-WARNING: rejected rule (Cond -> Cond2) in state 86
-WARNING: reduce/reduce conflict in state 87 resolved using rule (Cond2 -> Cond2 AND Cond3)
-WARNING: rejected rule (Cond2 -> Cond3) in state 87
+WARNING: shift/reduce conflict for ) in state 52 resolved as shift
+WARNING: shift/reduce conflict for OR in state 52 resolved as shift
+WARNING: shift/reduce conflict for AND in state 53 resolved as shift
+WARNING: shift/reduce conflict for OR in state 76 resolved as shift
+WARNING: shift/reduce conflict for OR in state 76 resolved as shift
+WARNING: shift/reduce conflict for OR in state 95 resolved as shift
+WARNING: shift/reduce conflict for AND in state 96 resolved as shift
+WARNING: shift/reduce conflict for AND in state 96 resolved as shift
+WARNING: shift/reduce conflict for ) in state 113 resolved as shift
+WARNING: shift/reduce conflict for OR in state 113 resolved as shift
+WARNING: reduce/reduce conflict in state 60 resolved using rule (Ids -> ID)
+WARNING: rejected rule (Fator -> ID) in state 60
+WARNING: reduce/reduce conflict in state 76 resolved using rule (Cond3 -> NOT Cond)
+WARNING: rejected rule (Cond3 -> Cond) in state 76
+WARNING: reduce/reduce conflict in state 96 resolved using rule (Cond -> Cond OR Cond2)
+WARNING: rejected rule (Cond -> Cond2) in state 96
+WARNING: reduce/reduce conflict in state 97 resolved using rule (Cond2 -> Cond2 AND Cond3)
+WARNING: rejected rule (Cond2 -> Cond3) in state 97
