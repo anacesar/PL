@@ -70,13 +70,20 @@ ENDBODY
 
 STARTDECL
 int a,n,num;
+int cont = 0;
 ENDDECL
 STARTBODY
-read(n);
-int b[n];
+read(n); 
+int a[n]; 
 repeat{
     read(num);
-    
-}
-
+    a[cont] = num;
+    cont = cont + 1;
+    n = n - 1;
+}until(n>0);
+cont = cont - 1;
+repeat{
+    print(a[cont]);
+    cont = cont - 1;
+}until(cont>=0);
 ENDBODY
