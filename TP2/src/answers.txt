@@ -1,0 +1,82 @@
+---------------------------1-----------------------------
+-----> ler 4 numeros e dizer se podem ser os lados de um quadrado.
+STARTDECL
+int a,b,c,d;
+ENDDECL
+STARTBODY
+if(a == b == c == d){
+    print(0); /* success */
+}
+ENDBODY
+
+---------------------------2-----------------------------
+-------> ler um inteiro N, depois ler N numeros e escrever o menor deles.
+STARTDECL
+int minimo, n, num, min;
+ENDDECL
+STARTBODY
+read(n);
+read(min);
+repeat{
+    read(num);
+    if(min > num){
+        min = num;
+    }
+    n = n - 1; 
+}until(n>1)             
+print (minimo);
+ENDBODY
+
+---------------------------3-----------------------------
+ler N (constante do programa) numeros e calcular e imprimir o seu produtorio
+
+STARTDECL
+int prod,n;
+ENDDECL
+STARTBODY
+prod = 0;
+repeat{
+    read(n);
+    prod = prod * n;
+}until(n==0)
+print (prod);
+ENDBODY
+
+---------------------------4-----------------------------
+
+contar e imprimir os numeros impares de uma sequencia de numeros naturais
+
+STARTDECL
+int n,num, cont;
+ENDDECL
+STARTBODY
+cont = 0;
+read(n);
+int a[n];
+repeat{
+    read(num);
+    if(num % 2 == 1){
+        cont = cont + 1;
+        print(num);        
+    }
+    n = n - 1; 
+}until(n>0)
+print (cont);
+ENDBODY
+
+---------------------------5-----------------------------
+
+• ler e armazenar N numeros num array; imprimir os valores por ordem inversa.
+
+STARTDECL
+int a,n,num;
+ENDDECL
+STARTBODY
+read(n);
+int b[n];
+repeat{
+    read(num);
+    
+}
+
+ENDBODY
