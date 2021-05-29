@@ -36,7 +36,7 @@ t_REPEAT = r'repeat'
 t_UNTIL = r'until'
 t_PRINT = r'print'
 t_READ = r'read'
-t_ignore = " \t\n\r"
+t_ignore = " \n\t\r"
 
 
 def t_ID(t):

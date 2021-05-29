@@ -5,7 +5,7 @@ from lex_proj import tokens
 def p_Language(p):
     "Language : Declarations Functionality"
     p[0] = p[1] + p[2] 
-    print("language : declarations " ,p[1] + "\nfuncionality : " + p[2])
+    print("language : declarations " ,p[1] + "funcionality : " + p[2])
 
 
 def p_Declarations(p):
@@ -29,7 +29,7 @@ def p_Body_Decls_Body_Decl(p):
 
 def p_Body_Decl_INT(p):
     "BodyDecl : INT Def TERMINATOR"
-    p[0] = "int " + p[2] + p[3] 
+    p[0] = "int " + p[2] + p[3] + "\n"
     #print("def " , p[2])
 
 
@@ -64,7 +64,7 @@ def p_Instructions_Instruction(p):
 
 def p_Instruction_Atr(p):
     "Instruction : Atr TERMINATOR"
-    p[0] = p[1] + p[2]
+    p[0] = p[1] + p[2] + "\n"
     #print("p2",p[1])
 
 def p_Atr_ID(p):
@@ -82,32 +82,38 @@ def p_Atr_IDNUM(p):
 
 
 def p_Instruction_Repeat(p):
-    "Instruction : Repeat TERMINATOR"
-    p[0] = p[1] + p[2]
+    "Instruction : Repeat "
+    p[0] = p[1] + "\n"
 
 def p_Instruction_If(p):
     "Instruction : If"
-    p[0] = p[1]
+    p[0] = p[1] + "\n"
     print("if: ", p[1])
 
 def p_Instruction_Print(p):
     "Instruction : Print TERMINATOR"
-    p[0] = p[1] + p[2]
+    p[0] = p[1] + p[2] + "\n"
 
 def p_Instruction_Read(p):
     "Instruction : Read TERMINATOR"
-    p[0] = p[1] + p[2]
+    p[0] = p[1] + p[2] + "\n"
+
 
 
 
 def p_If(p):
     "If : IF '(' Cond ')' '{' Instructions '}'"
-    print("antes p0")
     #p[0] = p[1] + p[2] + p[3] + p[4] + p[5] 
     p[0] = p[1] + p[2] + p[3] + p[4] + p[5] + p[6] + p[7]
-    print("p0 ", p[0])
 
 
+
+def p_Repeat(p):
+    "Repeat : REPEAT "
+    print("repeat : ")
+    p[0] = p[1]
+    #print("repeat {" + p[2] + "}until( " + p[6] + "}")
+    #p[0] = p[0] + p[1] + p[2] + p[3] + p[4] + p[5] + p[6] + p[7]
 
 def p_Cond_Cond(p):
    "Cond : Cond OR Cond2"
@@ -186,7 +192,7 @@ def p_ExpPlus(p):
 
 def p_ExpMinus(p):
     "Exp : Exp '-' Termo"
-    p[0] = p[1] - p[3]
+    p[0] = p[1] + p[2] + p[3]
 
 def p_ExpTermo(p):
     "Exp : Termo"
@@ -198,7 +204,7 @@ def p_TermoMul(p):
 
 def p_TermoDiv(p):
     "Termo : Termo '/' Fator"
-    p[0] = p[1] / p[3]
+    p[0] = p[1] + p[2] + p[3]
 
 def p_TermoFator(p):
     "Termo : Fator"
@@ -213,12 +219,14 @@ def p_FatorNum(p):
     "Fator : NUM "
     p[0] = p[1]
 
-def p_Repeat(p):
-    "Repeat : REPEAT '{' Instructions '}' UNTIL '(' Cond ')' "
+def p_FatorID(p):
+    "Fator : ID "
+    p[0] = p[1]
+
 
 def p_PrintExp(p):
     "Print : PRINT '(' Exp ')' "
-    p[0] = p[3]
+    p[0] = p[1] + p[2] + p [3] + p[4]
 
 def p_PrintDef(p):
     "Print : PRINT '(' Def ')' "
@@ -227,7 +235,7 @@ def p_PrintDef(p):
 
 def p_Read(p):
     "Read : READ '(' Ids ')' "
-    p[0] = p[3]
+    p[0] = p[1] + p[2] + p[3] + p[4]
 
 
 def p_error(p):
