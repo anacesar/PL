@@ -12,6 +12,7 @@ reservadas = {"int" : "INT",
               "and" : "AND",
               "not" : "NOT",
               "if" : "IF",
+              "else" : "ELSE",
               "repeat" : "REPEAT",
               "until" : "UNTIL",
               "print" : "PRINT",
@@ -32,6 +33,7 @@ t_AND = r'and'
 t_NOT = r'not'
 t_NUM = r'\d+' 
 t_IF = r'if'
+t_ELSE = r'else'
 t_REPEAT = r'repeat'
 t_UNTIL = r'until'
 t_PRINT = r'print'

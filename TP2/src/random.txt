@@ -10,6 +10,9 @@ soma = 0;
 if(a>1 and b){
     b = 4 +3;
     if(2){print(3);}
+    print(2);
+}else{
+    a = 2;
 }
 repeat{
     a = 2;

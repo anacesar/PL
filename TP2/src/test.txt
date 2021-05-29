@@ -1,0 +1,6 @@
+STARTDECL
+int a,f[3], k;
+ENDDECL
+STARTBODY
+print(a);
+ENDBODY

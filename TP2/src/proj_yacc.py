@@ -1,11 +1,13 @@
 import ply.yacc as yacc
 
 from lex_proj import tokens
+ 
+
 
 def p_Language(p):
     "Language : Declarations Functionality"
     p[0] = p[1] + p[2] 
-    print("language : declarations " ,p[1] + "funcionality : " + p[2])
+    #print("language : declarations " ,p[1] + "funcionality : " + p[2])
 
 
 def p_Declarations(p):
@@ -15,7 +17,8 @@ def p_Declarations(p):
 
 def p_Functionality(p):
     "Functionality : STARTBODY Instructions ENDBODY"
-    p[0] = p[2]
+    print(p.parser.table)
+    p[0] = "\nstart\n" + p[2] + "stop\n"
     #print("fun ",p[0])
 
 
@@ -28,30 +31,53 @@ def p_Body_Decls_Body_Decl(p):
     p[0] = ""
 
 def p_Body_Decl_INT(p):
-    "BodyDecl : INT Def TERMINATOR"
-    p[0] = "int " + p[2] + p[3] + "\n"
+    "BodyDecl : INT DeclDef TERMINATOR"
+    p[0] = p[2]
+    #p[0] = "int " + p[2] + p[3] + "\n"
     #print("def " , p[2])
 
-def p_Def(p):
-    "Def : Ids Enumerate"
+def p_DeclDef(p):
+    "DeclDef : DeclIds Enumerate"
     p[0] = p[1] + p[2]
 
-def p_Ids_Int(p):
-    "Ids : ID"
-    p[0] = p[1]
+def p_DeclIds_ID(p):
+    "DeclIds : ID"
+    p.parser.table[p[1]] = ("int", p.parser.offset, 1, [0])
+    p.parser.offset+=1
+    p[0] = "pushi 0\n"
 
-def p_Ids_Array(p):
-    "Ids : ID '[' NUM ']'"
-    p[0] = p[1] + '[' + p[3] + ']'
-    #print("array " , p[0])
+def p_DeclIds_Array(p):
+    "DeclIds : ID '[' NUM ']'"
+    size = int(p[3])
+    p.parser.table[p[1]] = ("intArray", p.parser.offset, size, int[size])
+    p.parser.offset+=size
+    p[0] = "pushn " + p[3] + "\n"
 
 def p_Enumerate(p):
-    "Enumerate : ',' Def"
-    p[0] = ',' + p[2]
+    "Enumerate : ',' DeclDef"
+    p[0] = p[2]
+    #p[0] = ',' + p[2]
 
 def p_Enumerate_Empty(p):
     "Enumerate : "
     p[0] = ""
+
+def p_Ids_Int(p):
+    "Ids : ID"
+    p[0] = p[1]
+    #p[0] = p[1]
+
+def p_Ids_ArrayID(p):
+    "Ids : ID '[' ID ']'"
+    p[0] = p[1] + '[' + p[3] + ']'
+    #print("array " , p[0])
+
+def p_Ids_Array(p):
+    "Ids : ID '[' NUM ']'"
+    #p[0] = "pushn " + p[3] + "\n"
+    p[0] = p[1] + '[' + p[3] + ']'
+    #print("array " , p[0])
+
 
 def p_Instructions(p):
     "Instructions : Instructions Instruction"
@@ -107,10 +133,16 @@ def p_Instruction_Read(p):
 
 
 def p_If(p):
-    "If : IF '(' Cond ')' '{' Instructions '}'"
-    #p[0] = p[1] + p[2] + p[3] + p[4] + p[5] 
-    p[0] = p[1] + p[2] + p[3] + p[4] + p[5] + p[6] + p[7]
+    "If : IF '(' Cond ')' '{' Instructions '}' Else"
+    p[0] = p[1] + p[2] + p[3] + p[4] + p[5] + p[6] + p[7] + p[8]
 
+def p_Else(p):
+    "Else : ELSE '{' Instructions '}'"
+    p[0] = p[1] + p[2] + p[3] + p[4]
+
+def p_ElseEmpty(p):
+    "Else : "
+    p[0] = ""
 
 def p_Repeat(p):
     "Repeat : REPEAT '{' Instructions '}' UNTIL '(' Cond ')'"
@@ -164,25 +196,25 @@ def p_ExpRelacional_Lower(p):
 
 def p_ExpRelacional_BiggerEqual(p):
     "ExpRelacional : Exp '>' '=' Exp"
-    p[0] = p[2] + p[3]
+    p[0] = p[1] + p[2] + p[3] + p[4]
     
 
 
 def p_ExpRelacional_LowerEqual(p):
     "ExpRelacional : Exp '<' '=' Exp"
-    p[0] = p[2] + p[3]
+    p[0] = p[1] + p[2] + p[3] + p[4]
 
 
 
 def p_ExpRelacional_Diff(p):
     "ExpRelacional : Exp '!' '=' Exp"
-    p[0] = p[2] + p[3]
+    p[0] = p[1] + p[2] + p[3] + p[4]
 
 
 
 def p_ExpRelacional_Equal(p):
     "ExpRelacional : Exp '=' '=' Exp"
-    p[0] = p[2] + p[3]
+    p[0] = p[1] + p[2] + p[3] + p[4]
 
 
 def p_ExpRelacional(p):
@@ -229,12 +261,15 @@ def p_FatorID(p):
 
 
 def p_PrintExp(p):
-    "Print : PRINT '(' Exp ')' "
-    p[0] = p[1] + p[2] + p [3] + p[4]
+    "Print : PRINT '(' NUM ')' "
+    p[0] = "pushi " + p[3] +"\nwritei\n" 
+    #p[0] = p[1] + p[2] + p [3] + p[4]
 
 def p_PrintDef(p):
-    "Print : PRINT '(' Def ')' "
-    p[0] = p[1] + p[2] + p[3]
+    "Print : PRINT '(' Ids ')' "
+    (t,o,s,v) = p.parser.table[p[3]]
+    p[0] = "pushg " + o +"\nwritei\n" 
+    #p[0] = p[1] + p[2] + p[3] + p[4]
 
 
 def p_Read(p):
@@ -250,6 +285,8 @@ def p_error(p):
 
 #Build the parser
 parser = yacc.yacc()
+parser.table = dict()
+parser.offset = 0
 
 
 #Read input and parse it by line
@@ -258,9 +295,10 @@ linhas=""
 for linha in sys.stdin:
     linhas += linha
 parser.success = True
-parser.parse(linhas)
+result = parser.parse(linhas)
 
 if parser.success:
+    print(result)
     print("Frase Válida reconhecida.")
 else:
     print("Frase inválida. Corrija e tente de novo...")

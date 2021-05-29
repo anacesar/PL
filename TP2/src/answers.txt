@@ -66,24 +66,24 @@ ENDBODY
 
 ---------------------------5-----------------------------
 
-• ler e armazenar N numeros num array; imprimir os valores por ordem inversa.
+• ler e armazenar N numeros num array; imprimir os valores por ordem inversa.  --> CHECK
 
 STARTDECL
-int a,n,num;
-int cont = 0;
+int a,n,num,cont;
 ENDDECL
 STARTBODY
 read(n); 
 int a[n]; 
+cont = 0;
 repeat{
     read(num);
     a[cont] = num;
     cont = cont + 1;
     n = n - 1;
-}until(n>0);
+}until(n>0)
 cont = cont - 1;
 repeat{
     print(a[cont]);
     cont = cont - 1;
-}until(cont>=0);
+}until(cont>=0)
 ENDBODY
