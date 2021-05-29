@@ -1,9 +1,11 @@
 STARTDECL
-int c;
-int b;
+int c, d;
+int b[3];
 ENDDECL
 STARTBODY
-if(c){
-    print(b);
+b[2] = 4;
+read(b);
+if(2<2){
+    b = 4;
 }
 ENDBODY

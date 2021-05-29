@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = "AND ENDBODY ENDDECL ID IF INT NOT NUM OR PRINT READ REPEAT STARTBODY STARTDECL TERMINATOR UNTILLanguage : Declarations FunctionalityDeclarations : STARTDECL BodyDecls ENDDECLFunctionality : STARTBODY Instructions ENDBODYBodyDecls : BodyDecls BodyDeclBodyDecls : BodyDecl : INT Def TERMINATORDef : Ids EnumerateIds : IDIds : ID '[' NUM ']'Enumerate : ',' DefEnumerate : Instructions : Instructions InstructionInstructions : Instruction : Atr TERMINATORInstruction : Repeat TERMINATORInstruction : IfInstruction : Print TERMINATORInstruction : Read TERMINATORAtr : ID '=' ExpAtr : ID '[' ID ']' '=' ExpAtr : ID '[' NUM ']' '=' ExpIf : IF '(' Cond ')' '{' Instruction '}'Cond : Cond OR Cond2Cond : Cond2Cond2 : Cond2 AND Cond3Cond2 : Cond3Cond3 : NOT CondCond3 : ExpRelacionalCond3 : '(' Cond ')'ExpRelacional : Exp '>' ExpExpRelacional : Exp '<' ExpExpRelacional : Exp '>' '=' ExpExpRelacional : Exp '<' '=' ExpExpRelacional : Exp '!' '=' ExpExpRelacional : Exp '=' '=' ExpExpRelacional : ExpExp : Exp '+' TermoExp : Exp '-' TermoExp : TermoTermo : Termo '*' FatorTermo : Termo '/' FatorTermo : FatorFator : '(' Exp ')' Fator : NUM Repeat : REPEAT '{' Instructions '}' UNTIL '(' Cond ')' Print : PRINT '(' Exp ')' Print : PRINT '(' Def ')' Read : READ '(' Ids ')' "
+_lr_signature = "AND ENDBODY ENDDECL ID IF INT NOT NUM OR PRINT READ REPEAT STARTBODY STARTDECL TERMINATOR UNTILLanguage : Declarations FunctionalityDeclarations : STARTDECL BodyDecls ENDDECLFunctionality : STARTBODY Instructions ENDBODYBodyDecls : BodyDecls BodyDeclBodyDecls : BodyDecl : INT Def TERMINATORDef : Ids EnumerateIds : IDIds : ID '[' NUM ']'Enumerate : ',' DefEnumerate : Instructions : Instructions InstructionInstructions : Instruction : Atr TERMINATORAtr : ID '=' ExpAtr : ID '[' ID ']' '=' ExpAtr : ID '[' NUM ']' '=' ExpInstruction : Repeat TERMINATORInstruction : IfInstruction : Print TERMINATORInstruction : Read TERMINATORIf : IF '(' Cond ')' '{' Instructions '}'Cond : Cond OR Cond2Cond : Cond2Cond2 : Cond2 AND Cond3Cond2 : Cond3Cond3 : NOT CondCond3 : ExpRelacionalCond3 : CondCond3 : ExpRelacional : Exp '>' ExpExpRelacional : Exp '<' ExpExpRelacional : Exp '>' '=' ExpExpRelacional : Exp '<' '=' ExpExpRelacional : Exp '!' '=' ExpExpRelacional : Exp '=' '=' ExpExpRelacional : ExpExp : Exp '+' TermoExp : Exp '-' TermoExp : TermoTermo : Termo '*' FatorTermo : Termo '/' FatorTermo : FatorFator : '(' Exp ')' Fator : NUM Repeat : REPEAT '{' Instructions '}' UNTIL '(' Cond ')' Print : PRINT '(' Exp ')' Print : PRINT '(' Def ')' Read : READ '(' Ids ')' "
     
-_lr_action_items = {'STARTDECL':([0,],[3,]),'$end':([1,4,11,],[0,-1,-3,]),'STARTBODY':([2,8,],[5,-2,]),'ENDDECL':([3,6,9,36,],[-5,8,-4,-6,]),'INT':([3,6,9,36,],[-5,10,-4,-6,]),'ENDBODY':([5,7,12,15,26,27,28,29,109,],[-13,11,-12,-16,-14,-15,-17,-18,-22,]),'ID':([5,7,10,12,15,26,27,28,29,31,32,34,35,38,47,91,109,],[-13,18,25,-12,-16,-14,-15,-17,-18,45,-13,25,25,25,18,18,-22,]),'REPEAT':([5,7,12,15,26,27,28,29,32,47,91,109,],[-13,19,-12,-16,-14,-15,-17,-18,-13,19,19,-22,]),'IF':([5,7,12,15,26,27,28,29,32,47,91,109,],[-13,20,-12,-16,-14,-15,-17,-18,-13,20,20,-22,]),'PRINT':([5,7,12,15,26,27,28,29,32,47,91,109,],[-13,21,-12,-16,-14,-15,-17,-18,-13,21,21,-22,]),'READ':([5,7,12,15,26,27,28,29,32,47,91,109,],[-13,22,-12,-16,-14,-15,-17,-18,-13,22,22,-22,]),'}':([12,15,26,27,28,29,32,47,103,109,],[-12,-16,-14,-15,-17,-18,-13,67,109,-22,]),'TERMINATOR':([13,14,16,17,23,24,25,37,40,41,42,44,58,78,79,80,81,82,83,84,85,86,100,101,110,],[26,27,28,29,36,-11,-8,-7,-19,-39,-42,-44,-10,-46,-47,-48,-9,-37,-38,-40,-41,-43,-20,-21,-45,]),'=':([18,41,42,44,54,65,66,69,74,75,76,77,82,83,84,85,86,],[30,-39,-42,-44,76,87,88,76,95,97,98,99,-37,-38,-40,-41,-43,]),'[':([18,25,],[31,39,]),'{':([19,70,],[32,91,]),'(':([20,21,22,30,33,34,43,48,52,60,61,62,63,71,72,74,75,87,88,89,95,97,98,99,102,],[33,34,35,43,48,43,43,48,48,43,43,43,43,48,48,43,43,43,43,102,43,43,43,43,48,]),',':([24,25,81,],[38,-8,-9,]),')':([24,25,37,41,42,44,49,50,51,53,54,55,56,57,58,64,68,69,73,81,82,83,84,85,86,90,92,93,94,96,104,105,106,107,108,],[-11,-8,-7,-39,-42,-44,70,-24,-26,-28,-36,78,79,80,-10,86,90,86,-27,-9,-37,-38,-40,-41,-43,-29,-23,-25,-30,-31,-32,-33,-35,-34,110,]),'NUM':([30,31,33,34,39,43,48,52,60,61,62,63,71,72,74,75,87,88,95,97,98,99,102,],[44,46,44,44,59,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,]),'NOT':([33,48,52,71,72,102,],[52,52,52,52,52,52,]),'+':([40,41,42,44,54,55,64,69,82,83,84,85,86,94,96,100,101,104,105,106,107,],[60,-39,-42,-44,60,60,60,60,-37,-38,-40,-41,-43,60,60,60,60,60,60,60,60,]),'-':([40,41,42,44,54,55,64,69,82,83,84,85,86,94,96,100,101,104,105,106,107,],[61,-39,-42,-44,61,61,61,61,-37,-38,-40,-41,-43,61,61,61,61,61,61,61,61,]),'>':([41,42,44,54,69,82,83,84,85,86,],[-39,-42,-44,74,74,-37,-38,-40,-41,-43,]),'<':([41,42,44,54,69,82,83,84,85,86,],[-39,-42,-44,75,75,-37,-38,-40,-41,-43,]),'!':([41,42,44,54,69,82,83,84,85,86,],[-39,-42,-44,77,77,-37,-38,-40,-41,-43,]),'AND':([41,42,44,50,51,53,54,69,73,82,83,84,85,86,90,92,93,94,96,104,105,106,107,],[-39,-42,-44,72,-26,-28,-36,-36,-27,-37,-38,-40,-41,-43,-29,72,-25,-30,-31,-32,-33,-35,-34,]),'OR':([41,42,44,49,50,51,53,54,68,69,73,82,83,84,85,86,90,92,93,94,96,104,105,106,107,108,],[-39,-42,-44,71,-24,-26,-28,-36,71,-36,71,-37,-38,-40,-41,-43,-29,-23,-25,-30,-31,-32,-33,-35,-34,71,]),'*':([41,42,44,82,83,84,85,86,],[62,-42,-44,62,62,-40,-41,-43,]),'/':([41,42,44,82,83,84,85,86,],[63,-42,-44,63,63,-40,-41,-43,]),']':([45,46,59,],[65,66,81,]),'UNTIL':([67,],[89,]),}
+_lr_action_items = {'STARTDECL':([0,],[3,]),'$end':([1,4,11,],[0,-1,-3,]),'STARTBODY':([2,8,],[5,-2,]),'ENDDECL':([3,6,9,36,],[-5,8,-4,-6,]),'INT':([3,6,9,36,],[-5,10,-4,-6,]),'ENDBODY':([5,7,12,15,26,27,28,29,106,],[-13,11,-12,-19,-14,-18,-20,-21,-22,]),'ID':([5,7,10,12,15,26,27,28,29,31,32,34,35,38,47,87,100,106,],[-13,18,25,-12,-19,-14,-18,-20,-21,45,-13,25,25,25,18,-13,18,-22,]),'REPEAT':([5,7,12,15,26,27,28,29,32,47,87,100,106,],[-13,19,-12,-19,-14,-18,-20,-21,-13,19,-13,19,-22,]),'IF':([5,7,12,15,26,27,28,29,32,47,87,100,106,],[-13,20,-12,-19,-14,-18,-20,-21,-13,20,-13,20,-22,]),'PRINT':([5,7,12,15,26,27,28,29,32,47,87,100,106,],[-13,21,-12,-19,-14,-18,-20,-21,-13,21,-13,21,-22,]),'READ':([5,7,12,15,26,27,28,29,32,47,87,100,106,],[-13,22,-12,-19,-14,-18,-20,-21,-13,22,-13,22,-22,]),'}':([12,15,26,27,28,29,32,47,87,100,106,],[-12,-19,-14,-18,-20,-21,-13,66,-13,106,-22,]),'TERMINATOR':([13,14,16,17,23,24,25,37,40,41,42,44,57,75,76,77,78,79,80,81,82,83,97,98,107,],[26,27,28,29,36,-11,-8,-7,-15,-40,-43,-45,-10,-47,-48,-49,-9,-38,-39,-41,-42,-44,-16,-17,-46,]),'=':([18,41,42,44,53,64,65,71,72,73,74,79,80,81,82,83,],[30,-40,-43,-45,73,84,85,92,94,95,96,-38,-39,-41,-42,-44,]),'[':([18,25,],[31,39,]),'{':([19,67,],[32,87,]),'(':([20,21,22,30,33,34,43,51,59,60,61,62,68,69,71,72,84,85,86,92,94,95,96,99,],[33,34,35,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,99,43,43,43,43,43,]),',':([24,25,78,],[38,-8,-9,]),')':([24,25,33,37,41,42,44,48,49,50,51,52,53,54,55,56,57,63,68,69,70,78,79,80,81,82,83,88,89,90,91,93,99,101,102,103,104,105,],[-11,-8,-30,-7,-40,-43,-45,67,-24,-26,-30,-28,-37,75,76,77,-10,83,-30,-30,-27,-9,-38,-39,-41,-42,-44,-29,-23,-25,-31,-32,-30,-33,-34,-36,-35,107,]),'NUM':([30,31,33,34,39,43,51,59,60,61,62,68,69,71,72,84,85,92,94,95,96,99,],[44,46,44,44,58,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,]),'NOT':([33,51,68,69,99,],[51,51,51,51,51,]),'OR':([33,41,42,44,48,49,50,51,52,53,68,69,70,79,80,81,82,83,88,89,90,91,93,99,101,102,103,104,105,],[-30,-40,-43,-45,68,-24,-26,-30,-28,-37,-30,-30,68,-38,-39,-41,-42,-44,68,-23,-25,-31,-32,-30,-33,-34,-36,-35,68,]),'AND':([33,41,42,44,48,49,50,51,52,53,68,69,70,79,80,81,82,83,88,89,90,91,93,99,101,102,103,104,105,],[-30,-40,-43,-45,-29,69,-26,-30,-28,-37,-30,-30,-27,-38,-39,-41,-42,-44,-29,69,-25,-31,-32,-30,-33,-34,-36,-35,-29,]),'+':([40,41,42,44,53,54,63,79,80,81,82,83,91,93,97,98,101,102,103,104,],[59,-40,-43,-45,59,59,59,-38,-39,-41,-42,-44,59,59,59,59,59,59,59,59,]),'-':([40,41,42,44,53,54,63,79,80,81,82,83,91,93,97,98,101,102,103,104,],[60,-40,-43,-45,60,60,60,-38,-39,-41,-42,-44,60,60,60,60,60,60,60,60,]),'>':([41,42,44,53,79,80,81,82,83,],[-40,-43,-45,71,-38,-39,-41,-42,-44,]),'<':([41,42,44,53,79,80,81,82,83,],[-40,-43,-45,72,-38,-39,-41,-42,-44,]),'!':([41,42,44,53,79,80,81,82,83,],[-40,-43,-45,74,-38,-39,-41,-42,-44,]),'*':([41,42,44,79,80,81,82,83,],[61,-43,-45,61,61,-41,-42,-44,]),'/':([41,42,44,79,80,81,82,83,],[62,-43,-45,62,62,-41,-42,-44,]),']':([45,46,58,],[64,65,78,]),'UNTIL':([66,],[86,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'Language':([0,],[1,]),'Declarations':([0,],[2,]),'Functionality':([2,],[4,]),'BodyDecls':([3,],[6,]),'Instructions':([5,32,],[7,47,]),'BodyDecl':([6,],[9,]),'Instruction':([7,47,91,],[12,12,103,]),'Atr':([7,47,91,],[13,13,13,]),'Repeat':([7,47,91,],[14,14,14,]),'If':([7,47,91,],[15,15,15,]),'Print':([7,47,91,],[16,16,16,]),'Read':([7,47,91,],[17,17,17,]),'Def':([10,34,38,],[23,56,58,]),'Ids':([10,34,35,38,],[24,24,57,24,]),'Enumerate':([24,],[37,]),'Exp':([30,33,34,43,48,52,71,72,74,75,87,88,95,97,98,99,102,],[40,54,55,64,69,54,54,54,94,96,100,101,104,105,106,107,54,]),'Termo':([30,33,34,43,48,52,60,61,71,72,74,75,87,88,95,97,98,99,102,],[41,41,41,41,41,41,82,83,41,41,41,41,41,41,41,41,41,41,41,]),'Fator':([30,33,34,43,48,52,60,61,62,63,71,72,74,75,87,88,95,97,98,99,102,],[42,42,42,42,42,42,42,42,84,85,42,42,42,42,42,42,42,42,42,42,42,]),'Cond':([33,48,52,102,],[49,68,73,108,]),'Cond2':([33,48,52,71,102,],[50,50,50,92,50,]),'Cond3':([33,48,52,71,72,102,],[51,51,51,51,93,51,]),'ExpRelacional':([33,48,52,71,72,102,],[53,53,53,53,53,53,]),}
+_lr_goto_items = {'Language':([0,],[1,]),'Declarations':([0,],[2,]),'Functionality':([2,],[4,]),'BodyDecls':([3,],[6,]),'Instructions':([5,32,87,],[7,47,100,]),'BodyDecl':([6,],[9,]),'Instruction':([7,47,100,],[12,12,12,]),'Atr':([7,47,100,],[13,13,13,]),'Repeat':([7,47,100,],[14,14,14,]),'If':([7,47,100,],[15,15,15,]),'Print':([7,47,100,],[16,16,16,]),'Read':([7,47,100,],[17,17,17,]),'Def':([10,34,38,],[23,55,57,]),'Ids':([10,34,35,38,],[24,24,56,24,]),'Enumerate':([24,],[37,]),'Exp':([30,33,34,43,51,68,69,71,72,84,85,92,94,95,96,99,],[40,53,54,63,53,53,53,91,93,97,98,101,102,103,104,53,]),'Termo':([30,33,34,43,51,59,60,68,69,71,72,84,85,92,94,95,96,99,],[41,41,41,41,41,79,80,41,41,41,41,41,41,41,41,41,41,41,]),'Fator':([30,33,34,43,51,59,60,61,62,68,69,71,72,84,85,92,94,95,96,99,],[42,42,42,42,42,42,42,81,82,42,42,42,42,42,42,42,42,42,42,42,]),'Cond':([33,51,68,69,99,],[48,70,88,88,105,]),'Cond2':([33,51,68,69,99,],[49,49,89,49,49,]),'Cond3':([33,51,68,69,99,],[50,50,50,90,50,]),'ExpRelacional':([33,51,68,69,99,],[52,52,52,52,52,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -29,50 +29,51 @@ _lr_productions = [
   ("S' -> Language","S'",1,None,None,None),
   ('Language -> Declarations Functionality','Language',2,'p_Language','proj_yacc.py',6),
   ('Declarations -> STARTDECL BodyDecls ENDDECL','Declarations',3,'p_Declarations','proj_yacc.py',12),
-  ('Functionality -> STARTBODY Instructions ENDBODY','Functionality',3,'p_Functionality','proj_yacc.py',18),
-  ('BodyDecls -> BodyDecls BodyDecl','BodyDecls',2,'p_Body_Decls','proj_yacc.py',24),
-  ('BodyDecls -> <empty>','BodyDecls',0,'p_Body_Decls_Body_Decl','proj_yacc.py',28),
-  ('BodyDecl -> INT Def TERMINATOR','BodyDecl',3,'p_Body_Decl_INT','proj_yacc.py',32),
+  ('Functionality -> STARTBODY Instructions ENDBODY','Functionality',3,'p_Functionality','proj_yacc.py',17),
+  ('BodyDecls -> BodyDecls BodyDecl','BodyDecls',2,'p_Body_Decls','proj_yacc.py',23),
+  ('BodyDecls -> <empty>','BodyDecls',0,'p_Body_Decls_Body_Decl','proj_yacc.py',27),
+  ('BodyDecl -> INT Def TERMINATOR','BodyDecl',3,'p_Body_Decl_INT','proj_yacc.py',31),
   ('Def -> Ids Enumerate','Def',2,'p_Def','proj_yacc.py',37),
   ('Ids -> ID','Ids',1,'p_Ids_Int','proj_yacc.py',41),
   ('Ids -> ID [ NUM ]','Ids',4,'p_Ids_Array','proj_yacc.py',45),
-  ('Enumerate -> , Def','Enumerate',2,'p_Enumerate','proj_yacc.py',49),
-  ('Enumerate -> <empty>','Enumerate',0,'p_Enumerate_Empty','proj_yacc.py',53),
-  ('Instructions -> Instructions Instruction','Instructions',2,'p_Instructions','proj_yacc.py',57),
-  ('Instructions -> <empty>','Instructions',0,'p_Instructions_Instruction','proj_yacc.py',61),
-  ('Instruction -> Atr TERMINATOR','Instruction',2,'p_Instruction_Atr','proj_yacc.py',65),
-  ('Instruction -> Repeat TERMINATOR','Instruction',2,'p_Instruction_Repeat','proj_yacc.py',71),
-  ('Instruction -> If','Instruction',1,'p_Instruction_If','proj_yacc.py',75),
-  ('Instruction -> Print TERMINATOR','Instruction',2,'p_Instruction_Print','proj_yacc.py',80),
-  ('Instruction -> Read TERMINATOR','Instruction',2,'p_Instruction_Read','proj_yacc.py',84),
-  ('Atr -> ID = Exp','Atr',3,'p_Atr_ID','proj_yacc.py',88),
-  ('Atr -> ID [ ID ] = Exp','Atr',6,'p_Atr_IDID','proj_yacc.py',92),
-  ('Atr -> ID [ NUM ] = Exp','Atr',6,'p_Atr_IDNUM','proj_yacc.py',96),
-  ('If -> IF ( Cond ) { Instruction }','If',7,'p_If','proj_yacc.py',101),
-  ('Cond -> Cond OR Cond2','Cond',3,'p_Cond_Cond','proj_yacc.py',108),
-  ('Cond -> Cond2','Cond',1,'p_Cond_Cond2','proj_yacc.py',112),
-  ('Cond2 -> Cond2 AND Cond3','Cond2',3,'p_Cond2','proj_yacc.py',116),
-  ('Cond2 -> Cond3','Cond2',1,'p_Cond2_Cond3','proj_yacc.py',121),
-  ('Cond3 -> NOT Cond','Cond3',2,'p_Cond3_Not','proj_yacc.py',125),
-  ('Cond3 -> ExpRelacional','Cond3',1,'p_Cond3_ExpR','proj_yacc.py',130),
-  ('Cond3 -> ( Cond )','Cond3',3,'p_Cond3','proj_yacc.py',135),
-  ('ExpRelacional -> Exp > Exp','ExpRelacional',3,'p_ExpRelacional_Bigger','proj_yacc.py',139),
-  ('ExpRelacional -> Exp < Exp','ExpRelacional',3,'p_ExpRelacional_Lower','proj_yacc.py',144),
-  ('ExpRelacional -> Exp > = Exp','ExpRelacional',4,'p_ExpRelacional_BiggerEqual','proj_yacc.py',150),
-  ('ExpRelacional -> Exp < = Exp','ExpRelacional',4,'p_ExpRelacional_LowerEqual','proj_yacc.py',156),
-  ('ExpRelacional -> Exp ! = Exp','ExpRelacional',4,'p_ExpRelacional_Diff','proj_yacc.py',162),
-  ('ExpRelacional -> Exp = = Exp','ExpRelacional',4,'p_ExpRelacional_Equal','proj_yacc.py',168),
-  ('ExpRelacional -> Exp','ExpRelacional',1,'p_ExpRelacional','proj_yacc.py',173),
-  ('Exp -> Exp + Termo','Exp',3,'p_ExpPlus','proj_yacc.py',177),
-  ('Exp -> Exp - Termo','Exp',3,'p_ExpMinus','proj_yacc.py',181),
-  ('Exp -> Termo','Exp',1,'p_ExpTermo','proj_yacc.py',185),
-  ('Termo -> Termo * Fator','Termo',3,'p_TermoMul','proj_yacc.py',189),
-  ('Termo -> Termo / Fator','Termo',3,'p_TermoDiv','proj_yacc.py',193),
-  ('Termo -> Fator','Termo',1,'p_TermoFator','proj_yacc.py',197),
-  ('Fator -> ( Exp )','Fator',3,'p_FatorExp','proj_yacc.py',201),
-  ('Fator -> NUM','Fator',1,'p_FatorNum','proj_yacc.py',206),
-  ('Repeat -> REPEAT { Instructions } UNTIL ( Cond )','Repeat',8,'p_Repeat','proj_yacc.py',210),
-  ('Print -> PRINT ( Exp )','Print',4,'p_PrintExp','proj_yacc.py',213),
-  ('Print -> PRINT ( Def )','Print',4,'p_PrintDef','proj_yacc.py',217),
-  ('Read -> READ ( Ids )','Read',4,'p_Read','proj_yacc.py',222),
+  ('Enumerate -> , Def','Enumerate',2,'p_Enumerate','proj_yacc.py',50),
+  ('Enumerate -> <empty>','Enumerate',0,'p_Enumerate_Empty','proj_yacc.py',54),
+  ('Instructions -> Instructions Instruction','Instructions',2,'p_Instructions','proj_yacc.py',58),
+  ('Instructions -> <empty>','Instructions',0,'p_Instructions_Instruction','proj_yacc.py',62),
+  ('Instruction -> Atr TERMINATOR','Instruction',2,'p_Instruction_Atr','proj_yacc.py',66),
+  ('Atr -> ID = Exp','Atr',3,'p_Atr_ID','proj_yacc.py',71),
+  ('Atr -> ID [ ID ] = Exp','Atr',6,'p_Atr_IDID','proj_yacc.py',75),
+  ('Atr -> ID [ NUM ] = Exp','Atr',6,'p_Atr_IDNUM','proj_yacc.py',80),
+  ('Instruction -> Repeat TERMINATOR','Instruction',2,'p_Instruction_Repeat','proj_yacc.py',85),
+  ('Instruction -> If','Instruction',1,'p_Instruction_If','proj_yacc.py',89),
+  ('Instruction -> Print TERMINATOR','Instruction',2,'p_Instruction_Print','proj_yacc.py',94),
+  ('Instruction -> Read TERMINATOR','Instruction',2,'p_Instruction_Read','proj_yacc.py',98),
+  ('If -> IF ( Cond ) { Instructions }','If',7,'p_If','proj_yacc.py',104),
+  ('Cond -> Cond OR Cond2','Cond',3,'p_Cond_Cond','proj_yacc.py',113),
+  ('Cond -> Cond2','Cond',1,'p_Cond_Cond2','proj_yacc.py',117),
+  ('Cond2 -> Cond2 AND Cond3','Cond2',3,'p_Cond2','proj_yacc.py',121),
+  ('Cond2 -> Cond3','Cond2',1,'p_Cond2_Cond3','proj_yacc.py',125),
+  ('Cond3 -> NOT Cond','Cond3',2,'p_Cond3_Not','proj_yacc.py',129),
+  ('Cond3 -> ExpRelacional','Cond3',1,'p_Cond3_ExpR','proj_yacc.py',133),
+  ('Cond3 -> Cond','Cond3',1,'p_Cond3','proj_yacc.py',137),
+  ('Cond3 -> <empty>','Cond3',0,'p_Cond3_Empty','proj_yacc.py',141),
+  ('ExpRelacional -> Exp > Exp','ExpRelacional',3,'p_ExpRelacional_Bigger','proj_yacc.py',145),
+  ('ExpRelacional -> Exp < Exp','ExpRelacional',3,'p_ExpRelacional_Lower','proj_yacc.py',150),
+  ('ExpRelacional -> Exp > = Exp','ExpRelacional',4,'p_ExpRelacional_BiggerEqual','proj_yacc.py',156),
+  ('ExpRelacional -> Exp < = Exp','ExpRelacional',4,'p_ExpRelacional_LowerEqual','proj_yacc.py',162),
+  ('ExpRelacional -> Exp ! = Exp','ExpRelacional',4,'p_ExpRelacional_Diff','proj_yacc.py',168),
+  ('ExpRelacional -> Exp = = Exp','ExpRelacional',4,'p_ExpRelacional_Equal','proj_yacc.py',174),
+  ('ExpRelacional -> Exp','ExpRelacional',1,'p_ExpRelacional','proj_yacc.py',179),
+  ('Exp -> Exp + Termo','Exp',3,'p_ExpPlus','proj_yacc.py',183),
+  ('Exp -> Exp - Termo','Exp',3,'p_ExpMinus','proj_yacc.py',188),
+  ('Exp -> Termo','Exp',1,'p_ExpTermo','proj_yacc.py',192),
+  ('Termo -> Termo * Fator','Termo',3,'p_TermoMul','proj_yacc.py',196),
+  ('Termo -> Termo / Fator','Termo',3,'p_TermoDiv','proj_yacc.py',200),
+  ('Termo -> Fator','Termo',1,'p_TermoFator','proj_yacc.py',204),
+  ('Fator -> ( Exp )','Fator',3,'p_FatorExp','proj_yacc.py',208),
+  ('Fator -> NUM','Fator',1,'p_FatorNum','proj_yacc.py',213),
+  ('Repeat -> REPEAT { Instructions } UNTIL ( Cond )','Repeat',8,'p_Repeat','proj_yacc.py',217),
+  ('Print -> PRINT ( Exp )','Print',4,'p_PrintExp','proj_yacc.py',220),
+  ('Print -> PRINT ( Def )','Print',4,'p_PrintDef','proj_yacc.py',224),
+  ('Read -> READ ( Ids )','Read',4,'p_Read','proj_yacc.py',229),
 ]

@@ -84,6 +84,7 @@ def parseGroup(group):
             #if name and email are the same we consider the same person
             if n==name and e==email:
                 if prova not in p:
+                    print("name : %s equipa %s" % (n, equipa))
                     p.append(prova)
                 equal = True
                 break
