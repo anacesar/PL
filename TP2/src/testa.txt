@@ -1,56 +1,43 @@
-pushn 3
-pushn 10
 pushi 0
 pushi 0
 
 start
-pushi 19
-storeg 13
+pushi 0
+storeg 0
 
-pushg 13
-storeg 14
-
-pushi 5
-pushi 2
-mod
-storeg 14
-
+ciclo2:
 read
 atoi
-storeg 13
+storeg 1
 
-pushgp
-pushi 0
-padd
-pushi 1
+pushg 0
+pushg 1
+add
+storeg 0
+
+pushg 0
 pushi 10
-storen
+sup
+jz else1
 
-pushgp
-pushi 3
-padd
-pushi 2
-pushi 7
-storen
-
-pushg 14
-writei
-
-pushgp
-pushi 3
-padd
-pushg 13
-loadn
-writei
-
-pushgp
 pushi 0
-padd
-pushi 1
-loadn
-writei
+storeg 1
+jump endif1
 
-pushi 30
+else1:
+pushg 0
+pushi 2
+mul
+storeg 0
+
+
+endif1:
+pushg 1
+pushi 0
+equal
+jz ciclo2
+
+pushg 0
 writei
 
 stop

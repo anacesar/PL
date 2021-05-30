@@ -117,10 +117,10 @@ def p_Instruction_Repeat(p):
     "Instruction : Repeat "
     p[0] = p[1] + "\n"
 
+
 def p_Instruction_If(p):
     "Instruction : If"
     p[0] = p[1] + "\n"
-    print("if: ", p[1])
 
 def p_Instruction_Print(p):
     "Instruction : Print TERMINATOR"
@@ -133,11 +133,18 @@ def p_Instruction_Read(p):
 
 def p_If(p):
     "If : IF '(' Cond ')' '{' Instructions '}' Else"
-    p[0] = p[1] + p[2] + p[3] + p[4] + p[5] + p[6] + p[7] + p[8]
+    endif = "endif" + str(p.parser.nr)
+    else_ = p[8].split(':')[0]
+    if(else_ == "") : else_ = endif 
+    jump = "jump " + endif + "\n"
+    p[0] = p[3] + "jz " + else_ + "\n" + p[6] + jump + p[8] + endif + ":" 
+    p.parser.nr += 1
+    #p[0] = p[1] + p[2] + p[3] + p[4] + p[5] + p[6] + p[7] + p[8]
 
 def p_Else(p):
     "Else : ELSE '{' Instructions '}'"
-    p[0] = p[1] + p[2] + p[3] + p[4]
+    else_ = "else" + str(p.parser.nr)
+    p[0] = else_ + ":\n" + p[3] + "\n"
 
 def p_ElseEmpty(p):
     "Else : "
@@ -145,9 +152,30 @@ def p_ElseEmpty(p):
 
 def p_Repeat(p):
     "Repeat : REPEAT '{' Instructions '}' UNTIL '(' Cond ')'"
-    p[0] = p[1] + p[2] + p[3] + p[4] + p[5] + p[6] + p[7] + p[8]
-    #print("repeat {" + p[2] + "}until( " + p[6] + "}")
+    ciclo = "ciclo" + str(p.parser.nr)
+    p.parser.nr += 1
+    p[0] = ciclo + ":\n" + p[3] + p[7] + "jz " + ciclo + "\n"
     #p[0] = p[1] + p[2] + p[3] + p[4] + p[5] + p[6] + p[7]
+
+def p_PrintIdNum(p):
+    "Print : PRINT '(' IdNum ')' "
+    p[0] = p[3] + "writei\n" 
+
+def p_PrintArray(p):
+    "Print : PRINT '(' Array ')' "
+    p[0] = p[3] + "loadn\nwritei\n" 
+
+def p_ReadID(p):
+    "Read : READ '(' ID ')' "
+    (_,offset,_,_) = p.parser.table[p[3]]
+    p[0] = "read\natoi\nstoreg " +  str(offset) + "\n"
+    #p[0] = p[1] + p[2] + p[3] + p[4]
+
+def p_ReadArray(p):
+    "Read : READ '(' Array ')' "
+    p[0] = p[3] + "read\natoi\nstoren\n"
+    #p[0] = p[1] + p[2] + p[3] + p[4]
+
 
 def p_Cond_Cond(p):
    "Cond : Cond OR Cond2"
@@ -168,52 +196,44 @@ def p_Cond2_Cond3(p):
 
 def p_Cond3_Not(p):
     "Cond3 : NOT Cond" #change to cond -- right recursive ??? 
-    p[0] = p[1] + p[2]
+    p[0] = p[2] + "not\n" 
 
 def p_Cond3_ExpR(p):
     "Cond3 : ExpRelacional"
     p[0] = p[1]
 
 def p_Cond3(p):
-    "Cond3 : Cond"
+    "Cond3 : '(' Cond ')'"
     p[0] = p[1] 
-
-def p_Cond3_Empty(p):
-    "Cond3 : "
-    p[0] = ""
 
 def p_ExpRelacional_Bigger(p):
     "ExpRelacional : Exp '>' Exp"
-    p[0] = p[1] + p[2] + p[3]
+    p[0] = p[1] + p[3] + "sup\n"
 
 
 def p_ExpRelacional_Lower(p):
     "ExpRelacional : Exp '<' Exp"
-    p[0] = p[1] + p[2] + p[3]
-
+    p[0] = p[1] + p[3] + "inf\n"
 
 
 def p_ExpRelacional_BiggerEqual(p):
     "ExpRelacional : Exp '>' '=' Exp"
-    p[0] = p[1] + p[2] + p[3] + p[4]
+    p[0] = p[1] + p[4] + "supeq\n"
     
-
 
 def p_ExpRelacional_LowerEqual(p):
     "ExpRelacional : Exp '<' '=' Exp"
-    p[0] = p[1] + p[2] + p[3] + p[4]
-
+    p[0] = p[1] + p[4] + "infeq\n"
 
 
 def p_ExpRelacional_Diff(p):
     "ExpRelacional : Exp '!' '=' Exp"
-    p[0] = p[1] + p[2] + p[3] + p[4]
-
+    p[0] = p[1] + p[4] + "equal\nnot\n"
 
 
 def p_ExpRelacional_Equal(p):
     "ExpRelacional : Exp '=' '=' Exp"
-    p[0] = p[1] + p[2] + p[3] + p[4]
+    p[0] = p[1] + p[4] + "equal\n"
 
 
 def p_ExpRelacional(p):
@@ -253,7 +273,7 @@ def p_FatorIdNum(p):
     "Fator : IdNum "
     p[0] = p[1]
 
-def p_FatorExp(p):
+def p_FatorArray(p):
     "Fator : Array "
     p[0] = p[1]
 
@@ -293,25 +313,6 @@ def p_ArrayID(p):
     (_,of2,_,_) = p.parser.table[p[3]]
     p[0] = "pushgp\npushi " + str(of1) +"\npadd\npushg " + str(of2) + "\n"
 
-def p_PrintIdNum(p):
-    "Print : PRINT '(' IdNum ')' "
-    p[0] = p[3] + "writei\n" 
-
-def p_PrintArray(p):
-    "Print : PRINT '(' Array ')' "
-    p[0] = p[3] + "loadn\nwritei\n" 
-
-def p_ReadID(p):
-    "Read : READ '(' ID ')' "
-    (_,offset,_,_) = p.parser.table[p[3]]
-    p[0] = "read\natoi\nstoreg " +  str(offset) + "\n"
-    #p[0] = p[1] + p[2] + p[3] + p[4]
-
-def p_ReadArray(p):
-    "Read : READ '(' Array ')' "
-    p[0] = p[3] + "read\natoi\nstoren\n"
-    #p[0] = p[1] + p[2] + p[3] + p[4]
-
 
 def p_error(p):
     print('Syntax error!')
@@ -323,7 +324,7 @@ def p_error(p):
 parser = yacc.yacc()
 parser.table = dict()
 parser.offset = 0
-
+parser.nr = 1
 
 #Read input and parse it by line
 import sys

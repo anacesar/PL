@@ -1,6 +1,16 @@
 STARTDECL
-int dummy[3], lista[10];
-int add, k;
+int soma, add;
 ENDDECL
 STARTBODY
+soma = 0;
+repeat{
+    read(add);
+    soma = soma + add; 
+    if(soma>10){
+        add = 0;
+    }else{
+        soma = soma *2;
+    }
+}until(add==0)
+print(soma);
 ENDBODY
