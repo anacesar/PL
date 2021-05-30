@@ -7,11 +7,9 @@ read(b);
 read(c);
 read(d);
 res = 0;
-if(a == b){
-    if(b==c){
-        if(c==d){
-            res = 1; 
-        }
+if(a==b and b==c){
+    if(c==d){
+        res = 1;
     }
 }
 print(res);

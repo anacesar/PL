@@ -1,5 +1,5 @@
 ---------------------------1-----------------------------
------> ler 4 numeros e dizer se podem ser os lados de um quadrado.
+-----> ler 4 numeros e dizer se podem ser os lados de um quadrado. --> CHECK (0 not ok 1 ok)
 STARTDECL
 int a,b,c,d;
 ENDDECL
@@ -26,6 +26,7 @@ if(a == b){
         }
     }
 }
+if(a==b and b==c and c==d) res = 1;
 print(res);
 ENDBODY
 ---------------------------2-----------------------------
@@ -46,23 +47,23 @@ repeat{
 print (min);
 ENDBODY
 ---------------------------3-----------------------------
-ler N (constante do programa) numeros e calcular e imprimir o seu produtorio
+ler N (constante do programa) numeros e calcular e imprimir o seu produtorio --> CHECK
 
 STARTDECL
 int prod,n;
 ENDDECL
 STARTBODY
-prod = 0;
+prod = 1;
 repeat{
     read(n);
-    prod = prod * n;
-}until(n==0)
+    prod = prod * n;  --> falha porque quando metemos 0 multiplica por 0
+}until(n==1)
 print (prod);
 ENDBODY
 
 ---------------------------4-----------------------------
 
-contar e imprimir os numeros impares de uma sequencia de numeros naturais
+contar e imprimir os numeros impares de uma sequencia de numeros naturais --> CHECK
 
 STARTDECL
 int n,num, cont;
@@ -70,7 +71,6 @@ ENDDECL
 STARTBODY
 cont = 0;
 read(n);
-int a[n];
 repeat{
     read(num);
     if(num % 2 == 1){
@@ -78,7 +78,7 @@ repeat{
         print(num);        
     }
     n = n - 1; 
-}until(n>0)
+}until(n==0)
 print (cont);
 ENDBODY
 
@@ -87,7 +87,7 @@ ENDBODY
 • ler e armazenar N numeros num array; imprimir os valores por ordem inversa.  --> CHECK
 
 STARTDECL
-int a,n,num,cont;
+int n,num,cont;
 ENDDECL
 STARTBODY
 read(n); 

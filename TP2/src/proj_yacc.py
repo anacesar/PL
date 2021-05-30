@@ -62,24 +62,7 @@ def p_Enumerate(p):
 def p_Enumerate_Empty(p):
     "Enumerate : "
     p[0] = ""
-'''
-def p_Ids_Int(p):
-    "Ids : ID"
-    p[0] = p[1]
-    #p[0] = p[1]
 
-def p_Ids_ArrayID(p):
-    "Ids : ID '[' ID ']'"
-    p[0] = p[1] + '[' + p[3] + ']'
-    #print("array " , p[0])
-
-def p_Ids_Array(p):
-    "Ids : ID '[' NUM ']'"
-    #p[0] = "pushn " + p[3] + "\n"
-    p[0] = p[1] + '[' + p[3] + ']'
-    #print("array " , p[0])
-
-'''
 def p_Instructions(p):
     "Instructions : Instructions Instruction"
     p[0] = p[1] + p[2]
@@ -92,11 +75,6 @@ def p_Instruction_Decl(p):
     "Instruction : BodyDecl "
     p[0] = p[1] + "\n"
 
-def p_Instruction_DeclArrayID(p):
-    "Instruction : INT ID '[' ID ']' TERMINATOR"
-    p[0] = p[1] + p[2] + p[3] + p[4] + p[5] + p[6] 
-    print("array " , p[0])
-
 def p_Instruction_Atr(p):
     "Instruction : Atr TERMINATOR"
     p[0] = p[1] + "\n"
@@ -108,7 +86,7 @@ def p_Atr_IdNum(p):
     p[0] = p[3] + "storeg " + str(sum(map(int, re.findall('\d+', p[1])))) + "\n"
     #p[0] = p[1] + '=' + p[3]
 
-def p_Atr_IDNUM(p):
+def p_Atr_ArrayNUM(p):
     "Atr : Array '=' Exp"
     p[0] = p[1] + p[3] + "storen\n" 
     #p[0] = p[1] + '[' + p[3] + "] = " + p[6]
@@ -187,8 +165,7 @@ def p_Cond_Cond2(p):
    
 def p_Cond2(p):
     "Cond2 : Cond2 AND Cond3"
-    p[0] = p[1] + " " + p[2] + " " + p[3]
-    print("and p1 : " , p[1] , " p3 : " , p[3])
+    p[0] = p[1] + p[3] + "mul\n"
 
 def p_Cond2_Cond3(p):
     "Cond2 : Cond3"

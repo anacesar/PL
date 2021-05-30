@@ -27,10 +27,10 @@ storeg 4
 pushg 0
 pushg 1
 equal
-jz endif3
 pushg 1
 pushg 2
 equal
+mul
 jz endif2
 pushg 2
 pushg 3
@@ -43,8 +43,6 @@ jump endif1
 endif1:
 jump endif2
 endif2:
-jump endif3
-endif3:
 pushg 4
 writei
 
