@@ -9,6 +9,25 @@ if(a == b == c == d){
 }
 ENDBODY
 
+/* versao 2 */
+STARTDECL
+int a,b,c,d,res;
+ENDDECL
+STARTBODY
+read(a);
+read(b);
+read(c);
+read(d);
+res = 1;
+if(a == b){
+    if(b==c){
+        if(c==d){
+            res = 0; 
+        }
+    }
+}
+print(res);
+ENDBODY
 ---------------------------2-----------------------------
 -------> ler um inteiro N, depois ler N numeros e escrever o menor deles.
 STARTDECL
@@ -24,7 +43,7 @@ repeat{
     }
     n = n - 1; 
 }until(n>1)             
-print (minimo);
+print (min);
 ENDBODY
 
 ---------------------------3-----------------------------

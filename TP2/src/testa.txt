@@ -1,0 +1,57 @@
+pushn 3
+pushn 10
+pushi 0
+pushi 0
+
+start
+pushi 19
+storeg 13
+
+pushg 13
+storeg 14
+
+pushi 5
+pushi 2
+mod
+storeg 14
+
+read
+atoi
+storeg 13
+
+pushgp
+pushi 0
+padd
+pushi 1
+pushi 10
+storen
+
+pushgp
+pushi 3
+padd
+pushi 2
+pushi 7
+storen
+
+pushg 14
+writei
+
+pushgp
+pushi 3
+padd
+pushg 13
+loadn
+writei
+
+pushgp
+pushi 0
+padd
+pushi 1
+loadn
+writei
+
+pushi 30
+writei
+
+stop
+

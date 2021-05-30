@@ -1,4 +1,5 @@
 import ply.yacc as yacc
+import re 
 
 from lex_proj import tokens
  
@@ -17,7 +18,7 @@ def p_Declarations(p):
 
 def p_Functionality(p):
     "Functionality : STARTBODY Instructions ENDBODY"
-    print(p.parser.table)
+    #print(p.parser.table)
     p[0] = "\nstart\n" + p[2] + "stop\n"
     #print("fun ",p[0])
 
@@ -42,14 +43,14 @@ def p_DeclDef(p):
 
 def p_DeclIds_ID(p):
     "DeclIds : ID"
-    p.parser.table[p[1]] = ("int", p.parser.offset, 1, [0])
+    p.parser.table[p[1]] = ("int", p.parser.offset, 1, 0)
     p.parser.offset+=1
     p[0] = "pushi 0\n"
 
 def p_DeclIds_Array(p):
     "DeclIds : ID '[' NUM ']'"
     size = int(p[3])
-    p.parser.table[p[1]] = ("intArray", p.parser.offset, size, int[size])
+    p.parser.table[p[1]] = ("intArray", p.parser.offset, size, list())
     p.parser.offset+=size
     p[0] = "pushn " + p[3] + "\n"
 
@@ -61,7 +62,7 @@ def p_Enumerate(p):
 def p_Enumerate_Empty(p):
     "Enumerate : "
     p[0] = ""
-
+'''
 def p_Ids_Int(p):
     "Ids : ID"
     p[0] = p[1]
@@ -78,7 +79,7 @@ def p_Ids_Array(p):
     p[0] = p[1] + '[' + p[3] + ']'
     #print("array " , p[0])
 
-
+'''
 def p_Instructions(p):
     "Instructions : Instructions Instruction"
     p[0] = p[1] + p[2]
@@ -98,21 +99,19 @@ def p_Instruction_DeclArrayID(p):
 
 def p_Instruction_Atr(p):
     "Instruction : Atr TERMINATOR"
-    p[0] = p[1] + p[2] + "\n"
+    p[0] = p[1] + "\n"
     #print("p2",p[1])
 
-def p_Atr_ID(p):
-    "Atr : ID '=' Exp"
-    p[0] = p[1] + '=' + p[3]
-
-def p_Atr_IDID(p):
-    "Atr : ID '[' ID ']' '=' Exp"
-    print("atr array ")
-    p[0] = p[1] + '[' + p[3] + "] = " + p[6]
+def p_Atr_IdNum(p):
+    "Atr : Id '=' Exp"
+    #print("atr with id ", p[1])
+    p[0] = p[3] + "storeg " + str(sum(map(int, re.findall('\d+', p[1])))) + "\n"
+    #p[0] = p[1] + '=' + p[3]
 
 def p_Atr_IDNUM(p):
-    "Atr : ID '[' NUM ']' '=' Exp"
-    p[0] = p[1] + '[' + p[3] + "] = " + p[6]
+    "Atr : Array '=' Exp"
+    p[0] = p[1] + p[3] + "storen\n" 
+    #p[0] = p[1] + '[' + p[3] + "] = " + p[6]
 
 def p_Instruction_Repeat(p):
     "Instruction : Repeat "
@@ -125,11 +124,11 @@ def p_Instruction_If(p):
 
 def p_Instruction_Print(p):
     "Instruction : Print TERMINATOR"
-    p[0] = p[1] + p[2] + "\n"
+    p[0] = p[1] + "\n"
 
 def p_Instruction_Read(p):
     "Instruction : Read TERMINATOR"
-    p[0] = p[1] + p[2] + "\n"
+    p[0] = p[1] + "\n"
 
 
 def p_If(p):
@@ -223,12 +222,12 @@ def p_ExpRelacional(p):
 
 def p_ExpPlus(p):
     "Exp : Exp '+' Termo"
-    print("exp plus")
-    p[0] = p[1] + '+' + p[3]
+    p[0] = p[1] + p[3] + "add\n"
+    #p[0] = p[1] + '+' + p[3]
 
 def p_ExpMinus(p):
     "Exp : Exp '-' Termo"
-    p[0] = p[1] + p[2] + p[3]
+    p[0] = p[1] + p[3] + "sub\n"
 
 def p_ExpTermo(p):
     "Exp : Termo"
@@ -236,11 +235,11 @@ def p_ExpTermo(p):
 
 def p_TermoMul(p):
     "Termo : Termo '*' Fator"
-    p[0] = p[1] + '*' +  p[3]
+    p[0] = p[1] + p[3] + "mul\n"
 
-def p_TermoDiv(p):
-    "Termo : Termo '/' Fator"
-    p[0] = p[1] + p[2] + p[3]
+def p_TermoMod(p):
+    "Termo : Termo '%' Fator"
+    p[0] = p[1] + p[3] + "mod\n"
 
 def p_TermoFator(p):
     "Termo : Fator"
@@ -250,31 +249,68 @@ def p_FatorExp(p):
     "Fator : '(' Exp ')' "
     p[0] = p[2]
 
-
-def p_FatorNum(p):
-    "Fator : NUM "
+def p_FatorIdNum(p):
+    "Fator : IdNum "
     p[0] = p[1]
 
-def p_FatorID(p):
-    "Fator : ID "
+def p_FatorExp(p):
+    "Fator : Array "
     p[0] = p[1]
 
+def p_IdNum(p):
+    "IdNum : Num"
+    p[0] = p[1]
 
-def p_PrintExp(p):
-    "Print : PRINT '(' NUM ')' "
-    p[0] = "pushi " + p[3] +"\nwritei\n" 
-    #p[0] = p[1] + p[2] + p [3] + p[4]
+def p_IdNumId(p):
+    "IdNum : Id"
+    p[0] = p[1]
 
-def p_PrintDef(p):
-    "Print : PRINT '(' Ids ')' "
-    (t,o,s,v) = p.parser.table[p[3]]
-    p[0] = "pushg " + o +"\nwritei\n" 
+def p_Num(p):
+    "Num : NUM "
+    p[0] = "pushi " + p[1] + "\n"
+
+def p_Id(p):
+    "Id : ID "
+    (_,offset,_,_) = p.parser.table[p[1]]
+    p[0] = "pushg " + str(offset) + "\n"
+
+def p_ArrayN(p):
+    "Array : ArrayNum"
+    p[0] = p[1]
+
+def p_ArrayI(p):
+    "Array : ArrayId"
+    p[0] = p[1]
+
+def p_ArrayNum(p):
+    "ArrayNum : ID '[' NUM ']'"
+    (_,offset,_,_) = p.parser.table[p[1]]
+    p[0] = "pushgp\npushi " + str(offset) +"\npadd\npushi " + p[3] + "\n"
+
+def p_ArrayID(p):
+    "ArrayId : ID '[' ID ']'"
+    (_,of1,_,_) = p.parser.table[p[1]]
+    (_,of2,_,_) = p.parser.table[p[3]]
+    p[0] = "pushgp\npushi " + str(of1) +"\npadd\npushg " + str(of2) + "\n"
+
+def p_PrintIdNum(p):
+    "Print : PRINT '(' IdNum ')' "
+    p[0] = p[3] + "writei\n" 
+
+def p_PrintArray(p):
+    "Print : PRINT '(' Array ')' "
+    p[0] = p[3] + "loadn\nwritei\n" 
+
+def p_ReadID(p):
+    "Read : READ '(' ID ')' "
+    (_,offset,_,_) = p.parser.table[p[3]]
+    p[0] = "read\natoi\nstoreg " +  str(offset) + "\n"
     #p[0] = p[1] + p[2] + p[3] + p[4]
 
-
-def p_Read(p):
-    "Read : READ '(' Ids ')' "
-    p[0] = p[1] + p[2] + p[3] + p[4]
+def p_ReadArray(p):
+    "Read : READ '(' Array ')' "
+    p[0] = p[3] + "read\natoi\nstoren\n"
+    #p[0] = p[1] + p[2] + p[3] + p[4]
 
 
 def p_error(p):
@@ -299,7 +335,7 @@ result = parser.parse(linhas)
 
 if parser.success:
     print(result)
-    print("Frase Válida reconhecida.")
+    #print("Frase Válida reconhecida.")
 else:
     print("Frase inválida. Corrija e tente de novo...")
 

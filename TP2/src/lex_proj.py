@@ -20,7 +20,7 @@ reservadas = {"int" : "INT",
               }
 tokens = tokens + list(reservadas.values())
 
-literals = ['(', ')' , ',' , '=' , '>' , '<' , '+' , '*', '-' , '/' , '{' , '}' , '!' , '[' , ']', ';']
+literals = ['(', ')' , ',' , '=' , '>' , '<' , '+' , '*', '-' , '%' , '{' , '}' , '!' , '[' , ']', ';']
 
 t_STARTDECL = r'STARTDECL'
 t_ENDDECL = r'ENDDECL'

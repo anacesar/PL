@@ -1,6 +1,6 @@
 STARTDECL
-int a,f[3], k;
+int dummy[3], lista[10];
+int add, k;
 ENDDECL
 STARTBODY
-print(a);
 ENDBODY
