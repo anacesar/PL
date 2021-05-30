@@ -1,16 +1,18 @@
 STARTDECL
-int soma, add;
+int a,b,c,d,res;
 ENDDECL
 STARTBODY
-soma = 0;
-repeat{
-    read(add);
-    soma = soma + add; 
-    if(soma>10){
-        add = 0;
-    }else{
-        soma = soma *2;
+read(a);
+read(b);
+read(c);
+read(d);
+res = 0;
+if(a == b){
+    if(b==c){
+        if(c==d){
+            res = 1; 
+        }
     }
-}until(add==0)
-print(soma);
+}
+print(res);
 ENDBODY

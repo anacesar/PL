@@ -18,20 +18,20 @@ read(a);
 read(b);
 read(c);
 read(d);
-res = 1;
+res = 0;
 if(a == b){
     if(b==c){
         if(c==d){
-            res = 0; 
+            res = 1; 
         }
     }
 }
 print(res);
 ENDBODY
 ---------------------------2-----------------------------
--------> ler um inteiro N, depois ler N numeros e escrever o menor deles.
+-------> ler um inteiro N, depois ler N numeros e escrever o menor deles. --> CHECK
 STARTDECL
-int minimo, n, num, min;
+int n, num, min;
 ENDDECL
 STARTBODY
 read(n);
@@ -42,10 +42,9 @@ repeat{
         min = num;
     }
     n = n - 1; 
-}until(n>1)             
+}until(n>0)             
 print (min);
 ENDBODY
-
 ---------------------------3-----------------------------
 ler N (constante do programa) numeros e calcular e imprimir o seu produtorio
 
