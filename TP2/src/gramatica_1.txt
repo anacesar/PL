@@ -1,0 +1,111 @@
+
+    Language -> Declarations Functionality
+            ;
+
+
+    Declarations -> START_DECL Body_Decls END_DECL
+                    ;
+
+    Functionality -> STARTBODY Instructions ENDBODY
+                    ;
+
+
+    Body_Decls -> Body_Decls Body_Decl
+                | ε
+                ;
+
+    Body_Decl -> INT DeclDef TERMINATOR
+                ;
+
+    DeclDef -> DeclIds Enumerate
+        ;
+
+    DeclIds -> ID
+            | ID '[' NUM ']'
+
+    Enumerate -> ',' DeclDef
+                | ε
+                ;
+
+    Instructions -> Instructions Instruction
+                | empty
+                ;
+
+    Instruction -> BodyDecl
+                | INT ID '[' ID ']' TERMINATOR
+                | Atr TERMINATOR
+                | Repeat
+                | If
+                | Print TERMINATOR
+                | Read TERMINATOR
+
+    Atr -> Id '=' Exp
+        | Array '=' Exp
+        ;
+
+    If -> IF '(' Cond ')' '{' Instructions '}' Else
+        ;
+
+    Else -> ELSE '{' Instructions '}'"
+            | ε
+            ;
+
+    Repeat -> REPEAT '{' Instructions '}' UNTIL '(' Cond ')'
+            ;
+
+    Print -> PRINT '(' IdNum ')'
+            | PRINT '(' Array ')'
+            ;
+
+    Read -> READ '(' ID ')'
+        | READ '(' Array ')'
+        ;
+
+    Cond -> Cond OR Cond2
+        | Cond2
+
+
+    Cond2 -> Cond2 AND Cond3
+        | Cond3
+
+    Cond3 -> NOT Cond
+            | ExpRelacional
+            | '(' Cond ')'
+
+    ExpRelacional -> Exp '>'  Exp
+                    | Exp '<' Exp
+                    | Exp '<' '=' Exp
+                    | Exp '>' '=' Exp
+                    | Exp '!' '=' Exp
+                    | Exp '=' '=' Exp
+                    | Exp
+
+
+    Exp   -> Exp '+' Termo
+        | Exp '-' Termo
+        | Termo
+
+    Termo -> Termo '*' Fator
+        | Termo '%' Fator
+        | Fator
+
+    Fator -> '(' Exp ')' 
+        | IdNum
+        | Array
+
+
+    IdNum -> Num
+        | Id
+
+    Num -> NUM
+
+    Id -> ID
+
+    Array -> ArrayNum
+            | ArrayId
+
+    ArrayNum -> ID '[' NUM ']'
+            ;
+
+    ArrayId -> ID '[' ID ']'
+            ;
