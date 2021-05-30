@@ -8,7 +8,6 @@ from lex_proj import tokens
 def p_Language(p):
     "Language : Declarations Functionality"
     p[0] = p[1] + p[2] 
-    #print("language : declarations " ,p[1] + "funcionality : " + p[2])
 
 
 def p_Declarations(p):
@@ -18,9 +17,8 @@ def p_Declarations(p):
 
 def p_Functionality(p):
     "Functionality : STARTBODY Instructions ENDBODY"
-    #print(p.parser.table)
     p[0] = "\nstart\n" + p[2] + "stop\n"
-    #print("fun ",p[0])
+
 
 
 def p_Body_Decls(p):
@@ -34,8 +32,7 @@ def p_Body_Decls_Body_Decl(p):
 def p_Body_Decl_INT(p):
     "BodyDecl : INT DeclDef TERMINATOR"
     p[0] = p[2]
-    #p[0] = "int " + p[2] + p[3] + "\n"
-    #print("def " , p[2])
+
 
 def p_DeclDef(p):
     "DeclDef : DeclIds Enumerate"
@@ -57,7 +54,7 @@ def p_DeclIds_Array(p):
 def p_Enumerate(p):
     "Enumerate : ',' DeclDef"
     p[0] = p[2]
-    #p[0] = ',' + p[2]
+
 
 def p_Enumerate_Empty(p):
     "Enumerate : "
@@ -78,18 +75,17 @@ def p_Instruction_Decl(p):
 def p_Instruction_Atr(p):
     "Instruction : Atr TERMINATOR"
     p[0] = p[1] + "\n"
-    #print("p2",p[1])
+
 
 def p_Atr_IdNum(p):
     "Atr : Id '=' Exp"
-    #print("atr with id ", p[1])
     p[0] = p[3] + "storeg " + str(sum(map(int, re.findall('\d+', p[1])))) + "\n"
-    #p[0] = p[1] + '=' + p[3]
+
 
 def p_Atr_ArrayNUM(p):
     "Atr : Array '=' Exp"
     p[0] = p[1] + p[3] + "storen\n" 
-    #p[0] = p[1] + '[' + p[3] + "] = " + p[6]
+
 
 def p_Instruction_Repeat(p):
     "Instruction : Repeat "
@@ -117,7 +113,7 @@ def p_If(p):
     jump = "jump " + endif + "\n"
     p[0] = p[3] + "jz " + else_ + "\n" + p[6] + jump + p[8] + endif + ":" 
     p.parser.nr += 1
-    #p[0] = p[1] + p[2] + p[3] + p[4] + p[5] + p[6] + p[7] + p[8]
+
 
 def p_Else(p):
     "Else : ELSE '{' Instructions '}'"
@@ -133,7 +129,6 @@ def p_Repeat(p):
     ciclo = "ciclo" + str(p.parser.nr)
     p.parser.nr += 1
     p[0] = ciclo + ":\n" + p[3] + p[7] + "jz " + ciclo + "\n"
-    #p[0] = p[1] + p[2] + p[3] + p[4] + p[5] + p[6] + p[7]
 
 def p_PrintIdNum(p):
     "Print : PRINT '(' IdNum ')' "
@@ -147,12 +142,11 @@ def p_ReadID(p):
     "Read : READ '(' ID ')' "
     (_,offset,_,_) = p.parser.table[p[3]]
     p[0] = "read\natoi\nstoreg " +  str(offset) + "\n"
-    #p[0] = p[1] + p[2] + p[3] + p[4]
+
 
 def p_ReadArray(p):
     "Read : READ '(' Array ')' "
     p[0] = p[3] + "read\natoi\nstoren\n"
-    #p[0] = p[1] + p[2] + p[3] + p[4]
 
 
 def p_Cond_Cond(p):
@@ -172,7 +166,7 @@ def p_Cond2_Cond3(p):
     p[0] = p[1]
 
 def p_Cond3_Not(p):
-    "Cond3 : NOT Cond" #change to cond -- right recursive ??? 
+    "Cond3 : NOT Cond" 
     p[0] = p[2] + "not\n" 
 
 def p_Cond3_ExpR(p):
@@ -220,7 +214,6 @@ def p_ExpRelacional(p):
 def p_ExpPlus(p):
     "Exp : Exp '+' Termo"
     p[0] = p[1] + p[3] + "add\n"
-    #p[0] = p[1] + '+' + p[3]
 
 def p_ExpMinus(p):
     "Exp : Exp '-' Termo"
@@ -316,17 +309,3 @@ if parser.success:
     #print("Frase Válida reconhecida.")
 else:
     print("Frase inválida. Corrija e tente de novo...")
-
-
-
-'''
-content=""
-for linha in sys.stdin:
-    parser.success = True
-    content += linha
-    parser.parse(content)
-    if parser.success:
-        print("Frase Válida reconhecida.",linha)
-    else:
-        print("Frase inválida. Corrija e tente de novo...")
-'''

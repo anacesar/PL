@@ -43,7 +43,7 @@ repeat{
         min = num;
     }
     n = n - 1; 
-}until(n>0)             
+}until(n==1)             
 print (min);
 ENDBODY
 ---------------------------3-----------------------------
@@ -56,7 +56,7 @@ STARTBODY
 prod = 1;
 repeat{
     read(n);
-    prod = prod * n;  --> falha porque quando metemos 0 multiplica por 0
+    prod = prod * n;  
 }until(n==1)
 print (prod);
 ENDBODY

@@ -1,0 +1,65 @@
+pushi 0
+pushi 0
+pushi 0
+pushn 4
+
+start
+read
+atoi
+storeg 0
+
+pushi 0
+storeg 2
+
+ciclo1:
+read
+atoi
+storeg 1
+
+pushgp
+pushi 3
+padd
+pushg 2
+pushg 1
+storen
+
+pushg 2
+pushi 1
+add
+storeg 2
+
+pushg 0
+pushi 1
+sub
+storeg 0
+
+pushg 0
+pushi 0
+equal
+jz ciclo1
+
+pushg 2
+pushi 1
+sub
+storeg 2
+
+ciclo2:
+pushgp
+pushi 3
+padd
+pushg 2
+loadn
+writei
+
+pushg 2
+pushi 1
+sub
+storeg 2
+
+pushg 2
+pushi 0
+inf
+jz ciclo2
+
+stop
+
